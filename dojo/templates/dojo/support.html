@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load authorization_tags %}
+{% load static %}
+
+{% block content %}
+    {{ block.super }}
+    <div class="support-page-wrapper">
+        <h2 style="color: #546474;">Варианты доступны для команд любого размера.</h2>
+        <br />
+        <div class="support-container">
+            <div class="support-box">
+                <div class="support-box shape community hover">
+                    <h2 style="text-align: center;">Поддержка</h2>
+                    <div class="divider dark"></div>
+                    <p>Что включено:</p>
+                    <p><i class="fa-solid fa-lg fa-circle-check"></i> Поддержка от сообщества через OWASP Slack</p>
+                    <p><i class="fa-solid fa-lg fa-circle-check"></i> Обсуждение на основе сообщества</p>
+                </div>
+                <a href="https://owasp.org/slack/invite" target="_blank" class="btn btn-primary community support dark">Присоединиться к #defectdojo</a>
+            </div>
+            
+            <div class="support-box">
+                <div class="support-box shape hover commercial">
+                    <h2 style="text-align: center;">Получить DefectDojo Pro</h2>
+                    <div class="divider light"></div>
+                    <p>Что включено:</p>
+                    <p><i class="fa-solid fa-lg fa-circle-check"></i> Поддержка напрямую от создателей</p>
+                    <p><i class="fa-solid fa-lg fa-circle-check"></i> Дополнительные функции</p>
+                    <p><i class="fa-solid fa-lg fa-circle-check"></i> SLA по времени реакции</p>
+                    <p><i class="fa-solid fa-lg fa-circle-check"></i> Исправление ошибок</p>
+                    <p><i class="fa-solid fa-lg fa-circle-check"></i> Улучшения функционала</p>
+                    <p><i class="fa-solid fa-lg fa-circle-check"></i> Рекомендации по лучшим практикам</p>
+                </div>
+                <a href="https://www.defectdojo.com/contact" target="_blank" class="btn btn-primary support commercial light">Познакомиться с Создателями</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
