@@ -97,7 +97,7 @@
             {% endblock %}
         </style>
     </head>
-    <body class="{% dojo_body_class %}">
+    <body class="min">
         <div id="wrapper" class="page-wrapper">
             {% block navigation %}
                 <!-- Navigation -->
@@ -212,19 +212,20 @@
                                 <ul class="nav" id="side-menu">
                                     {% block sidebar-items %}
                                     <li>
-                                        <a href="#" aria-disabled="true" aria-expanded="false" aria-label="Dashboard" class="sidebar-link">
+                                        <a href="#" aria-disabled="true" aria-expanded="false" aria-label="Dashboard" class="sidebar-link" style="align-items:flex-end;">
                                             <img class="side-menu-main-img-width" src="{% static 'dojo/img/menu-header-icon.png' %}" />
+                                            <p class="custom-text-hide">DefectDojo</p>
                                         </a>
                                     </li>
                                         <li>
-                                            <a href="{% url 'dashboard' %}" aria-disabled="true" aria-expanded="false" aria-label="Dashboard">
+                                            <a href="{% url 'dashboard' %}" aria-disabled="true" aria-expanded="false" aria-label="Dashboard" style="margin-left:12px">
                                                 <img class="side-menu-first-button-img-width" src="{% static 'dojo/img/main-page-icon.png' %}"/>
-                                            </a>
+                                           <p style="margin:3px 0px 0px 0px;align-self:center;" class="custom-text-hide">Дашборд</p> </a>
                                         </li>
                                         <li>
                                             <a id="product-side-menu" href="{% url 'product' %}" aria-expanded="false" aria-label="Products">
                                                 <i class="fa-solid fa-list-ul fa-fw white-icon"></i>
-                                                
+                                                <p class="custom-text-hide">Продукты</p>
                                                 <span class="glyphicon arrow"></span>
                                             </a>
                                             <ul class="nav nav-second-level">
@@ -258,7 +259,7 @@
                                         <li>
                                             <a href="{% url 'engagement' %}" aria-expanded="false" aria-label="Engagements">
                                                 <i class="fa-solid fa-inbox fa-fw white-icon"></i>
-                                              
+                                              <p class="custom-text-hide">Проверки</p>
                                                 <span class="glyphicon arrow"></span>
                                             </a>
                                             <ul class="nav nav-second-level">
@@ -293,7 +294,7 @@
                                         <li>
                                             <a href="{% url 'open_findings' %}" aria-expanded="false" aria-label="Findings">
                                                 <i class="fa-solid fa-bug fa-fw white-icon"></i>
-                                               
+                                               <p class="custom-text-hide">Уязвимости</p>
                                                 <span class="glyphicon arrow"></span>
                                             </a>
                                             <ul class="nav nav-second-level">
@@ -330,7 +331,7 @@
                                         <li>
                                             <a href="{% url 'components' %}" id="product_component_view" aria-expanded="false"  aria-label="Components">
                                                 <i class="fa-solid fa-table-cells-large fa-fw white-icon"></i>
-                                               
+                                               <p class="custom-text-hide">Компоненты</p>
                                             </a>
                                             <ul class="nav nav-second-level">
                                                 <li>
@@ -343,7 +344,7 @@
                                         <li>
                                             <a href="{% url 'endpoint' %}" aria-expanded="false" aria-label="Endpoints">
                                                 <i class="fa-solid fa-sitemap fa-fw white-icon"></i>
-                                                
+                                                <p class="custom-text-hide">Конечные точки</p>
                                                 <span class="glyphicon arrow"></span>
                                             </a>
                                             <ul class="nav nav-second-level">
@@ -379,7 +380,7 @@
                                         <li>
                                             <a href="{% url 'report_builder' %}" aria-expanded="false" aria-label="Reports">
                                                 <i class="fa-solid fa-file-lines fa-fw white-icon"></i>
-                                               
+                                               <p class="custom-text-hide">Отчёты</p>
                                                 <span class="glyphicon arrow"></span>
                                             </a>
                                             <!-- /.nav-second-level -->
@@ -387,7 +388,7 @@
                                         <li>
                                             <a href="{% url 'metrics' %}?date=5&view=dashboard" aria-expanded="false" aria-label="Metrics">
                                                 <i class="fa-solid fa-chart-column fa-fw white-icon"></i>
-                                                
+                                                <p class="custom-text-hide">Метрики</p>
                                                 <span class="glyphicon arrow"></span>
                                             </a>
                                             <ul class="nav nav-second-level">
@@ -433,7 +434,7 @@
                                             <li>
                                                 <a href="{% url 'users' %}" aria-disabled="true" aria-expanded="false" aria-label="Users" id="id_user_menu">
                                                     <i class="fa-solid fa-user fa-fw white-icon"></i>
-                                                
+                                                <p class="custom-text-hide">Пользователи</p>
                                                     <span class="glyphicon arrow"></span>
                                                 </a>
                                                 <ul class="nav nav-second-level">
@@ -458,7 +459,7 @@
                                         <li>
                                             <a href="{% url 'engagement_calendar' %}" aria-disabled="true" aria-expanded="false" aria-label="Calendar">
                                                 <i class="fa-solid fa-calendar-days fa-fw white-icon"></i>
-                                           
+                                           <p class="custom-text-hide">Календарь</p>
                                             </a>
                                         </li>
                                         {% endif %}
@@ -467,7 +468,7 @@
                                                 <li>
                                                     <a href="#">
                                                         <i class="fa-solid fa-house-medical-flag fa-fw white-icon"></i>
-                                                      
+                                                      <p class="custom-text-hide">Анкетирование</p>
                                                         <span class="glyphicon arrow"></span>
                                                     </a>
                                                     <ul class="nav nav-second-level">
@@ -493,6 +494,7 @@
                                         <li id="menu_configuration">
                                             <a href="#" aria-expanded="false" aria-label="Configuration">
                                                 <i class="fa-solid fa-gear fa-fw white-icon"></i>
+                                                <p class="custom-text-hide">Конфигурация</p>
                                                
                                             </a>
                                             <ul class="nav nav-second-level nav-up">
@@ -583,14 +585,14 @@
                                         <li>
                                             <a href="{% url 'support' %}" aria-disabled="true" aria-expanded="false" aria-label="Support">
                                                 <i class="fa-solid fa-life-ring fa-fw white-icon"></i>
-                                              
+                                              <p class="custom-text-hide">Get support</p>
                                             </a>
                                         </li>
                                     {% endblock %}
                                     <li id="min-menu">
                                         <a href="#" id="minimize-menu" title="Expand/Collapse Menu" aria-label="Expand/Collapse Menu">
                                             <i id="nav-minimize-menu-li" class="fa-solid fa-circle-right fa-fw white-icon"></i>
-                                            
+                                            <p class="custom-text-hide">Свернуть меню</p>
                                         </a>
                                     </li>
                                 </ul>
@@ -1163,9 +1165,12 @@
 
             });
         </script>
+        <script>
+        </script>
         {% block extra_javascript %}
         {% endblock %}
         {% block postscript %}
         {% endblock %}
+   
     </body>
 </html>

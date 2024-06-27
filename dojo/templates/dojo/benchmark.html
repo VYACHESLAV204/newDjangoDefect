@@ -9,11 +9,13 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="clearfix">
-                <span class="pull-left">
-                  <h4>{{ benchmark_type.name }} {{ benchmark_type.version }} - <span id="head__desired-level">{{ benchmark_product_summary.desired_level }}</span></h4>
+                <span class="pull-left" style="margin: 0px 20px 0px 0px">
+                  <h4 style="justify-content:left;grid-gap:10px;">{{ benchmark_type.name }} {{ benchmark_type.version }} - <span id="head__desired-level">{{ benchmark_product_summary.desired_level }}</span></h4>
                   <span id="head__description">{{ benchmark_product_summary|asvs_level }}</span>
                 </span>
-                <div id="test-pulldown" class="dropdown pull-right">
+                <div id="test-pulldown" style="height: 51px;
+                display: flex;
+                align-items: flex-end;" class="dropdown pull-right">
                     <form method="post" id="summary" name="summary">{% csrf_token %}
                         {{ benchmark_summary_form.management_form }}
                         {{ benchmark_summary_form.benchmark_type.as_hidden }}

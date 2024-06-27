@@ -61,29 +61,33 @@ $.fn.serializeObject = function()
     });
     return o;
 };
-
-function sidebar() {  // minimize side nav bar
+function sidebar() {
     var action = 'min';
     var remove = 'max';
     var speed = 250;
     var width = '50';
     var fontSize = '18';
 
-    if (($.cookie('dojo-sidebar') == 'min') || ($('body').hasClass('min'))) {
+    if (($.cookie('dojo-sidebar') == 'min') || ($('#side-menu').hasClass('min'))) {
         action = 'max';
         remove = 'min';
         $.cookie('dojo-sidebar', 'max', {expires: 10000, path: '/'});
-        width = '175px';
+        width = '555px';
         fontSize = '14px';
         speed = 100;
-    }
-    else {
+    } else {
         action = 'min';
         remove = 'max';
         $.cookie('dojo-sidebar', 'min', {expires: 10000, path: '/'});
     }
 
-    $('body').switchClass(remove, action);
+    // Применение/удаление класса active к #side-menu
+    $('#side-menu').removeClass(remove).addClass(action);
+
+    // Применение/удаление класса active к #side-menu li a
+    $('#side-menu li a').each(function() {
+        $(this).removeClass(remove).addClass(action);
+    });
 
     return false;
 }
