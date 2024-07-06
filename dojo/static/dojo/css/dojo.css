@@ -1034,7 +1034,7 @@ h4.finding-title {
 }
 #side-menu.max .side-menu-first-button-img-width{
 width: 30px;
-height: 30px;
+height: 30px;margin-left: -4px;
 }
 
 .custom-text-hide{display: none;}
