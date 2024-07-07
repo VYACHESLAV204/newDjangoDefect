@@ -125,9 +125,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="clearfix">
-                    {% include "dojo/paging_snippet.html" with page=pts page_size=True %}
-                </div>
+                
             {% else %}
                 <p class="text-center">{% trans "No product types found." %}</p>
             {% endif %}

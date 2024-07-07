@@ -59,9 +59,7 @@
                         {% endfor %}
                     </table>
                 </div>
-                <div class="clearfix">
-                    {% include "dojo/paging_snippet.html" with page=users page_size=True %}
-                </div>
+               
             {% else %}
                 <h5> Нет пользователей </h5>
             {% endif %}

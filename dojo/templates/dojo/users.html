@@ -133,9 +133,7 @@
                         </table>
                     {% endblock users_table %}
                 </div>
-                <div class="clearfix">
-                    {% include "dojo/paging_snippet.html" with page=users page_size=True %}
-                </div>
+               
             {% else %}
                 <h5>{% trans "No Users" %}</h5>
             {% endif %}
