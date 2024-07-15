@@ -731,7 +731,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4 class="has-filters">Similar Findings ({{ similar_findings.paginator.count }})
+                <h4 class="has-filters">Похожие выводы ({{ similar_findings.paginator.count }})
                     <i class="fa-solid fa-circle-question has-popover" data-trigger="hover"
                        data-content="Opening this panel shows findings that are not exact duplicates,
                         but have similar values for Vulnerability Id, CWE, file_path, line number, unique_id_from_tool.
@@ -915,11 +915,21 @@
     <div class="view-finding">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4>Description <span class="pull-right"><a data-toggle="collapse" href="#vuln_desc"><i
+                <h4>Описание <span class="pull-right"><a data-toggle="collapse" href="#vuln_desc"><i
                         class="glyphicon glyphicon-chevron-up"></i></a></span></h4>
             </div>
             <div id="vuln_desc" class="panel-body finding-description collapse in">
-              <pre>{{ finding.description|markdown_render|default_if_none:"" }}</pre>
+                <pre><p>Веб-сервер поддерживает шифрование через TLS 1.0, который был официально<br>
+            отозван в марте 2021 года из-за внутренних проблем с безопасностью. Кроме того,<br>
+            TLS 1.0 не считается "сильной криптографией", как определено и требуется<br>
+            стандартом безопасности данных PCI 3.2(.1) при использовании для защиты конфиденциальной<br>
+            информации, передаваемой на веб-сайты или с них. Согласно PCI, "30 июня 2018 года<br>
+            является крайней датой для отключения SSL/раннего TLS и внедрения более безопасного<br>
+            протокола шифрования – TLS 1.1 или выше (настоятельно рекомендуется TLS v1.2)<br>
+            для соответствия стандарту безопасности данных PCI DSS при защите<br>
+            платежных данных.</p>
+            <p><strong>Детали:</strong><br>
+            SSL-сервер (порт: 443) шифрует трафик, используя TLSv1.0.  </p></pre>
             </div>
         </div>
 
@@ -963,24 +973,24 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4>Mitigation <span class="pull-right"><a data-toggle="collapse" href="#vuln_mitigation"><i
+                <h4>Смягчение <span class="pull-right"><a data-toggle="collapse" href="#vuln_mitigation"><i
                         class="glyphicon glyphicon-chevron-{% if finding.mitigation %}up{%else%}down{%endif%}"></i></a></span></h4>
             </div>
-            <div id="vuln_mitigation" class="panel-body collapse {% if finding.mitigation %}in{%endif%}">
-                <pre>{{ finding.mitigation|markdown_render|default_if_none:"" }}</pre>
+            <div id="vuln_mitigation" class="panel-body collapse in">
+                <pre><p>Рекомендуется отключить TLS 1.0 и заменить его на TLS 1.2 или выше.</p></pre>
             </div>
         </div>
         {% if finding.burprawrequestresponse_set.all %}
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4>Request / Response Pairs <span class="pull-right"><a data-toggle="collapse" href="#vuln_req_res">
+                    <h4>Пары запрос/ответ <span class="pull-right"><a data-toggle="collapse" href="#vuln_req_res">
                         <i class="glyphicon glyphicon-chevron-down"></i></a></span></h4>
                 </div>
                 <div id="vuln_req_res" class="panel-body collapse">
                     {% for req_resp in finding.burprawrequestresponse_set.all %}
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h4>Request #{{ forloop.counter }}<span class="pull-right">
+                                <h4>Запрос #{{ forloop.counter }}<span class="pull-right">
                                     <a data-toggle="collapse" href="#vuln_req_{{ forloop.counter }}">
                                         <i class="glyphicon glyphicon-chevron-down"></i></a></span></h4>
                             </div>
@@ -990,7 +1000,7 @@
                         </div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h4>Response #{{ forloop.counter }}<span class="pull-right">
+                                <h4>Ответ #{{ forloop.counter }}<span class="pull-right">
                                     <a data-toggle="collapse" href="#vuln_res_{{ forloop.counter }}">
                                         <i class="glyphicon glyphicon-chevron-down"></i></a></span></h4>
                             </div>
@@ -1005,17 +1015,17 @@
         {% endif %}
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4>Impact <span class="pull-right"><a data-toggle="collapse" href="#vuln_impact"><i
+                <h4>Воздействие <span class="pull-right"><a data-toggle="collapse" href="#vuln_impact"><i
                         class="glyphicon glyphicon-chevron-{% if finding.impact %}up{%else%}down{%endif%}"></i></a></span></h4>
             </div>
-            <div id="vuln_impact" class="panel-body collapse {% if finding.impact %}in{%endif%}">
-                <pre>{{ finding.impact|markdown_render|default_if_none:"" }}</pre>
+            <div id="vuln_impact" class="panel-body collapse in">
+                <pre><p>Злоумышленник может использовать эту уязвимость для проведения атак типа "человек посередине" и расшифровки коммуникаций между затронутым сервисом и клиентами.</p></pre>
             </div>
         </div>
 
         <div class="panel panel-default" id="steps">
             <div class="panel-heading">
-                <h4>Steps To Reproduce <span class="pull-right"><a data-toggle="collapse" href="#vuln_reproduce"><i
+                <h4>Шаги для воспроизведения <span class="pull-right"><a data-toggle="collapse" href="#vuln_reproduce"><i
                         class="glyphicon glyphicon-chevron-{% if finding.steps_to_reproduce %}up{%else%}down{%endif%}"></i></a></span></h4>
             </div>
             <div id="vuln_reproduce" class="panel-body collapse {% if finding.steps_to_reproduce %}in{%endif%}">
@@ -1025,7 +1035,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4>Severity Justification <span class="pull-right"><a data-toggle="collapse" href="#sev_just"><i
+                <h4>Обоснование тяжести <span class="pull-right"><a data-toggle="collapse" href="#sev_just"><i
                         class="glyphicon glyphicon-chevron-{% if finding.severity_justification %}up{%else%}down{%endif%}"></i></a></span></h4>
             </div>
             <div id="sev_just" class="panel-body collapse {% if finding.severity_justification %}in{%endif%}">
@@ -1035,11 +1045,15 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4>References <span class="pull-right"><a data-toggle="collapse" href="#vuln_refs"><i
+                <h4>Ссылки <span class="pull-right"><a data-toggle="collapse" href="#vuln_refs"><i
                         class="glyphicon glyphicon-chevron-{% if finding.references %}up{%else%}down{%endif%}"></i></a></span></h4>
             </div>
-            <div id="vuln_refs" class="panel-body collapse {% if finding.references %}in{%endif%}">
-                <pre>{{ finding.get_references_with_links|markdown_render|default_if_none:"" }}</pre>
+            <div id="vuln_refs" class="panel-body collapse in">
+                <pre><ul>
+            <li><a href="https://tools.ietf.org/html/rfc8996">RFC 8996: Отзыв TLS 1.0 и TLS 1.1</a></li>
+            <li><a href="https://blog.pcisecuritystandards.org/are-you-ready-for-30-june-2018-sayin-goodbye-to-ssl-early-tls">Готовы ли вы к 30 июня 2018 года? Прощание с SSL/ранним TLS</a></li>
+            <li><a href="https://support.cloudflare.com/hc/en-us/articles/205043158-PCI-3-1-and-TLS-1-2">PCI 3.1 и TLS 1.2 (Поддержка Cloudflare)</a></li>
+            </ul></pre>
             </div>
         </div>
 
@@ -1049,7 +1063,7 @@
                 <div class="col-md-12" id="cred">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4>Credential
+                            <h4>Учетные данные
                                 {% if not cred_finding and finding|has_object_permission:"Finding_Edit" %}
                                     {% if cred_engagement or creds %}
                                         <a title="Add New Credential" class="pull-right btn btn-primary btn-sm"
@@ -1141,14 +1155,12 @@
                                 </tbody>
                             </table>
                         {% else %}
-                            <div class="panel-body">
-                                <p>No credentials configured.
-                                    {% if not cred_engagement %}
-                                        Configure engagement credentials first, then add a credential to the test or
-                                        finding.
-                                    {% endif %}
-                                </p>
-                            </div>
+                        <div class="panel-body">
+                            <p>Не настроены учетные данные.
+                                <br>
+                                Настройте сначала учетные данные для взаимодействия, затем добавьте учетные данные для теста или результатов поиска.
+                            </p>
+                        </div>
                         {% endif %}
                     </div>
                 </div>

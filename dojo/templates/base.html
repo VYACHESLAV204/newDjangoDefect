@@ -111,7 +111,7 @@
                         </button>
                         <a class="navbar-brand" href="{% url 'home' %}">
                         {% block header_logo %}
-                            <img src="{% static "dojo/img/logo.svg" %}" alt="DefectDojo Logo" width="135" height="22"/>
+                           <h3 class="brand-name">Synergy VMS</h3>
                         {% endblock %}
                         </a>
 
@@ -213,8 +213,8 @@
                                     {% block sidebar-items %}
                                     <li>
                                         <a href="#" aria-disabled="true" aria-expanded="false" aria-label="Dashboard" class="sidebar-link" style="align-items:flex-end;">
-                                            <img class="side-menu-main-img-width" src="{% static 'dojo/img/menu-header-icon.png' %}" />
-                                            <p class="custom-text-hide">DefectDojo</p>
+                                            <img class="side-menu-main-img-width" src="{% static 'dojo/img/logo.jpg' %}" />
+                                            <p class="custom-text-hide">Synergy VMS</p>
                                         </a>
                                     </li>
                                         <li>
@@ -1036,24 +1036,13 @@
                             <div class="col-md-12 text-center text-">
                                 <p>
                                     <a href="{% url 'home' %}">
-                                        <img class="logo" src="{% static "dojo/img/chop.svg" %}" alt="{% trans "DefectDojo Chop" %}" height="57"/>
+                                        <img class="logo" src="{% static "dojo/img/logo.jpg" %}" alt="Логотип" height="57"/>
                                     </a>
                                     <br/>
                                     <br/>
                                     {% dojo_version %} ( {% dojo_current_hash %} )
                                 </p>
-                                <p >
-                                    Detailed DefectDojo documentation can be found in our <a class="color-828282" 
-                                        href="{% dojo_docs_url %}">GitHub Pages</a>.
-                                </p>
-                                <p >
-                                    DefectDojo is licensed under the <a class="color-828282" 
-                                        href="https://github.com/DefectDojo/django-DefectDojo/blob/master/LICENSE.md">3-Clause BSD
-                            License</a>. | <a class="color-828282" href="https://github.com/DefectDojo/django-DefectDojo/blob/master/NOTICE"> Dependencies Notice.</a>
-                                </p>
-                                <p >
-                                    &copy; 2015-{% now "Y" %} DefectDojo, Inc. All rights reserved. DefectDojo is trademark of DefectDojo, Inc.
-                                </p>
+                                
                             </div>
                         </div>
                     </div>
