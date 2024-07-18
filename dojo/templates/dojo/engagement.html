@@ -197,6 +197,15 @@
 {% endblock %}
 {% block postscript %}
     {{ block.super }}
+    <script> texts = document.querySelectorAll(".eng_link")
+        for(let text of texts){
+            if(text.textContent == "Indepo Scan"){
+                text.innerText = "Indepo scan";
+     
+            }
+           
+ 
+        }</script>
     <script>
         $(function() {
             $('.table-responsive').on('shown.bs.dropdown', function(e) {

@@ -26,7 +26,7 @@
         <div class="panel-heading">
             <div class="clearfix panel-nav">
                 <h3 class="pull-left" style="justify-content:flex-start !important;gap:10px;align-items:baseline;">
-                    {{ test }}
+                    Indepo scan
                     {% include "dojo/snippets/tags.html" with tags=test.tags.all %}
                     <small>{% trans "Updated" %} {{ test.updated|naturaltime|default_if_none:"" }}, {% trans "Created" %} {{ test.created|naturaltime|default_if_none:"" }}</small>
                 </h3>
@@ -1569,6 +1569,11 @@
 
 {% block postscript %}
     {{ block.super }}
+    <script>let texts = document.querySelector('ol.breadcrumb > li:nth-child(3) > a')
+        if(texts.textContent = "Acunetix Scan"){
+            texts.innerText = 'Indepo scan'
+        }
+    </script>
     <script type="application/javascript" src="{% static "jquery.hotkeys/jquery.hotkeys.js" %}"></script>
     <script type="text/javascript" src="{% static "jquery-highlight/jquery.highlight.js" %}"></script>
     <script type="application/javascript">

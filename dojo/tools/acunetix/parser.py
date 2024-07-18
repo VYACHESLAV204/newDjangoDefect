@@ -15,10 +15,10 @@ class AcunetixParser(object):
     """Parser for Acunetix XML files."""
 
     def get_scan_types(self):
-        return ["Acunetix Scan"]
+        return ["Indepo Scan"]
 
     def get_label_for_scan_types(self, scan_type):
-        return "Acunetix Scanner"
+        return "Indepo Scanner"
 
     def get_description_for_scan_types(self, scan_type):
         return "XML format"
@@ -33,9 +33,7 @@ class AcunetixParser(object):
                 start_url = "//" + start_url
             # get report date
             if scan.findtext("StartTime") and "" != scan.findtext("StartTime"):
-                report_date = dateutil.parser.parse(
-                    scan.findtext("StartTime")
-                ).date()
+                report_date = dateutil.parser.parse(scan.findtext("StartTime")).date()
 
             for item in scan.findall("ReportItems/ReportItem"):
                 finding = Finding(
@@ -45,9 +43,7 @@ class AcunetixParser(object):
                     description=html2text.html2text(
                         item.findtext("Description")
                     ).strip(),
-                    false_p=self.get_false_positive(
-                        item.findtext("IsFalsePositive")
-                    ),
+                    false_p=self.get_false_positive(item.findtext("IsFalsePositive")),
                     static_finding=True,
                     dynamic_finding=False,
                     nb_occurences=1,
@@ -65,9 +61,7 @@ class AcunetixParser(object):
                     finding.date = report_date
 
                 if item.findtext("CWEList/CWE"):
-                    finding.cwe = self.get_cwe_number(
-                        item.findtext("CWEList/CWE")
-                    )
+                    finding.cwe = self.get_cwe_number(item.findtext("CWEList/CWE"))
 
                 references = []
                 for reference in item.findall("References/Reference"):
@@ -96,10 +90,8 @@ class AcunetixParser(object):
                     item.findtext("TechnicalDetails")
                     and len(item.findtext("TechnicalDetails").strip()) > 0
                 ):
-                    finding.description += (
-                        "\n\n**TechnicalDetails:**\n\n{}".format(
-                            item.findtext("TechnicalDetails")
-                        )
+                    finding.description += "\n\n**TechnicalDetails:**\n\n{}".format(
+                        item.findtext("TechnicalDetails")
                     )
 
                 # add requests
@@ -144,10 +136,8 @@ class AcunetixParser(object):
                         item.findtext("Details")
                         and len(item.findtext("Details").strip()) > 0
                     ):
-                        find.description += (
-                            "\n-----\n\n**Details:**\n{}".format(
-                                html2text.html2text(item.findtext("Details"))
-                            )
+                        find.description += "\n-----\n\n**Details:**\n{}".format(
+                            html2text.html2text(item.findtext("Details"))
                         )
                     find.unsaved_endpoints.extend(finding.unsaved_endpoints)
                     find.unsaved_req_resp.extend(finding.unsaved_req_resp)

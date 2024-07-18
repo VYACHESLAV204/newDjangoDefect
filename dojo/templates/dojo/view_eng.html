@@ -314,7 +314,7 @@
                                                     </ul>
                                                 </div>
                                             </td>
-                                            <td><a title="{{ test.description }}" href="{% url 'view_test' test.id %}">{{ test }}</a>
+                                            <td><a title="{{ test.description }}" id="acunetix" href="{% url 'view_test' test.id %}">{{ test }}</a>
                                                 {% if test.version %}
                                                     <sup>
                                                     <a target="_blank" class="tag-label tag-version" data-toggle="tooltip" data-placement="bottom" title="Product Version: {{ test.version }}">
@@ -331,7 +331,7 @@
                                                     {{ test.lead }}
                                                 {% endif %}
                                             </td>
-                                            <td><a href="{% url 'view_test' test.id %}">{{ test.count_findings_test_all }}</a></td>
+                                            <td><a  "{% url 'view_test' test.id %}" >{{ test.count_findings_test_all }}</a></td>
                                             <td>
                                                 <a href="{% url 'view_test' test.id %}?active=true">{{ test.count_findings_test_active }}</a>&nbsp;
                                                 (<a href="{% url 'view_test' test.id %}?active=true&verified=true">{{ test.count_findings_test_active_verified }}</a>)
@@ -1028,6 +1028,17 @@
 {% endblock %}
 {% block postscript %}
     {{ block.super }}
+    <script>
+       texts = document.querySelectorAll("#acunetix")
+       for(let text of texts){
+           if(text.textContent == "Acunetix Scan"){
+               text.innerText = "Indepo scan";
+    
+           }
+          
+
+       }
+    </script>
     <script type="text/javascript" src="{% static "jquery-highlight/jquery.highlight.js" %}"></script>
     <script type="application/javascript" src="{% static "jquery.hotkeys/jquery.hotkeys.js" %}"></script>
     <script type="text/javascript">
