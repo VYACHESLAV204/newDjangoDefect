@@ -1834,7 +1834,7 @@ TAGULOUS_AUTOCOMPLETE_JS = (
 
 # using 'element' for width should take width from css defined in template, but it doesn't. So set to 70% here.
 TAGULOUS_AUTOCOMPLETE_SETTINGS = {
-    "placeholder": "Enter some tags (comma separated, use enter to select / create a new tag)",
+    "placeholder": "Введите теги через запятую",
     "width": "70%",
 }
 

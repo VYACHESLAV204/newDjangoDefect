@@ -747,19 +747,19 @@ def get_findings(request):
     filter_name = None
     if view:
         if view == 'open':
-            filter_name = 'Open'
+            filter_name = 'Открытый'
         elif view == 'inactive':
-            filter_name = 'Inactive'
+            filter_name = 'Неактивный'
         elif view == 'verified':
-            filter_name = 'Verified'
+            filter_name = 'Подтверждённый'
         elif view == 'closed':
-            filter_name = 'Closed'
+            filter_name = 'Закрытый'
         elif view == 'accepted':
-            filter_name = 'Accepted'
+            filter_name = 'Принятый'
         elif view == 'out_of_scope':
-            filter_name = 'Out of Scope'
+            filter_name = 'За пределами'
         elif view == 'false_positive':
-            filter_name = 'False Positive'
+            filter_name = 'Ложнопозитивный'
 
     obj = pid = eid = tid = None
     if obj_id:

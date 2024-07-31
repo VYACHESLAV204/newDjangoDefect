@@ -164,6 +164,12 @@ class Product_TypeForm(forms.ModelForm):
     class Meta:
         model = Product_Type
         fields = ['name', 'description', 'critical_product', 'key_product']
+        labels = {
+            'name': _('Имя'),  # Переведите здесь
+            'description': _('Описание'),
+            'critical_product': _('Критичный продукт'),
+            'key_product': _('Ключевой продукт'),
+        }
 
 
 class Delete_Product_TypeForm(forms.ModelForm):
