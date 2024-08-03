@@ -146,10 +146,10 @@
             buttons: [
                 {
                     extend: 'colvis',
-                    columns: ':not(.noVis)'
+                    columns: ':not(.noVis)',text:"Видимость столбцов"
                 },
                 $.extend( true, {}, buttonCommon, {
-                    extend: 'copy'
+                    extend: 'copy',text:'Копировать'
                 }),
                 $.extend( true, {}, buttonCommon, {
                     extend: 'excel',
@@ -165,7 +165,8 @@
                     pageSize: 'LETTER'
                 }),
                 $.extend( true, {}, buttonCommon, {
-                    extend: 'print'
+                    extend: 'print',
+                    text:'Распечатать'
                 }),
             ],
         });

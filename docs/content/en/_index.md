@@ -39,7 +39,7 @@ Product:Engagement model, enables traceability among multiple projects
 
 ### Where to find DefectDojo?
 
-Proprietary editions that include [additional features](https://documentation.defectdojo.com/proprietary_plugins/) and support can be purchased through [defectdojo.com](https://www.defectdojo.com/).
+Proprietary editions that include [additional features](https://documentation.synergyvms.com/proprietary_plugins/) and support can be purchased through [defectdojo.com](https://www.defectdojo.com/).
 
 The open-source edition is [available on
 GitHub](https://github.com/DefectDojo/django-DefectDojo).

@@ -22,12 +22,12 @@
                             <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="downloadMenu">
                             <li role="presentation">
                                 <a id="csv_export" href="{% url 'engagement_csv_export' %}?url={{ request.get_full_path }}">
-                                    <i class="fa-solid fa-table"></i> CSV Export
+                                    <i class="fa-solid fa-table"></i> CSV экспорт
                                 </a>
                             </li>
                             <li role="presentation">
                                 <a id="excel_export" href="{% url 'engagement_excel_export' %}?url={{ request.get_full_path }}">
-                                    <i class="fa-solid fa-file-excel"></i> Excel Export
+                                    <i class="fa-solid fa-file-excel"></i> Excel экспорт
                                 </a>
                             </li>
                             </ul>

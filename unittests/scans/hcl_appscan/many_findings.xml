@@ -1045,7 +1045,7 @@ Connection: keep-alive
 &lt;/div&gt;
 
 
-                         &lt;input type="submit" value="Submit" id="login_0" class="btn btn-primary"/&gt;
+                         &lt;input type="submit" value="Submit" label="Добавить" label="Добавить" id="login_0" class="btn btn-primary"/&gt;
 
                     &lt;/fieldset&gt;&lt;/form&gt;
 

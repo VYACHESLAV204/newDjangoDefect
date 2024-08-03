@@ -159,7 +159,7 @@ class MonthYearWidget(Widget):
 
 class Product_TypeForm(forms.ModelForm):
     description = forms.CharField(widget=forms.Textarea(attrs={}),
-                                  required=False)
+                                  required=False,label="Описание")
 
     class Meta:
         model = Product_Type
@@ -241,6 +241,9 @@ class Development_EnvironmentForm(forms.ModelForm):
     class Meta:
         model = Development_Environment
         fields = ['name']
+    def __init__(self, *args, **kwargs):
+        super(Development_EnvironmentForm, self).__init__(*args, **kwargs)
+        self.fields['name'].label = "Имя"
 
 
 class Delete_Dev_EnvironmentForm(forms.ModelForm):
@@ -250,9 +253,9 @@ class Delete_Dev_EnvironmentForm(forms.ModelForm):
 
 
 class ProductForm(forms.ModelForm):
-    name = forms.CharField(max_length=255, required=True)
+    name = forms.CharField(max_length=255, required=True,label="Имя")
     description = forms.CharField(widget=forms.Textarea(attrs={}),
-                                  required=True)
+                                  required=True,label="Описание")
 
     prod_type = forms.ModelChoiceField(label="Тип продукта",
                                        queryset=Product_Type.objects.none(),
@@ -263,14 +266,26 @@ class ProductForm(forms.ModelForm):
                                         required=True,
                                         initial='Default')
 
-    product_manager = forms.ModelChoiceField(queryset=Dojo_User.objects.exclude(is_active=False).order_by('first_name', 'last_name'), required=False)
-    technical_contact = forms.ModelChoiceField(queryset=Dojo_User.objects.exclude(is_active=False).order_by('first_name', 'last_name'), required=False)
-    team_manager = forms.ModelChoiceField(queryset=Dojo_User.objects.exclude(is_active=False).order_by('first_name', 'last_name'), required=False)
+    product_manager = forms.ModelChoiceField(queryset=Dojo_User.objects.exclude(is_active=False).order_by('first_name', 'last_name'), required=False,label="Менеджер продукта")
+    technical_contact = forms.ModelChoiceField(queryset=Dojo_User.objects.exclude(is_active=False).order_by('first_name', 'last_name'), required=False,label="Контакты техника")
+    team_manager = forms.ModelChoiceField(queryset=Dojo_User.objects.exclude(is_active=False).order_by('first_name', 'last_name'), required=False,label="Руководитель команды")
 
     def __init__(self, *args, **kwargs):
         super(ProductForm, self).__init__(*args, **kwargs)
         self.fields['prod_type'].queryset = get_authorized_product_types(Permissions.Product_Type_Add_Product)
-
+        self.fields["regulations"].label = "Регулятор"
+        self.fields["business_criticality"].label = "Критичность для бизнеса"
+        self.fields["platform"].label = "Платформа"
+        self.fields["lifecycle"].label = "Жизненный цикл"
+        self.fields["origin"].label = "Источник"
+        self.fields["user_records"].label = "Записи пользователей"
+        self.fields["revenue"].label = "Доход"
+        self.fields["external_audience"].label = "Внешняя аудитория"
+        self.fields["internet_accessible"].label = "Доступно из интернета"
+        self.fields["enable_simple_risk_acceptance"].label = "Включить принятие риска"
+        self.fields["enable_full_risk_acceptance"].label = "Включить полное принятие риска"
+        self.fields["tags"].label = "Теги"
+        
         # if this product has findings being asynchronously updated, disable the sla config field
         if self.instance.async_updating:
             self.fields['sla_configuration'].disabled = True
@@ -1397,7 +1412,7 @@ class ApplyFindingTemplateForm(forms.Form):
 
 class FindingTemplateForm(forms.ModelForm):
     apply_to_findings = forms.BooleanField(required=False, help_text="Примените шаблон ко всем выводам, которые соответствуют этой CWE.(Обновление будет перезаписать смягчение, воздействие и ссылки для любых активных, проверенных результатов.)")
-    title = forms.CharField(max_length=1000, required=True)
+    title = forms.CharField(max_length=1000, required=True,label="Заголовок")
 
     cwe = forms.IntegerField(label="CWE", required=False)
     vulnerability_ids = vulnerability_ids_field
@@ -1407,14 +1422,20 @@ class FindingTemplateForm(forms.ModelForm):
         choices=SEVERITY_CHOICES,
         error_messages={
             'required': 'Select valid choice: In Progress, On Hold, Completed',
-            'invalid_choice': 'Select valid choice: Critical,High,Medium,Low'})
+            'invalid_choice': 'Select valid choice: Critical,High,Medium,Low'},label="Тяжесть")
 
     field_order = ['title', 'cwe', 'vulnerability_ids', 'severity', 'cvssv3', 'description', 'mitigation', 'impact', 'references', 'tags', 'template_match', 'template_match_cwe', 'template_match_title', 'apply_to_findings']
 
     def __init__(self, *args, **kwargs):
         super(FindingTemplateForm, self).__init__(*args, **kwargs)
         self.fields['tags'].autocomplete_tags = Finding.tags.tag_model.objects.all().order_by('name')
-
+        self.fields["description"].label = "Описание"
+        self.fields["mitigation"].label = "Смягчение"
+        self.fields["impact"].label = "Вклад"
+        self.fields["references"].label = "Референсы"
+        self.fields["tags"].label = "Теги"
+        self.fields["apply_to_findings"].label = "Применить к выводам"
+        
     class Meta:
         model = Finding_Template
         order = ('title', 'cwe', 'vulnerability_ids', 'cvssv3', 'severity', 'description', 'impact')

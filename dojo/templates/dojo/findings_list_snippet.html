@@ -253,7 +253,7 @@
                                             {{ bulk_edit_form.media.js }}
                                         {% endcomment %}
                                         {{ bulk_edit_form.tags }}
-                                        <input type="submit" class="btn btn-sm btn-primary" value="Submit"/>
+                                        <input type="submit" class="btn btn-sm btn-primary" value="Submit" label="Добавить" label="Добавить"/>
                                     </form>
                             </li>
                         </ul>
@@ -848,20 +848,21 @@
                 paging: false,
                 info: false,
                 buttons: [
-                    {
-                        extend: 'colvis',
-                        columns: ':not(.noVis)'
-                    },
-                    $.extend( true, {}, buttonCommon, {
-                        extend: 'copy'
-                    }),
+                {
+                    extend: 'colvis',
+                    columns: ':not(.noVis)',text:"Видимость столбцов"
+                },
+                $.extend( true, {}, buttonCommon, {
+                    extend: 'copy',text:'Копировать'
+                }),
                     $.extend( true, {}, buttonCommon, {
                         extend: 'pdf',
                         orientation: 'landscape',
                         pageSize: 'LETTER'
                     }),
                     $.extend( true, {}, buttonCommon, {
-                        extend: 'print'
+                        extend: 'print',
+                        text:'Распечатать'
                     }),
                 ],
             });

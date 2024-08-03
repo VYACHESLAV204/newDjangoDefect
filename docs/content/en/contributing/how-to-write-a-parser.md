@@ -225,7 +225,7 @@ Bad example (DIY):
 
 ## Deduplication algorithm
 
-By default a new parser uses the 'legacy' deduplication algorithm documented at https://documentation.defectdojo.com/usage/features/#deduplication-algorithms
+By default a new parser uses the 'legacy' deduplication algorithm documented at https://documentation.synergyvms.com/usage/features/#deduplication-algorithms
 
 Please use a pre-defined deduplication algorithm where applicable.
 

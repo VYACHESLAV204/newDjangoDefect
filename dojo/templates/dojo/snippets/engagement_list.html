@@ -324,13 +324,13 @@
                 paging: false,
                 info: false,
                 buttons: [
-                    {
-                        extend: 'colvis',
-                        columns: ':not(.noVis)'
-                    },
-                    $.extend( true, {}, buttonCommon, {
-                        extend: 'copy'
-                    }),
+                {
+                  extend: 'colvis',
+                  columns: ':not(.noVis)',text:"Видимость столбцов"
+              },
+              $.extend( true, {}, buttonCommon, {
+                extend: 'copy',text:'Копировать'
+            }),
                     $.extend( true, {}, buttonCommon, {
                         extend: 'excel',
                         autoFilter: true,
@@ -345,8 +345,9 @@
                         pageSize: 'LETTER'
                     }),
                     $.extend( true, {}, buttonCommon, {
-                        extend: 'print'
-                    }),
+                      extend: 'print',
+                      text:'Распечатать'
+                  }),
                 ],
             });
         });

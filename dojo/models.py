@@ -46,8 +46,8 @@ from cvss import CVSS3
 logger = logging.getLogger(__name__)
 deduplicationLogger = logging.getLogger("dojo.specific-loggers.deduplication")
 
-SEVERITY_CHOICES = (('Info', 'Info'), ('Low', 'Low'), ('Medium', 'Medium'),
-                    ('High', 'High'), ('Critical', 'Critical'))
+SEVERITY_CHOICES = (('Info', 'Информационный'), ('Low', 'Низкий'), ('Medium', 'Средний'),
+                    ('High', 'Высокий'), ('Critical', 'Критический'))
 
 SEVERITIES = [s[0] for s in SEVERITY_CHOICES]
 

@@ -1328,7 +1328,7 @@ div.custom-search-form {
     #side-menu li {
         position: relative;
         border-radius: 4px;
-        border-bottom: 0px !important;
+        border-bottom: 0px !important;margin-bottom: 3px;
     }
 
 	#side-menu {

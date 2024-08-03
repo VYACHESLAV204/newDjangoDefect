@@ -1727,8 +1727,8 @@ class FindingFilter(FindingFilterWithTags):
     )
 
     file_path = CharFilter(lookup_expr="icontains",label="Путь к файлу содержит")
-    param = CharFilter(lookup_expr="icontains")
-    payload = CharFilter(lookup_expr="icontains")
+    param = CharFilter(lookup_expr="icontains",label="Параметры содержат")
+    payload = CharFilter(lookup_expr="icontains",label="Пейлоуд содержит")
 
     reporter = ModelMultipleChoiceFilter(queryset=Dojo_User.objects.none())
 
@@ -1751,7 +1751,7 @@ class FindingFilter(FindingFilterWithTags):
 
     endpoints__host = CharFilter(lookup_expr="icontains", label="Хост конечной точки")
 
-    service = CharFilter(lookup_expr="icontains")
+    service = CharFilter(lookup_expr="icontains",label="Сервис содержит")
 
     test = ModelMultipleChoiceFilter(queryset=Test.objects.none(), label="Тест")
 
@@ -1921,8 +1921,12 @@ class FindingFilter(FindingFilterWithTags):
         ]
 
     def __init__(self, *args, **kwargs):
+        
         self.user = None
         self.pid = None
+        
+       
+
         if "user" in kwargs:
             self.user = kwargs.pop("user")
 
@@ -1971,6 +1975,15 @@ class FindingFilter(FindingFilterWithTags):
             Permissions.Finding_View
         )
         self.form.fields["reviewers"].queryset = self.form.fields["reporter"].queryset
+        self.form.fields["tags"].label = "Теги"
+       
+        self.form.fields["false_p"].label = "Ложноположительный"
+        self.form.fields["test__engagement__tags"].label = "Теги (Проверки)"
+        self.form.fields["test__tags"].label= "Теги (Тест)"
+        self.form.fields["test__engagement__product__tags"].label= "Теги (Продукты)"
+        
+        self.form.fields["out_of_scope"].label = "За пределами области применения"
+        
 
 
 class AcceptedFindingFilter(FindingFilter):
@@ -2046,7 +2059,7 @@ class SimilarFindingFilter(FindingFilter):
 class TemplateFindingFilter(DojoFilter):
     title = CharFilter(lookup_expr="icontains")
     cwe = MultipleChoiceFilter(choices=[])
-    severity = MultipleChoiceFilter(choices=SEVERITY_CHOICES)
+    severity = MultipleChoiceFilter(choices=SEVERITY_CHOICES,label="Тяжесть")
 
     tags = ModelMultipleChoiceFilter(
         field_name="tags__name",
@@ -2133,6 +2146,14 @@ class TemplateFindingFilter(DojoFilter):
     def __init__(self, *args, **kwargs):
         super(TemplateFindingFilter, self).__init__(*args, **kwargs)
         self.form.fields["cwe"].choices = cwe_options(self.queryset)
+        self.form.fields["title"].label = "Имя"
+        self.form.fields["last_used"].label = "Последнее использование"
+        self.form.fields["tags"].label = "Теги"
+        self.form.fields["cve"].label = "Id уязвимости"
+        fields_info = {field_name: str(field) for field_name, field in self.form.fields.items()}
+        
+        with open('/tmp/file.txt', "w") as file:
+            file.write(json.dumps(fields_info, ensure_ascii=False, indent=4))
 
 
 class ApiTemplateFindingFilter(DojoFilter):
@@ -3000,10 +3021,7 @@ class ProductTypeFilter(DojoFilter):
              
             
             
-        fields_info = {field_name: str(field) for field_name, field in self.form.fields.items()}
-        
-        with open('/tmp/file.txt', "w") as file:
-            file.write(json.dumps(fields_info, ensure_ascii=False, indent=4))
+ 
     o = OrderingFilter(
         # tuple-mapping retains order
         fields=(("name", "name"),),
@@ -3040,7 +3058,7 @@ class TestTypeFilter(DojoFilter):
 
 
 class DevelopmentEnvironmentFilter(DojoFilter):
-    name = CharFilter(lookup_expr="icontains")
+    name = CharFilter(lookup_expr="icontains",label="Имя содержит")
 
     o = OrderingFilter(
         # tuple-mapping retains order
