@@ -3885,7 +3885,7 @@
           <text>  &lt;form action="AppScan.html" method="get"&gt;
       Username: &lt;input type="text" name="firstname" /&gt;&lt;br /&gt;
       Password: &lt;input type="password" name="lastname" /&gt;
-      &lt;input type="submit" value="Submit" label="Добавить" /&gt;
+      &lt;input type="submit" value="Добавить" label="Добавить" /&gt;
   &lt;form&gt;
 </text>
           <text />
@@ -3893,7 +3893,7 @@
           <text>  &lt;form action="AppScan.html" method="get"&gt;
       Username: &lt;input type="text" name="firstname" /&gt;&lt;br /&gt;
       Password: &lt;input type="password" name="lastname" autocomplete="off"/&gt;
-      &lt;input type="submit" value="Submit" label="Добавить" label="Добавить" /&gt;
+      &lt;input type="submit" value="Добавить" label="Добавить" label="Добавить" /&gt;
   &lt;form&gt;
 </text>
         </fixRecommendation>

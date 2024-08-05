@@ -233,56 +233,56 @@
                 <tr>
                     {% block header_head %}
                         <th>ID</th>
-                        <th>Severity</th>
+                        <th>Тяжесть</th>
                         {% if system_settings.enable_finding_sla %}
                         <th>SLA</th>
                         {% endif %}
                         {% if finding.scanner_confidence %}
-                        <th>Scanner Confidence</th>
+                        <th>Уверенность в сканере</th>
                         {% endif %}
-                        <th>Status</th>
+                        <th>Статус</th>
                         {% if finding.risk_acceptance_set.all %}
-                            <th>Risk Acceptance</th>
+                            <th>Риск принят</th>
                         {% endif %}
                         {% if finding.duplicate_finding %}
-                        <th>Original</th>
+                        <th>Оригинал</th>
                         {% endif %}
                         {% if duplicate_cluster and not finding.duplicate %}
-                            <th title="Findings that are marked as duplicate of this finding">Duplicates</th>
+                            <th title="Findings that are marked as duplicate of this finding">Дупликаты</th>
                         {% elif duplicate_cluster and finding.duplicate %}
-                            <th title="Findings that are also marked as duplicates of the same original finding">Duplicate Cluster</th>
+                            <th title="Findings that are also marked as duplicates of the same original finding">Кластер дупликатов</th>
                         {% endif %}
-                        <th>Type</th>
-                        <th>Date discovered</th>
-                        <th>Age</th>
+                        <th>Тип</th>
+                        <th>Дата обнаружения</th>
+                        <th>Возраст</th>
                         {% if finding.publish_date %}
-                            <th>Vuln Publish date</th>
+                            <th>Vuln Дата публикации</th>
                         {% endif %}
                         {% if finding.planned_remediation_date %}
-                            <th>Planned Remediation</th>
+                            <th>Планируемое устранение</th>
                         {% endif%}
                         {% if finding.planned_remediation_version %}
                             <th>{% trans "Planned Remediation version" %}</th>
                         {% endif %}
                         <th>Reporter</th>
                         {% if finding.mitigated %}
-                            <th>Date Mitigated</th>
-                            <th>Mitigated By</th>
+                            <th>Дата смягчения</th>
+                            <th>Кем смягчено</th>
                         {% endif %}
                         <th>CWE</th>
-                        <th>Vulnerability Id</th>
+                        <th>Id уязвимости</th>
                         {% if finding.epss_score != None or finding.epss_percentile != None %}
                             {% if finding.epss_score != None and finding.epss_percentile != None %}
-                                <th>EPSS Score / Percentile</th>
+                                <th>EPSS Оценка / Процент</th>
                             {% elif finding.epss_score != None and finding.epss_percentile == None %}
-                                <th>EPSS Score</th>
+                                <th>EPSS Оценка</th>
                             {% elif finding.epss_score == None and finding.epss_percentile != None %}
-                                <th>EPSS Percentile</th>
+                                <th>EPSS Процент</th>
                             {% endif %}
                         {% endif %}
-                        <th>Found by</th>
+                        <th>Кем найдено</th>
                         {% if finding.vuln_id_from_tool %}
-                            <th>Vuln ID from tool</th>
+                            <th>Идентификатор уязвимости из инструмента</th>
                         {% endif %}
                     {% endblock header_head %}
                 </tr>
@@ -304,7 +304,7 @@
                                         </i>
                                     {% endif %}
                                 {% else %}
-                                    Unknown
+                                    Неизвестно
                                 {% endif %}
                             </span>
                         </td>
@@ -464,7 +464,7 @@
     <div class="panel panel-default">
         <table id="additional_finding_references" class="table-striped table table-condensed table-hover centered">
             <tr>
-                <th>Additional Vulnerability Ids</th>
+                <th>Дополнительные идентификаторы уязвимостей</th>
             </tr>
             <tr>
                 <td>
@@ -491,9 +491,9 @@
         <div class="panel panel-default">
             <table id="sast_source" class="table-striped table table-condensed table-hover centered">
                 <tr>
-                    <th>Source Filepath</th>
-                    <th>Source Line Number</th>
-                    <th>Source Object</th>
+                    <th>Путь к исходному файлу</th>
+                    <th>Номер строки источника</th>
+                    <th>Источник объекта</th>
                 </tr>
                 <tr>
                     <td>
@@ -547,32 +547,32 @@
         <table id="error_notes" class="table-striped table table-condensed table-hover centered">
             <tr>
                 {% if finding.service %}
-                <th>Service</th>
+                <th>Услуга</th>
                 {% endif %}
                 {% if finding.file_path %}
-                <th>Location</th>
+                <th>Локация</th>
                 {% endif %}
                 {% if finding.line %}
-                <th>Line Number</th>
+                <th>Номер строки</th>
                 {% endif %}
                 {% if finding.nb_occurences > 1 %}
-                <th>Nb occurences</th>
+                <th>Nb происшествия</th>
                 {% endif %}
                 {% if finding.component_name %}
-                <th>Component Name</th>
+                <th>Имя компонента</th>
                 {% endif %}
                 {% if finding.component_version %}
-                <th>Component Version</th>
+                <th>Версия компонента</th>
                 {% endif %}
                 {% if finding.has_jira_configured or finding.jira_issue %}
                 <th>JIRA</th>
-                <th>JIRA Change</th>
+                <th>JIRA Изменения</th>
                 {% endif %}
                 {% if finding.github_conf_new or finding.github_issue %}
                 <th>GitHub</th>
                 {% endif %}
                 {% if 'is_finding_groups_enabled'|system_setting_enabled and finding.finding_group %}
-                <th>Group</th>
+                <th>Група</th>
                 {% endif %}
                 {% if finding.effort_for_fixing %}
                 <th>{% trans "Effort for fixing" %}</th>
@@ -687,9 +687,9 @@
         <div class="panel panel-default">
             <table id="error_notes" class="table-striped table table-condensed table-hover">
                 <tr>
-                    <th>Injected Parameter(s)</th>
+                    <th>Вводимый параметр(ы)</th>
                     {% if finding.payload %}
-                    <th>Payload</th>
+                    <th>Полезная нагрузка</th>
                     {% endif %}
                 </tr>
                 <tr>
@@ -801,7 +801,7 @@
                                 <span>Принятый риск</span>
                             </label>
                             <br/>
-                            <input type="submit" class="btn btn-sm btn-primary" label="Submit" name="Submit" value="Submit" label="Добавить"/>
+                            <input type="submit" class="btn btn-sm btn-primary" label="Submit" name="Submit" value="Добавить" label="Добавить"/>
                         </form>
                     </li>
                 </ul>
@@ -1077,13 +1077,13 @@
                             <table class="tablesorter-bootstrap table table-condensed table-striped table-hover">
                                 <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Username</th>
-                                    <th>Role</th>
-                                    <th>Environment</th>
-                                    <th>Authentication Provider</th>
-                                    <th>Login Valid</th>
-                                    <th>Actions</th>
+                                    <th>Имя</th>
+                                    <th>Логин</th>
+                                    <th>Роль</th>
+                                    <th>Окружение</th>
+                                    <th>Провайдер авторизации</th>
+                                    <th>Логин действителен</th>
+                                    <th>Действия</th>
                                 </tr>
                                 </thead>
                                 <tbody>

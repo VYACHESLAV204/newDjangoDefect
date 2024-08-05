@@ -1045,7 +1045,7 @@ Connection: keep-alive
 &lt;/div&gt;
 
 
-                         &lt;input type="submit" value="Submit" label="Добавить" label="Добавить" id="login_0" class="btn btn-primary"/&gt;
+                         &lt;input type="submit" value="Добавить" label="Добавить" label="Добавить" id="login_0" class="btn btn-primary"/&gt;
 
                     &lt;/fieldset&gt;&lt;/form&gt;
 
@@ -1273,7 +1273,7 @@ Connection: keep-alive
 &lt;/div&gt;
 
 
-                         &lt;input type="submit" value="Submit" id="login_0" class="btn btn-primary"/&gt;
+                         &lt;input type="submit" value="Добавить" id="login_0" class="btn btn-primary"/&gt;
 
                     &lt;/fieldset&gt;&lt;/form&gt;
 
@@ -1712,7 +1712,7 @@ Set-Cookie: JSESSIONID=EAF388C6E55705FAE840F20CF6D76517; Path=/dvja-1.0-SNAPSHOT
 &lt;/div&gt;
 
 
-                         &lt;input type="submit" value="Submit" id="login_0" class="btn btn-primary"/&gt;
+                         &lt;input type="submit" value="Добавить" id="login_0" class="btn btn-primary"/&gt;
 
                     &lt;/fieldset&gt;&lt;/form&gt;
 
@@ -1957,7 +1957,7 @@ Connection: keep-alive
 &lt;/div&gt;
 
 
-                         &lt;input type="submit" value="Submit" id="register_0" class="btn btn-primary"/&gt;
+                         &lt;input type="submit" value="Добавить" id="register_0" class="btn btn-primary"/&gt;
 ...
 ...
 ...</test-http-traffic>
@@ -2162,7 +2162,7 @@ Connection: keep-alive
 &lt;/div&gt;
 
 
-                         &lt;input type="submit" value="Submit" id="login_0" class="btn btn-primary"/&gt;
+                         &lt;input type="submit" value="Добавить" id="login_0" class="btn btn-primary"/&gt;
 
                     &lt;/fieldset&gt;&lt;/form&gt;
 
@@ -2401,7 +2401,7 @@ Connection: keep-alive
 &lt;/div&gt;
 
 
-                         &lt;input type="submit" value="Submit" id="login_0" class="btn btn-primary"/&gt;
+                         &lt;input type="submit" value="Добавить" id="login_0" class="btn btn-primary"/&gt;
 
                     &lt;/fieldset&gt;&lt;/form&gt;
 
@@ -2629,7 +2629,7 @@ Connection: keep-alive
 &lt;/div&gt;
 
 
-                         &lt;input type="submit" value="Submit" id="login_0" class="btn btn-primary"/&gt;
+                         &lt;input type="submit" value="Добавить" id="login_0" class="btn btn-primary"/&gt;
 
                     &lt;/fieldset&gt;&lt;/form&gt;
 
@@ -2872,7 +2872,7 @@ Connection: keep-alive
 &lt;/div&gt;
 
 
-                         &lt;input type="submit" value="Submit" id="register_0" class="btn btn-primary"/&gt;
+                         &lt;input type="submit" value="Добавить" id="register_0" class="btn btn-primary"/&gt;
 ...
 ...
 ...</test-http-traffic>
@@ -3071,7 +3071,7 @@ Connection: keep-alive
 &lt;input type="text" name="login" value="" id="resetPasswordStart_login" class="form-control" placeholder="Enter login name"/&gt;&lt;/div&gt;
 &lt;/div&gt;
 
-                    &lt;input type="submit" value="Submit" id="resetPasswordStart_0" class="btn btn-primary"/&gt;
+                    &lt;input type="submit" value="Добавить" id="resetPasswordStart_0" class="btn btn-primary"/&gt;
 
                 &lt;/fieldset&gt;&lt;/form&gt;
 
@@ -3321,7 +3321,7 @@ Connection: keep-alive
 &lt;/div&gt;
 
 
-                         &lt;input type="submit" value="Submit" id="login_0" class="btn btn-primary"/&gt;
+                         &lt;input type="submit" value="Добавить" id="login_0" class="btn btn-primary"/&gt;
 
                     &lt;/fieldset&gt;&lt;/form&gt;
 
@@ -11454,7 +11454,7 @@ Connection: keep-alive
         <item type="string">  &lt;form action="AppScan.html" method="get"&gt;
       Username: &lt;input type="text" name="firstname" /&gt;&lt;br /&gt;
       Password: &lt;input type="password" name="lastname" /&gt;
-      &lt;input type="submit" value="Submit" /&gt;
+      &lt;input type="submit" value="Добавить" /&gt;
   &lt;form&gt;
 </item>
         <item type="string" />
@@ -11462,7 +11462,7 @@ Connection: keep-alive
         <item type="string">  &lt;form action="AppScan.html" method="get"&gt;
       Username: &lt;input type="text" name="firstname" /&gt;&lt;br /&gt;
       Password: &lt;input type="password" name="lastname" autocomplete="off"/&gt;
-      &lt;input type="submit" value="Submit" /&gt;
+      &lt;input type="submit" value="Добавить" /&gt;
   &lt;form&gt;
 </item>
       </recommendations>

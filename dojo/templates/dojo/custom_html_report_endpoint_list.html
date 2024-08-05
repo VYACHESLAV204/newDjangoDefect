@@ -48,23 +48,23 @@
                 <div class="table-responsive">
                     <table id="heading" class="table-striped table table-condensed table-hover centered">
                         <tr>
-                            <th>Severity</th>
-                            <th>EPSS Score / Percentile</th>
-                            <th>Status</th>
+                            <th>Тяжесть</th>
+                            <th>EPSS Очки / Проценты</th>
+                            <th>Статус</th>
                             {% if finding.risk_acceptance_set.all %}
-                                <th>Acceptance</th>
+                                <th>Принятие</th>
                             {% endif %}
-                            <th>Date discovered</th>
-                            <th>Age</th>
-                            <th>Reporter</th>
+                            <th>Дата обнаружения</th>
+                            <th>Возраст</th>
+                            <th>Репортёр</th>
                             {% if finding.mitigated %}
-                                <th>Date Mitigated</th>
-                                <th>Mitigated By</th>
+                                <th>Дата смягчения</th>
+                                <th>Кем смягчено</th>
                             {% endif %}
                             {% if finding.cwe > 0 %}
                                 <th>CWE</th>
                             {% endif %}
-                            <th>Dojo ID</th>
+                            <th>Synergy ID</th>
                         </tr>
                         <tr>
                             <td>

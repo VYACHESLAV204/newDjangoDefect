@@ -52,9 +52,9 @@
                             <th></th> <!-- Action 3-dots hamburger menu button -->
                             {% comment %} The display field is translated in the function. No need to translate here as well{% endcomment %}
                             <th>{% dojo_sort request 'Product' 'name' 'asc' %}</th>
-                            <th>Tags</th>
-                            <th> Criticality</th>
-                            <th> Metadata</th>
+                            <th>Теги</th>
+                            <th> Критичность</th>
+                            <th> Метадата</th>
                             <th class="text-center">Eng.</th>
                             {% if system_settings.enable_jira %}
                             <th class="text-center">Jira</th>
@@ -62,7 +62,7 @@
                             {% if system_settings.enable_github %}
                             <th class="text-center">GitHub</th>
                             {% endif %}
-                            <th class="text-center"> Active (Verified) Findings</th>
+                            <th class="text-center"> Активный (Проверенные) находки</th>
                             <th class="text-center"> Уязвимые хозяева / Конечные точки</th>
                             <th> Контакты</th>
                             {% comment %} The display field is translated in the function. No need to translate here as well{% endcomment %}

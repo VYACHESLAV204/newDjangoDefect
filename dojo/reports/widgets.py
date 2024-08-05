@@ -35,17 +35,17 @@ class CustomReportJsonForm(forms.Form):
 
 
 class CoverPageForm(forms.Form):
-    heading = forms.CharField(max_length=200, required=False, help_text="The main report heading.")
-    sub_heading = forms.CharField(max_length=200, required=False, help_text="The report sub heading.")
-    meta_info = forms.CharField(max_length=200, required=False, help_text="Additional metadata for this report.")
+    heading = forms.CharField(max_length=200, required=False, help_text="The main report heading.",label="Заголовок")
+    sub_heading = forms.CharField(max_length=200, required=False, help_text="The report sub heading.",label="Подзаголовок")
+    meta_info = forms.CharField(max_length=200, required=False, help_text="Additional metadata for this report.",label="Мета-данные")
 
     class Meta:
         exclude = []
 
 
 class TableOfContentsForm(forms.Form):
-    heading = forms.CharField(max_length=200, required=False, initial="Table of Contents")
-    depth = forms.IntegerField(min_value=1, required=False, max_value=6, initial=4)
+    heading = forms.CharField(max_length=200, required=False, initial="Оглавление")
+    depth = forms.IntegerField(min_value=1, required=False, max_value=6, initial=4,label="Глубина")
 
     class Meta:
         exclude = []
@@ -100,8 +100,8 @@ class Div(form_widget):
 
 
 class WYSIWYGContentForm(forms.Form):
-    heading = forms.CharField(max_length=200, required=False, initial="WYSIWYG Content")
-    content = forms.CharField(required=False, widget=Div(attrs={'class': 'editor'}))
+    heading = forms.CharField(max_length=200, required=False, initial="Контент WYSIWYG",label="Заголовок")
+    content = forms.CharField(required=False, widget=Div(attrs={'class': 'editor'}),label="Контент")
     hidden_content = forms.CharField(widget=forms.HiddenInput(), required=True)
 
     class Meta:
@@ -131,12 +131,12 @@ class Widget(object):
 class PageBreak(Widget):
     def __init__(self, *args, **kwargs):
         super(PageBreak, self).__init__(*args, **kwargs)
-        self.title = 'Page Break'
+        self.title = 'Разрыв страницы'
         self.form = None
         self.multiple = "true"
 
     def get_html(self):
-        return mark_safe('<hr title="Page Break" class="report-page-break"/>')
+        return mark_safe('<hr title="Разрыв страницы" class="report-page-break"/>')
 
     def get_asciidoc(self):
         return mark_safe('<br/><<<<br/>')
@@ -152,9 +152,9 @@ class PageBreak(Widget):
 class ReportOptions(Widget):
     def __init__(self, *args, **kwargs):
         super(ReportOptions, self).__init__(*args, **kwargs)
-        self.title = 'Report Options'
+        self.title = 'Опции отчёта'
         self.form = CustomReportOptionsForm()
-        self.extra_help = "Choose additional report options.  These will apply to the overall report."
+        self.extra_help = "Выберите дополнительные параметры отчета.  Они будут применяться к общему отчету."
 
     def get_asciidoc(self):
         return mark_safe('')
@@ -173,9 +173,9 @@ class ReportOptions(Widget):
 class CoverPage(Widget):
     def __init__(self, *args, **kwargs):
         super(CoverPage, self).__init__(*args, **kwargs)
-        self.title = 'Cover Page'
+        self.title = 'Страница обложки'
         self.form = CoverPageForm()
-        self.help_text = "The cover page includes a page break after its content."
+        self.help_text = "Титульная страница включает разрыв страницы после своего содержания."
 
     def get_html(self):
         return render_to_string("dojo/custom_html_report_cover_page.html", {"heading": self.title,
@@ -198,9 +198,9 @@ class CoverPage(Widget):
 class TableOfContents(Widget):
     def __init__(self, *args, **kwargs):
         super(TableOfContents, self).__init__(*args, **kwargs)
-        self.title = 'Table Of Contents'
+        self.title = 'Оглавление'
         self.form = TableOfContentsForm()
-        self.help_text = "The table of contents includes a page break after its content."
+        self.help_text = "Оглавление содержит разрыв страницы после его содержания."
 
     def get_html(self):
         return render_to_string("dojo/custom_html_toc.html", {"title": self.title,
@@ -221,7 +221,7 @@ class TableOfContents(Widget):
 class WYSIWYGContent(Widget):
     def __init__(self, *args, **kwargs):
         super(WYSIWYGContent, self).__init__(*args, **kwargs)
-        self.title = 'WYSIWYG Content'
+        self.title = 'WYSIWYG Контент'
         self.form = WYSIWYGContentForm()
         self.multiple = 'true'
 
@@ -241,7 +241,6 @@ class WYSIWYGContent(Widget):
                                                             "title": self.title})
         return mark_safe(html)
 
-
 class FindingList(Widget):
     def __init__(self, *args, **kwargs):
         if 'request' in kwargs:
@@ -255,7 +254,7 @@ class FindingList(Widget):
         if 'findings' in kwargs:
             self.findings = kwargs.get('findings')
         else:
-            raise Exception("Need to instantiate with finding queryset.")
+            raise Exception("Необходимо инициализировать с набором данных находок.")
 
         if 'finding_notes' in kwargs:
             self.finding_notes = kwargs.get('finding_notes')
@@ -269,17 +268,33 @@ class FindingList(Widget):
 
         super(FindingList, self).__init__(*args, **kwargs)
 
-        self.title = 'Finding List'
         if hasattr(self.findings, 'form'):
             self.form = self.findings.form
         else:
             self.form = None
+        
+        # Устанавливаем заголовок на русский
         self.multiple = 'true'
-        self.extra_help = "You can use this form to filter findings and select only the ones to be included in the " \
-                          "report."
+        self.extra_help = "С помощью этой формы вы можете отфильтровать результаты и выбрать только те, которые будут включены в отчет."
         self.title_words = get_words_for_field(Finding, 'title')
         self.component_words = get_words_for_field(Finding, 'component_name')
-
+        self.title = 'Находки'
+        
+        # Устанавливаем метки полей на русский
+        self.form.fields["file_path"].label = "Путь к файлу"
+        self.form.fields["payload"].label = "Нагрузка"
+        self.form.fields["mitigated_by"].label = "Кем смягчено"
+        self.form.fields["tags"].label = "Теги"
+        self.form.fields["inherited_tags"].label = "Унаследованные теги"
+        self.form.fields["test__tags"].label = "Теги (тест)"
+        self.form.fields["test__engagement__tags"].label = "Теги (тест)"
+        self.form.fields["test__engagement__product__tags"].label = "Теги (тест)"
+        
+        fields_info = {field_name: str(field) for field_name, field in self.form.fields.items()}
+        
+        with open('/tmp/file.txt3', "w") as file:
+            file.write(json.dumps(fields_info, ensure_ascii=False, indent=4))
+        
         if self.request is not None:
             self.paged_findings = get_page_items(self.request, self.findings.qs, 25)
         else:
@@ -296,7 +311,7 @@ class FindingList(Widget):
 
     def get_html(self):
         html = render_to_string("dojo/custom_html_report_finding_list.html",
-                                {"title": self.title,
+                                {"title": "Находки",
                                  "findings": self.findings.qs,
                                  "include_finding_notes": self.finding_notes,
                                  "include_finding_images": self.finding_images,
@@ -311,7 +326,7 @@ class FindingList(Widget):
                                  "title_words": self.title_words,
                                  "component_words": self.component_words,
                                  "request": self.request,
-                                 "title": self.title,
+                                 "title": "Находки",
                                  "extra_help": self.extra_help,
                                  })
         return mark_safe(html)
@@ -344,7 +359,7 @@ class EndpointList(Widget):
 
         super(EndpointList, self).__init__(*args, **kwargs)
 
-        self.title = 'Endpoint List'
+        self.title = 'Список конечных точек'
         self.form = self.endpoints.form
         self.multiple = 'false'
         if self.request is not None:
@@ -352,8 +367,8 @@ class EndpointList(Widget):
         else:
             self.paged_endpoints = self.endpoints
         self.multiple = 'true'
-        self.extra_help = "You can use this form to filter endpoints and select only the ones to be included in the " \
-                          "report."
+        self.extra_help = "Вы можете использовать эту форму для фильтрации конечных точек и выбора только тех, которые будут включены в " \
+                          " отчет."
 
     def get_html(self):
         html = render_to_string("dojo/custom_html_report_endpoint_list.html",

@@ -1089,11 +1089,11 @@ class ProductEngagementFilter(DojoFilter):
         field_name="test__version", lookup_expr="icontains", label="Версия теста"
     )
 
-    name = CharFilter(lookup_expr="icontains")
+    name = CharFilter(lookup_expr="icontains",label="Имя содержит")
     status = MultipleChoiceFilter(choices=ENGAGEMENT_STATUS_CHOICES, label="Статус")
 
-    target_start = DateRangeFilter()
-    target_end = DateRangeFilter()
+    target_start = DateRangeFilter(label="Запланированный старт")
+    target_end = DateRangeFilter(label="Запланированный конец")
 
     tags = ModelMultipleChoiceFilter(
         field_name="tags__name",
@@ -1138,6 +1138,7 @@ class ProductEngagementFilter(DojoFilter):
             .filter(engagement__lead__isnull=False)
             .distinct()
         )
+        self.form.fields["tags"].label="Теги"
 
     class Meta:
         model = Product
@@ -2196,7 +2197,7 @@ class MetricsFindingFilter(FindingFilter):
     start_date = DateFilter(field_name="date", label="Дата начала", lookup_expr=("gt"))
     end_date = DateFilter(field_name="date", label="Дата окончания", lookup_expr=("lt"))
     date = MetricsDateRangeFilter()
-    vulnerability_id = CharFilter(method=vulnerability_id_filter, label="Id YyзviMOSTI")
+    vulnerability_id = CharFilter(method=vulnerability_id_filter, label="Id")
 
     not_tags = ModelMultipleChoiceFilter(
         field_name="tags__name",
@@ -2340,13 +2341,13 @@ class EndpointFilter(DojoFilter):
     product = ModelMultipleChoiceFilter(
         queryset=Product.objects.none(), label="Продукт"
     )
-    protocol = CharFilter(lookup_expr="icontains")
-    userinfo = CharFilter(lookup_expr="icontains")
-    host = CharFilter(lookup_expr="icontains")
-    port = NumberFilter()
-    path = CharFilter(lookup_expr="icontains")
-    query = CharFilter(lookup_expr="icontains")
-    fragment = CharFilter(lookup_expr="icontains")
+    protocol = CharFilter(lookup_expr="icontains",label = "Протокол содержит")
+    userinfo = CharFilter(lookup_expr="icontains",label = "Пользовательская информация содержит")
+    host = CharFilter(lookup_expr="icontains",label="Хост содержит")
+    port = NumberFilter(label="Порт содержит")
+    path = CharFilter(lookup_expr="icontains",label="Путь содержит")
+    query = CharFilter(lookup_expr="icontains",label="Запрос содержит")
+    fragment = CharFilter(lookup_expr="icontains",label="Фрагмент содержит")
 
     tags = ModelMultipleChoiceFilter(
         field_name="tags__name",
@@ -2419,6 +2420,16 @@ class EndpointFilter(DojoFilter):
         self.form.fields["product"].queryset = get_authorized_products(
             Permissions.Product_View
         )
+        fields_info = {field_name: str(field) for field_name, field in self.form.fields.items()}
+        self.form.fields["endpoint_params"].label = "Параметры эндпоинта"
+        self.form.fields["tags"].label = "Теги"
+        self.form.fields["inherited_tags"].label = "Унаследованные теги"
+        self.form.fields["test__tags"].label = "Теги (тест)"
+        self.form.fields["test__engagement__tags"].label = "Теги (проверки)"
+        self.form.fields["test__engagement__product__tags"].label = "Теги (продукты)"
+        with open('/tmp/file.txt2', "w") as file:
+            file.write(json.dumps(fields_info, ensure_ascii=False, indent=4))
+        
 
     @property
     def qs(self):
@@ -2719,13 +2730,13 @@ class ApiCredentialsFilter(DojoFilter):
 
 
 class EndpointReportFilter(DojoFilter):
-    protocol = CharFilter(lookup_expr="icontains")
-    userinfo = CharFilter(lookup_expr="icontains")
-    host = CharFilter(lookup_expr="icontains")
-    port = NumberFilter()
-    path = CharFilter(lookup_expr="icontains")
-    query = CharFilter(lookup_expr="icontains")
-    fragment = CharFilter(lookup_expr="icontains")
+    protocol = CharFilter(lookup_expr="icontains",label="Протокол содержит")
+    userinfo = CharFilter(lookup_expr="icontains",label="Пользовательские данные содержат")
+    host = CharFilter(lookup_expr="icontains",label="Хост содержит")
+    port = NumberFilter(label="Порт содержит")
+    path = CharFilter(lookup_expr="icontains",label="Путь содержит")
+    query = CharFilter(lookup_expr="icontains",label="Запрос содержит")
+    fragment = CharFilter(lookup_expr="icontains",label="Фрагмент содержит")
     finding__severity = MultipleChoiceFilter(choices=SEVERITY_CHOICES, label="Тяжесть")
     finding__mitigated = ReportBooleanFilter(label="Дата смягчения")
 
@@ -2873,10 +2884,10 @@ class ReportFindingFilter(FindingFilterWithTags):
 
 
 class UserFilter(DojoFilter):
-    first_name = CharFilter(lookup_expr="icontains")
-    last_name = CharFilter(lookup_expr="icontains")
-    username = CharFilter(lookup_expr="icontains")
-    email = CharFilter(lookup_expr="icontains")
+    first_name = CharFilter(lookup_expr="icontains",label="Имя")
+    last_name = CharFilter(lookup_expr="icontains",label="Фамилия")
+    username = CharFilter(lookup_expr="icontains",label="Имя пользователя")
+    email = CharFilter(lookup_expr="icontains",label="email")
 
     o = OrderingFilter(
         # tuple-mapping retains order
@@ -2909,8 +2920,8 @@ class UserFilter(DojoFilter):
 
 
 class GroupFilter(DojoFilter):
-    name = CharFilter(lookup_expr="icontains")
-    description = CharFilter(lookup_expr="icontains")
+    name = CharFilter(lookup_expr="icontains",label="Имя содержит")
+    description = CharFilter(lookup_expr="icontains",label="Описание содержит")
 
     class Meta:
         model = Dojo_Group
@@ -3096,9 +3107,9 @@ class NoteTypesFilter(DojoFilter):
 
 
 class QuestionnaireFilter(FilterSet):
-    name = CharFilter(lookup_expr="icontains")
-    description = CharFilter(lookup_expr="icontains")
-    active = BooleanFilter()
+    name = CharFilter(lookup_expr="icontains",label="Имя содержит")
+    description = CharFilter(lookup_expr="icontains",label="Описание")
+    active = BooleanFilter(label="Активный")
 
     class Meta:
         model = Engagement_Survey

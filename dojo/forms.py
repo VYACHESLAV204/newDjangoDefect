@@ -1,5 +1,6 @@
 import os
 import re
+import json
 from datetime import datetime, date
 import pickle
 import warnings
@@ -858,19 +859,19 @@ class EngForm(forms.ModelForm):
     name = forms.CharField(
         max_length=300, required=False,
         help_text="Добавьте описательное имя, чтобы определить это взаимодействие." +
-                  "Without a name the target start date will be set.")
+                  "Without a name the target start date will be set.",label="Имя")
     description = forms.CharField(widget=forms.Textarea(attrs={}),
-                                  required=False, help_text="Описание взаимодействия и деталей, касающихся взаимодействия.")
+                                  required=False, help_text="Описание взаимодействия и деталей, касающихся взаимодействия.",label="Описание")
     product = forms.ModelChoiceField(label="Продукт",
                                        queryset=Product.objects.none(),
                                        required=True)
     target_start = forms.DateField(widget=forms.TextInput(
-        attrs={'class': 'datepicker', 'autocomplete': 'off'}))
+        attrs={'class': 'datepicker', 'autocomplete': 'off'}),label="Запланированный старт")
     target_end = forms.DateField(widget=forms.TextInput(
-        attrs={'class': 'datepicker', 'autocomplete': 'off'}))
+        attrs={'class': 'datepicker', 'autocomplete': 'off'}),label="Запланированный финал")
     lead = forms.ModelChoiceField(
         queryset=None,
-        required=True, label="Тестирование лидерства")
+        required=True,label="Руководитель")
     test_strategy = forms.URLField(required=False, label="URL стратегии тестирования")
 
     def __init__(self, *args, **kwargs):
@@ -887,9 +888,19 @@ class EngForm(forms.ModelForm):
             self.user = kwargs.pop('user')
 
         super(EngForm, self).__init__(*args, **kwargs)
+        fields_info = {field_name: str(field) for field_name, field in self.fields.items()}
+        
+        with open('/tmp/file200.txt', "w") as file:
+            file.write(json.dumps(fields_info, ensure_ascii=False, indent=4))
 
+        self.fields["tags"].label = "Теги"
+        self.fields["status"].label = "Статус"
+        self.fields["version"].label = "Версия"
+       
+        self.fields["tracker"].label = "Трекер"
+        
         if product:
-            self.fields['preset'] = forms.ModelChoiceField(help_text="Настройки и заметки для выполнения этого взаимодействия.", required=False, queryset=Engagement_Presets.objects.filter(product=product))
+            self.fields['preset'] = forms.ModelChoiceField(help_text="Настройки и заметки для выполнения этого взаимодействия.", required=False, queryset=Engagement_Presets.objects.filter(product=product),label = "Пресет")
             self.fields['lead'].queryset = get_authorized_users_for_product_and_product_type(None, product, Permissions.Product_View).filter(is_active=True)
         else:
             self.fields['lead'].queryset = get_authorized_users(Permissions.Engagement_View).filter(is_active=True)
@@ -1545,12 +1556,12 @@ class EditEndpointForm(forms.ModelForm):
 
 
 class AddEndpointForm(forms.Form):
-    endpoint = forms.CharField(max_length=5000, required=True, label="Конечная точка (ы)",
+    endpoint = forms.CharField(max_length=5000, required=True, label="Конечная точка (и)",
                                help_text="IP -адрес, имя хоста или полный URL.Вы можете ввести одну конечную точку на строку."
                                          "Each must be valid.",
                                widget=forms.widgets.Textarea(attrs={'rows': '15', 'cols': '400'}))
     product = forms.CharField(required=True,
-                              widget=forms.widgets.HiddenInput(), help_text="Продукт, который должен быть эта конечная точка"
+                              widget=forms.widgets.HiddenInput(), help_text="Продукт, который должен быть эта конечная точка",label="Продукт"
                                                                             "associated with.")
     tags = TagField(required=False,
                     help_text="Добавьте теги, которые помогают описать эту конечную точку."
@@ -1561,7 +1572,9 @@ class AddEndpointForm(forms.Form):
         if 'product' in kwargs:
             product = kwargs.pop('product')
         super(AddEndpointForm, self).__init__(*args, **kwargs)
-        self.fields['product'] = forms.ModelChoiceField(queryset=get_authorized_products(Permissions.Endpoint_Add))
+        self.fields["tags"].label = "Теги"
+        self.fields["product"].label = "Продукт"
+        self.fields['product'] = forms.ModelChoiceField(queryset=get_authorized_products(Permissions.Endpoint_Add),label="Продукт")
         if product is not None:
             self.fields['product'].initial = product.id
 
@@ -1827,7 +1840,7 @@ class SimpleMetricsForm(forms.Form):
 
 
 class SimpleSearchForm(forms.Form):
-    query = forms.CharField(required=False)
+    query = forms.CharField(required=False,label="Поиск")
 
 
 class DateRangeMetrics(forms.Form):
@@ -2214,11 +2227,11 @@ class ReportOptionsForm(forms.Form):
 
 
 class CustomReportOptionsForm(forms.Form):
-    yes_no = (('0', 'No'), ('1', 'Yes'))
-    report_name = forms.CharField(required=False, max_length=100)
-    include_finding_notes = forms.ChoiceField(required=False, choices=yes_no)
+    yes_no = (('0', 'Нет'), ('1', 'Да'))
+    report_name = forms.CharField(required=False, max_length=100,label="Имя отчёта")
+    include_finding_notes = forms.ChoiceField(required=False, choices=yes_no,label="Включать поисковые заметки")
     include_finding_images = forms.ChoiceField(choices=yes_no, label="Поиск изображений")
-    report_type = forms.ChoiceField(choices=(('HTML', 'HTML'), ('AsciiDoc', 'AsciiDoc')))
+    report_type = forms.ChoiceField(choices=(('HTML', 'HTML'), ('AsciiDoc', 'AsciiDoc')),label="Тип отчёта")
 
 
 class DeleteFindingForm(forms.ModelForm):
@@ -3238,7 +3251,7 @@ class Add_Questionnaire_Form(forms.ModelForm):
         queryset=Engagement_Survey.objects.all(),
         required=True,
         widget=forms.widgets.Select(),
-        help_text="Выберите вопросник, чтобы добавить.")
+        help_text="Выберите вопросник, чтобы добавить.",label="Обзор")
 
     class Meta:
         model = Answered_Survey
@@ -3253,10 +3266,10 @@ class AddGeneralQuestionnaireForm(forms.ModelForm):
     survey = forms.ModelChoiceField(
         queryset=Engagement_Survey.objects.all(),
         required=True,
-        widget=forms.widgets.Select(),
+        widget=forms.widgets.Select(),label="Обзор",
         help_text="Выберите вопросник, чтобы добавить.")
     expiration = forms.DateField(widget=forms.TextInput(
-        attrs={'class': 'datepicker', 'autocomplete': 'off'}))
+        attrs={'class': 'datepicker', 'autocomplete': 'off'}),label="Экспирация")
 
     class Meta:
         model = General_Survey

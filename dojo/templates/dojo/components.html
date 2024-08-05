@@ -84,6 +84,20 @@
 {% block postscript %}
     {{ block.super }}
 <script>
+     setTimeout(function() {
+        var labelElement = document.querySelector("#components_filter > label");
+    
+        // Проверяем, что элемент существует
+        if (labelElement) {
+            // Меняем текст внутри элемента <label>
+            labelElement.innerHTML = 'Искать: <input type="search" class="form-control input-sm" placeholder="" aria-controls="components">';
+        } else {
+            console.error('Элемент <label> не найден.');
+        }
+    }, 200);
+     
+</script>
+    <script>
         $(function () {
             //Ensures dropdown has proper zindex
             $('.table-responsive').on('show.bs.dropdown', function () {

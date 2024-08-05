@@ -2219,7 +2219,7 @@
           <code>  &lt;form action="AppScan.html" method="get"&gt;
       Username: &lt;input type="text" name="firstname" /&gt;&lt;br /&gt;
       Password: &lt;input type="password" name="lastname" /&gt;
-      &lt;input type="submit" value="Submit" /&gt;
+      &lt;input type="submit" value="Добавить" /&gt;
   &lt;form&gt;
 </code>
           <br />
@@ -2227,7 +2227,7 @@
           <code>  &lt;form action="AppScan.html" method="get"&gt;
       Username: &lt;input type="text" name="firstname" /&gt;&lt;br /&gt;
       Password: &lt;input type="password" name="lastname" autocomplete="off"/&gt;
-      &lt;input type="submit" value="Submit" /&gt;
+      &lt;input type="submit" value="Добавить" /&gt;
   &lt;form&gt;
 </code>
         </fixRecommendation>
@@ -11841,7 +11841,7 @@ Content-Type: text/html;charset=ISO-8859-1
    &lt;p&gt;&lt;span id="_ctl0__ctl0_Content_Main_message" style="color:#FF0066;font-size:12pt;font-weight:bold;"&gt;
    
    &lt;/span&gt;&lt;/p&gt;   
-   &lt;form method="post" name="Credit" action="ccApply"&gt;&lt;table border=0&gt;&lt;tr&gt;&lt;td&gt;Password:&lt;/td&gt;&lt;td&gt;--begin_highlight_tag--&lt;input type="password" name="passwd"&gt;--end_highlight_tag--&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;input type="submit" name="Submit" value="Submit"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/form&gt;&lt;/span&gt;
+   &lt;form method="post" name="Credit" action="ccApply"&gt;&lt;table border=0&gt;&lt;tr&gt;&lt;td&gt;Password:&lt;/td&gt;&lt;td&gt;--begin_highlight_tag--&lt;input type="password" name="passwd"&gt;--end_highlight_tag--&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;input type="submit" name="Submit" value="Добавить"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/form&gt;&lt;/span&gt;
   &lt;/div&gt;
     &lt;/td&gt; 
 &lt;/div&gt;
@@ -11971,7 +11971,7 @@ Content-Type: text/html;charset=ISO-8859-1
 			&lt;p&gt;&lt;span id="_ctl0__ctl0_Content_Main_message" style="color:#FF0066;font-size:12pt;font-weight:bold;"&gt;
 			
 			&lt;/span&gt;&lt;/p&gt;			
-			&lt;form method="post" name="Credit" action="ccApply"&gt;&lt;table border=0&gt;&lt;tr&gt;&lt;td&gt;Password:&lt;/td&gt;&lt;td&gt;--begin_highlight_tag--&lt;input type="password" name="passwd"&gt;--end_highlight_tag--&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;input type="submit" name="Submit" value="Submit"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/form&gt;&lt;/span&gt;
+			&lt;form method="post" name="Credit" action="ccApply"&gt;&lt;table border=0&gt;&lt;tr&gt;&lt;td&gt;Password:&lt;/td&gt;&lt;td&gt;--begin_highlight_tag--&lt;input type="password" name="passwd"&gt;--end_highlight_tag--&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;input type="submit" name="Submit" value="Добавить"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/form&gt;&lt;/span&gt;
 		&lt;/div&gt;
     &lt;/td&gt;	
 &lt;/div&gt;
@@ -12781,7 +12781,7 @@ Content-Type: text/html;charset=ISO-8859-1
 			&lt;p&gt;&lt;span id="_ctl0__ctl0_Content_Main_message" style="color:#FF0066;font-size:12pt;font-weight:bold;"&gt;
 			
 			&lt;/span&gt;&lt;/p&gt;			
-			&lt;form method="post" name="Credit" action="ccApply"&gt;&lt;table border=0&gt;&lt;tr&gt;&lt;td&gt;Password:&lt;/td&gt;&lt;td&gt;&lt;input type="password" name="passwd"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;input type="submit" name="Submit" value="Submit"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/form&gt;&lt;/span&gt;
+			&lt;form method="post" name="Credit" action="ccApply"&gt;&lt;table border=0&gt;&lt;tr&gt;&lt;td&gt;Password:&lt;/td&gt;&lt;td&gt;&lt;input type="password" name="passwd"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;/td&gt;&lt;td&gt;&lt;input type="submit" name="Submit" value="Добавить"&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/form&gt;&lt;/span&gt;
 		&lt;/div&gt;
     &lt;/td&gt;	
 &lt;/div&gt;

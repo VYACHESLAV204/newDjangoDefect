@@ -8,7 +8,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading tight">
                     <h3 class="has-filters">
-                        GitHub Configuration List
+                        Список конфигурации GitHub
                         <div class="dropdown pull-right">
                             {% if "dojo.add_github_conf"|has_configuration_permission:request %}
                             <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1"
@@ -20,7 +20,7 @@
                                 aria-labelledby="dropdownMenu1">
                                     <li role="presentation">
                                         <a href="{% url 'add_github' %}">
-                                            <i class="fa-solid fa-plus"></i> Add GitHub Configuration
+                                            <i class="fa-solid fa-plus"></i> Добавить конфигурацию GitHub
                                         </a>
                                     </li>
                             </ul>
@@ -40,7 +40,7 @@
                            class="tablesorter-bootstrap table table-condensed table-striped">
                         <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>Имя</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -54,7 +54,7 @@
                                     {% if "dojo.delete_github_conf"|has_configuration_permission:request %}
                                     <a href="{% url 'delete_github' conf.id %}" class="btn btn-sm btn-danger">
                                         <i class="fa-solid fa-trash" style="color:white"></i>
-                                        Delete
+                                        Удалить
                                     </a>
                                     {% endif %}
                                 </td>
@@ -67,7 +67,7 @@
                     {% include "dojo/paging_snippet.html" with page=confs page_size=True %}
                 </div>
             {% else %}
-                <p class="text-center">No GitHub configurations found.</p>
+                <p class="text-center">Не найдена конфигурация GitHub</p>
             {% endif %}
         </div>
     </div>

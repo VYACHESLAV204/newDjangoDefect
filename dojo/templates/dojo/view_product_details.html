@@ -496,29 +496,29 @@
     {% if system_settings.enable_finding_sla %}
     <div class="panel panel-default panel-default-secondary">
     <div class="panel-heading">
-      <h3 class="panel-title flex-start"><span class="fa-solid fa-calendar-check fa-fw" aria-hidden="true"></span>&nbsp;Service Level Agreement</h3>
+      <h3 class="panel-title flex-start"><span class="fa-solid fa-calendar-check fa-fw" aria-hidden="true"></span>&nbsp;Соглашение об уровне обслуживания</h3>
     </div><div class="panel-body">
-        <p>{{ sla.name }}</p>
-        <p>{{ sla.description }}</p>
+        <p>По умолчанию</p>
+   
       </div>
     <div class="table-responsive">
       <table class="table table-striped" >
         <tbody>
           <tr>
-            <td style="width: 160px;"><strong>Critical</strong></td>
-            <td>{{ sla.critical }} days to remediate</td>
+            <td style="width: 160px;"><strong>Критичный</strong></td>
+            <td>{{ sla.critical }} дней на устранение недостатков</td>
           </tr>
           <tr>
-            <td style="width: 160px;"><strong>High</strong></td>
-            <td>{{ sla.high }} days to remediate</td>
+            <td style="width: 160px;"><strong>Высокий</strong></td>
+            <td>{{ sla.high }} дней на устранение недостатков</td>
           </tr>
           <tr>
-            <td style="width: 160px;"><strong>Medium</strong></td>
-            <td>{{ sla.medium }} days to remediate</td>
+            <td style="width: 160px;"><strong>Средний</strong></td>
+            <td>{{ sla.medium }} дней на устранение недостатков</td>
           </tr>
           <tr>
-            <td style="width: 160px;"><strong>Low</strong></td>
-            <td>{{ sla.low }} days to remediate</td>
+            <td style="width: 160px;"><strong>Низкий</strong></td>
+            <td>{{ sla.low }} дней на устранение недостатков</td>
           </tr>
         </tbody>
       </table>

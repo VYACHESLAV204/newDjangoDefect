@@ -15,12 +15,12 @@
           <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
                             <li role="presentation">
                                 <a class="" href="{% url 'new_eng_for_prod' prod.id %}">
-                                    <i class="fa-solid fa-plus"></i> Add New Interactive Engagement
+                                    <i class="fa-solid fa-plus"></i> Добавить новую интерактивную проверку
                                 </a>
                             </li>
                             <li role="presentation">
                                 <a class="" href="{% url 'new_eng_for_prod_cicd' prod.id %}">
-                                    <i class="fa-solid fa-plus"></i> Add New CI/CD Engagement
+                                    <i class="fa-solid fa-plus"></i> Добавить новую CI/CD проверку
                                 </a>
                             </li>
                     </ul>
@@ -39,22 +39,22 @@
                 <thead>
                 <tr>
                     <th></th>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Lead</th>
-                    <th class="text-left">Date</th>
-                    <th class="text-left">Length</th>
+                    <th>Имя</th>
+                    <th>Тип</th>
+                    <th>Руководитель</th>
+                    <th class="text-left">Дата</th>
+                    <th class="text-left">Длина</th>
                     {% if system_settings.enable_jira %}
                     <th class="text-center">JIRA</td>
                     {% endif %}
-                    <th class="text-center">Tests</th>
-                    <th class="text-center">Active (Verified)</th>
-                    <th class="text-center">Mitigated</th>
-                    <th class="text-center">Accepted</th>
-                    <th class="text-center">All</th>
-                    <th class="text-center">Duplicates</th>
+                    <th class="text-center">Тесты</th>
+                    <th class="text-center">Активный (Проверенный)</th>
+                    <th class="text-center">Смягченный</th>
+                    <th class="text-center">Принятый</th>
+                    <th class="text-center">Все</th>
+                    <th class="text-center">Дубликаты</th>
                     {% if status == "paused" or status == "closed" %}
-                      <th class="text-left">Status</th>
+                      <th class="text-left">Статус</th>
                     {% endif %}
                 </tr>
                 </thead>

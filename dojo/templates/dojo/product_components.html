@@ -8,7 +8,7 @@
         <div class="panel panel-default">
             <div class="panel-heading tight">
                     <h3 class="has-filters" style="justify-content:space-between;">
-                        Components
+                        Компоненты
                         <div class="dropdown pull-right">
                             <button id="show-filters" data-toggle="collapse" data-target="#the-filters" class="btn btn-primary toggle-filters"> <i class="fa-solid fa-filter"></i> <i class="caret"></i> </button>
                         </div>
@@ -25,11 +25,11 @@
             <table id="components-table" class="tablesorter-bootstrap table table-condensed table-striped">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Version</th>
-                        <th class="text-center">Active</th>
-                        <th class="text-center">Duplicate</th>
-                        <th class="text-center">Total</th>
+                        <th>Имя</th>
+                        <th>Версия</th>
+                        <th class="text-center">Активный</th>
+                        <th class="text-center">Дубликат</th>
+                        <th class="text-center">Всего</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -100,6 +100,19 @@
                 source: availableTags
             });
         });
+</script>
+<script>
+setTimeout(function() {
+    var labelElement = document.querySelector("#components-table_filter > label");
+
+    // Проверяем, что элемент существует
+    if (labelElement) {
+        // Меняем текст внутри элемента <label>
+        labelElement.innerHTML = 'Искать: <input type="search" class="form-control input-sm" placeholder="" aria-controls="components">';
+    } else {
+        console.error('Элемент <label> не найден.');
+    }
+}, 200);
 </script>
 <script>
     // DataTables setup

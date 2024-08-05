@@ -415,7 +415,7 @@ class ListFindings(View, BaseListFindings):
                 )
         # Show the "All findings" breadcrumb if nothing is coming from the product or engagement
         elif not self.get_engagement_id() and not self.get_product_id():
-            add_breadcrumb(title="Findings", top_level=not len(request.GET), request=request)
+            add_breadcrumb(title="Находки", top_level=not len(request.GET), request=request)
 
         return request, context
 

@@ -142,8 +142,8 @@
                                 <table class="tablesorter-bootstrap table table-condensed table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Test Type</th>
-                                            <th>Network</th>
+                                            <th>Тип теста</th>
+                                            <th>Сеть</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -244,16 +244,16 @@
                                 <thead>
                                     <tr>
                                         <th></th>
-                                        <th>Title / Type</th>
-                                        <th>Date</th>
-                                        <th>Lead</th>
-                                        <th>Total Findings</th>
-                                        <th>Active (Verified)</th>
-                                        <th>Mitigated</th>
-                                        <th>Duplicates</th>
-                                        <th>Notes</th>
+                                        <th>Заголовок / Тип</th>
+                                        <th>Дата</th>
+                                        <th>Владелец</th>
+                                        <th>Всего находок</th>
+                                        <th>Активных (Подтверждено)</th>
+                                        <th>Смягчено</th>
+                                        <th>Дубликаты</th>
+                                        <th>Заметки</th>
                                         {% if 'TRACK_IMPORT_HISTORY'|setting_enabled %}
-                                            <th>Reimports</th>
+                                            <th>Реимпортировано</th>
                                         {% endif %}
                                     </tr>
                                 </thead>
@@ -386,15 +386,15 @@
                                         <tr>
                                             {% block risk_acceptance_header %}
                                             <th></th>
-                                            <th>Date</th>
-                                            <th>Accepted By</th>
-                                            <th>Name</th>
-                                            <th>Decision</th>
+                                            <th>Дата</th>
+                                            <th>Принято</th>
+                                            <th>Имя</th>
+                                            <th>Решение</th>
                                             <!-- <th>Decision Details</th> -->
-                                            <th>Expiration</th>
-                                            <th>Findings</th>
-                                            <th>Proof</th>
-                                            <th>Owner</th>
+                                            <th>Экспирация</th>
+                                            <th>Находки</th>
+                                            <th>Доказательство</th>
+                                            <th>Владелец</th>
                                             {% endblock risk_acceptance_header %}
                                         </tr>
                                     </thead>
@@ -491,14 +491,14 @@
                                             <table class="tablesorter-bootstrap table table-condensed table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th>Session</th>
-                                                        <th>Encryption</th>
-                                                        <th>Configuration</th>
-                                                        <th>Authentication</th>
-                                                        <th>Authorization</th>
-                                                        <th>Data Input</th>
-                                                        <th>Sensitive Data</th>
-                                                        <th>Other</th>
+                                                        <th>Сессия</th>
+                                                        <th>Шифрование</th>
+                                                        <th>Конфигурация</th>
+                                                        <th>Аутентификация</th>
+                                                        <th>Авторизация</th>
+                                                        <th>Входные данные</th>
+                                                        <th>Чувствительные данные</th>
+                                                        <th>Другое</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -932,9 +932,9 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
+                                        <th>Имя</th>
                                         <th></th>
-                                        <th>Username</th>
+                                        <th>Логин</th>
                                     </tr>
                                 </thead>
                                 <tbody>
