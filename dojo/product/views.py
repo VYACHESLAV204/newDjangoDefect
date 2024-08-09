@@ -658,11 +658,11 @@ def view_engagements(request, pid):
     # Cancelled or Completed Engagements
     engs = Engagement.objects.filter(product=prod, active=False).order_by('-target_end')
     inactive_engs_filter = ProductEngagementFilter(request.GET, queryset=engs, prefix='closed')
-    result_inactive_engs = get_page_items(request, inactive_engs_filter.qs, default_page_num, prefix="inactive_engs")
+    result_inactive_egs = get_page_items(request, inactive_engs_filter.qs, default_page_num, prefix="inactive_engs")
     result_inactive_engs.object_list = prefetch_for_view_engagements(result_inactive_engs.object_list,
                                                                      recent_test_day_count)
 
-    product_tab = Product_Tab(prod, title=_("All Engagements"), tab="engagements")
+    product_tab = Product_Tab(prod, title=_("All Engagements"), tab="Задания")
     return render(request, 'dojo/view_engagements.html', {
         'prod': prod,
         'product_tab': product_tab,

@@ -1124,7 +1124,7 @@ def view_engineer(request, eid):
 
     details = sorted(details, key=lambda x: x[2])
 
-    add_breadcrumb(title="%s Metrics" % user.get_full_name(), top_level=False, request=request)
+    add_breadcrumb(title="%s Метрики" % user.get_full_name(), top_level=False, request=request)
 
     return render(request, 'dojo/view_engineer.html', {
         'open_month': open_month,

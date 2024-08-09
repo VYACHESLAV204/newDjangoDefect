@@ -51,7 +51,7 @@ def report_url_resolver(request):
 
 
 def report_builder(request):
-    add_breadcrumb(title="Report Builder", top_level=True, request=request)
+    add_breadcrumb(title="Строитель отсчётов", top_level=True, request=request)
     findings = get_authorized_findings(Permissions.Finding_View)
     findings = ReportFindingFilter(request.GET, queryset=findings)
     endpoints = Endpoint.objects.filter(finding__active=True,
@@ -238,7 +238,7 @@ def product_endpoint_report(request, pid):
     if include_disclaimer and len(disclaimer) == 0:
         disclaimer = 'Please configure in System Settings.'
     generate = "_generate" in request.GET
-    add_breadcrumb(parent=product, title="Vulnerable Product Endpoints Report", top_level=False, request=request)
+    add_breadcrumb(parent=product, title="Отчет об уязвимых конечных точках продуктов", top_level=False, request=request)
     report_form = ReportOptionsForm()
     template = "dojo/product_endpoint_pdf_report.html"
 
@@ -373,7 +373,7 @@ def generate_report(request, obj, host_view=False):
         disclaimer = 'Please configure in System Settings.'
     generate = "_generate" in request.GET
     report_name = str(obj)
-    add_breadcrumb(title="Generate Report", top_level=False, request=request)
+    add_breadcrumb(title="Создать отчет", top_level=False, request=request)
     if type(obj).__name__ == "Product_Type":
         product_type = obj
         template = "dojo/product_type_pdf_report.html"

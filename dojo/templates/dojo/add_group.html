@@ -18,13 +18,13 @@
 <form class="form-horizontal" method="post">{% csrf_token %}
     <fieldset>
         {% block group_form %}
-            <legend>Default Information</legend>
+            <legend>Информация по умолчанию</legend>
             {% include "dojo/form_fields.html" with form=form %}
         {% endblock group_form %}
     </fieldset>
     <fieldset>
         {% block global_role_form %}
-            <legend>Global Role</legend>
+            <legend>Глобальная роль</legend>
             {% include "dojo/form_fields.html" with form=global_role_form %}
         {% endblock global_role_form %}
     </fieldset>

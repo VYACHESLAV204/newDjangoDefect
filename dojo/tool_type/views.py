@@ -30,7 +30,7 @@ def new_tool_type(request):
         tform = ToolTypeForm()
         if 'name' in request.GET:
             tform.fields['name'].initial = request.GET.get('name')
-        add_breadcrumb(title=_("New Tool Type Configuration"), top_level=False, request=request)
+        add_breadcrumb(title=_("Конфигурация нового типа инструмента"), top_level=False, request=request)
 
     return render(request, 'dojo/new_tool_type.html', {'tform': tform})
 
@@ -50,7 +50,7 @@ def edit_tool_type(request, ttid):
     else:
         tform = ToolTypeForm(instance=tool_type)
 
-    add_breadcrumb(title=_("Edit Tool Type"), top_level=False, request=request)
+    add_breadcrumb(title=_("Редактирование типа инструмента"), top_level=False, request=request)
 
     return render(request, 'dojo/edit_tool_type.html', {'tform': tform})
 
@@ -58,6 +58,6 @@ def edit_tool_type(request, ttid):
 @user_is_configuration_authorized('dojo.view_tool_type')
 def tool_type(request):
     confs = Tool_Type.objects.all().order_by('name')
-    add_breadcrumb(title=_("Tool Type List"), top_level=not len(request.GET), request=request)
+    add_breadcrumb(title=_("Список типов инструментов"), top_level=not len(request.GET), request=request)
 
     return render(request, 'dojo/tool_type.html', {'confs': confs})

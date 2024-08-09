@@ -20,7 +20,7 @@ def note_type(request):
     name_words = initial_queryset.values_list('name', flat=True)
     ntl = NoteTypesFilter(request.GET, queryset=initial_queryset)
     nts = get_page_items(request, ntl.qs, 25)
-    add_breadcrumb(title="Note Type List", top_level=True, request=request)
+    add_breadcrumb(title="Список типов заметок", top_level=True, request=request)
     return render(request, 'dojo/note_type.html', {
         'name': 'Note Type List',
         'metric': False,
@@ -47,7 +47,7 @@ def edit_note_type(request, ntid):
             )
             return HttpResponseRedirect(reverse("note_type"))
 
-    add_breadcrumb(title="Edit Note Type", top_level=False, request=request)
+    add_breadcrumb(title="Изменить тип заметки", top_level=False, request=request)
     return render(request, 'dojo/edit_note_type.html', {
         'name': 'Edit Note Type',
         'metric': False,
@@ -72,7 +72,7 @@ def disable_note_type(request, ntid):
         )
         return HttpResponseRedirect(reverse("note_type"))
 
-    add_breadcrumb(title="Disable Note Type", top_level=False, request=request)
+    add_breadcrumb(title="Отключить тип заметки", top_level=False, request=request)
     return render(request, 'dojo/disable_note_type.html', {
         'name': 'Disable Note Type',
         'metric': False,
@@ -96,7 +96,7 @@ def enable_note_type(request, ntid):
             extra_tags="alert-success",
         )
         return HttpResponseRedirect(reverse("note_type"))
-    add_breadcrumb(title="Enable Note Type", top_level=False, request=request)
+    add_breadcrumb(title="Включить тип заметки", top_level=False, request=request)
     return render(request, 'dojo/enable_note_type.html', {
         'name': 'Enable Note Type',
         'metric': False,
@@ -117,7 +117,7 @@ def add_note_type(request):
                                  'Note Type added successfully.',
                                  extra_tags='alert-success')
             return HttpResponseRedirect(reverse('note_type'))
-    add_breadcrumb(title="Add Note Type", top_level=False, request=request)
+    add_breadcrumb(title="Добавить тип заметки", top_level=False, request=request)
     return render(request, 'dojo/add_note_type.html', {
         'name': 'Add Note Type',
         'metric': False,

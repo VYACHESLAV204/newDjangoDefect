@@ -52,14 +52,14 @@ def process_endpoints_view(request, host_view=False, vulnerable=False):
     paged_endpoints = get_page_items(request, endpoints.qs, 25)
 
     if vulnerable:
-        view_name = "Vulnerable"
+        view_name = "Уязвимые"
     else:
-        view_name = "All"
+        view_name = "Все"
 
     if host_view:
-        view_name += " Hosts"
+        view_name += " Хосты"
     else:
-        view_name += " Endpoints"
+        view_name += " Эндпоинты"
 
     add_breadcrumb(title=view_name, top_level=not len(request.GET), request=request)
 
@@ -280,7 +280,7 @@ def add_product_endpoint(request):
                                  'Endpoint added successfully.',
                                  extra_tags='alert-success')
             return HttpResponseRedirect(reverse('endpoint') + "?product=%s" % form.product.id)
-    add_breadcrumb(title="Add Endpoint", top_level=False, request=request)
+    add_breadcrumb(title="Добавить эндпоинт", top_level=False, request=request)
     return render(request,
                   'dojo/add_endpoint.html',
                   {'name': 'Add Endpoint',
@@ -306,7 +306,7 @@ def add_meta_data(request, eid):
     else:
         form = DojoMetaDataForm()
 
-    add_breadcrumb(parent=endpoint, title="Add Metadata", top_level=False, request=request)
+    add_breadcrumb(parent=endpoint, title="Добавить метаданные", top_level=False, request=request)
     product_tab = Product_Tab(endpoint.product, "Add Metadata", tab="endpoints")
     return render(request,
                   'dojo/add_endpoint_meta_data.html',
@@ -503,7 +503,7 @@ def import_endpoint_meta(request, pid):
                 add_error_message_to_response('An exception error occurred during the report import:%s' % str(e))
             return HttpResponseRedirect(reverse('endpoint') + "?product=" + pid)
 
-    add_breadcrumb(title="Endpoint Meta Importer", top_level=False, request=request)
+    add_breadcrumb(title="Импортёр метаданных эндпоинтов", top_level=False, request=request)
     product_tab = Product_Tab(product, title="Endpoint Meta Importer", tab="endpoints")
     return render(request, 'dojo/endpoint_meta_importer.html', {
         'product_tab': product_tab,

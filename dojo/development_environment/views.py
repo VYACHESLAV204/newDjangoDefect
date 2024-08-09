@@ -25,7 +25,7 @@ def dev_env(request):
                   initial_queryset]
     devs = DevelopmentEnvironmentFilter(request.GET, queryset=initial_queryset)
     dev_page = get_page_items(request, devs.qs, 25)
-    add_breadcrumb(title="Environment List", top_level=True, request=request)
+    add_breadcrumb(title="Список окружающей среды", top_level=True, request=request)
     return render(request, 'dojo/dev_env.html', {
         'name': 'Environment',
         'metric': False,
@@ -47,7 +47,7 @@ def add_dev_env(request):
                                  'Environment added successfully.',
                                  extra_tags='alert-success')
             return HttpResponseRedirect(reverse('dev_env'))
-    add_breadcrumb(title="Add Environment", top_level=False, request=request)
+    add_breadcrumb(title="Добавить список окружающей среды", top_level=False, request=request)
     return render(request, 'dojo/new_dev_env.html', {
         'name': 'Add Environment',
         'metric': False,
@@ -89,7 +89,7 @@ def edit_dev_env(request, deid):
                                         extra_tags='alert-warning')
             return HttpResponseRedirect(reverse('dev_env'))
 
-    add_breadcrumb(title="Edit Environment", top_level=False, request=request)
+    add_breadcrumb(title="Редактировать список окружающей среды", top_level=False, request=request)
     return render(request, 'dojo/edit_dev_env.html', {
         'name': 'Edit Environment',
         'metric': False,

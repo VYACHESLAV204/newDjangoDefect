@@ -93,7 +93,7 @@ def api_v2_key(request):
             api_key = Token.objects.get(user=request.user)
         except Token.DoesNotExist:
             api_key = Token.objects.create(user=request.user)
-    add_breadcrumb(title=_("API Key"), top_level=True, request=request)
+    add_breadcrumb(title=_("API Ключ"), top_level=True, request=request)
 
     return render(request, 'dojo/api_v2_key.html',
                   {'name': _('API v2 Key'),
@@ -167,7 +167,7 @@ def alerts(request):
         alerts = alerts.filter(~Q(id__in=removed_alerts))
 
     paged_alerts = get_page_items(request, alerts, 25)
-    alert_title = "Alerts"
+    alert_title = "Оповещения"
     if request.user.get_full_name():
         alert_title += " for " + request.user.get_full_name()
 
@@ -254,7 +254,7 @@ def view_profile(request):
                                  messages.SUCCESS,
                                  _('Profile updated successfully.'),
                                  extra_tags='alert-success')
-    add_breadcrumb(title=_("User Profile - %(user_full_name)s") % {'user_full_name': user.get_full_name()}, top_level=True, request=request)
+    add_breadcrumb(title=_("Профиль пользователя - %(user_full_name)s") % {'user_full_name': user.get_full_name()}, top_level=True, request=request)
     return render(request, 'dojo/profile.html', {
         'user': user,
         'form': form,
@@ -282,13 +282,13 @@ def change_password(request):
                                     extra_tags='alert-success')
             return HttpResponseRedirect(reverse('view_profile'))
 
-    add_breadcrumb(title=_("Change Password"), top_level=False, request=request)
+    add_breadcrumb(title=_("Изменить пароль"), top_level=False, request=request)
     return render(request, 'dojo/change_pwd.html', {'form': form})
 
 
 @user_is_configuration_authorized('auth.view_user')
 def user(request):
-    page_name = _("All Users")
+    page_name = _("Все пользователи")
     users = Dojo_User.objects.all() \
         .select_related('usercontactinfo', 'global_role') \
         .order_by('username', 'last_name', 'first_name')
@@ -304,7 +304,7 @@ def user(request):
 
 @user_is_configuration_authorized('auth.add_user')
 def add_user(request):
-    page_name = _("Add User")
+    page_name = _("Добавить пользователя")
     form = AddDojoUserForm()
     contact_form = UserContactInfoForm()
     global_role_form = GlobalRoleForm()
@@ -367,7 +367,7 @@ def view_user(request, uid):
     group_members = get_authorized_group_members_for_user(user)
     configuration_permission_form = ConfigurationPermissionsForm(user=user)
 
-    add_breadcrumb(title=_("View User"), top_level=False, request=request)
+    add_breadcrumb(title=_("Просмотр пользователя"), top_level=False, request=request)
     return render(request, 'dojo/view_user.html', {
         'user': user,
         'product_members': product_members,
@@ -378,7 +378,7 @@ def view_user(request, uid):
 
 @user_is_configuration_authorized('auth.change_user')
 def edit_user(request, uid):
-    page_name = _("Edit User")
+    page_name = _("Изменить пользователя")
     user = get_object_or_404(Dojo_User, id=uid)
     form = EditDojoUserForm(instance=user)
 
@@ -487,7 +487,7 @@ def delete_user(request, uid):
     collector.collect([user])
     rels = collector.nested()
 
-    add_breadcrumb(title=_("Delete User"), top_level=False, request=request)
+    add_breadcrumb(title=_("Удалить пользователя"), top_level=False, request=request)
     return render(request, 'dojo/delete_user.html',
                   {'to_delete': user,
                    'form': form,
@@ -516,7 +516,7 @@ def add_product_type_member(request, uid):
                                     _('Product type members added successfully.'),
                                     extra_tags='alert-success')
                 return HttpResponseRedirect(reverse('view_user', args=(uid, )))
-    add_breadcrumb(title=_("Add Product Type Member"), top_level=False, request=request)
+    add_breadcrumb(title=_("Добавить тип продукта"), top_level=False, request=request)
     return render(request, 'dojo/new_product_type_member_user.html', {
         'user': user,
         'form': memberform,
@@ -544,7 +544,7 @@ def add_product_member(request, uid):
                                 _('Product members added successfully.'),
                                 extra_tags='alert-success')
             return HttpResponseRedirect(reverse('view_user', args=(uid, )))
-    add_breadcrumb(title=_("Add Product Member"), top_level=False, request=request)
+    add_breadcrumb(title=_("Добавить часть продукта"), top_level=False, request=request)
     return render(request, 'dojo/new_product_member_user.html', {
         'user': user,
         'form': memberform,
@@ -574,7 +574,7 @@ def add_group_member(request, uid):
                                  extra_tags='alert-success')
             return HttpResponseRedirect(reverse('view_user', args=(uid,)))
 
-    add_breadcrumb(title=_("Add Group Member"), top_level=False, request=request)
+    add_breadcrumb(title=_("Добавить члена группы"), top_level=False, request=request)
     return render(request, 'dojo/new_group_member_user.html', {
         'user': user,
         'form': memberform

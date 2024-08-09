@@ -335,7 +335,7 @@ def express_new_jira(request):
             return HttpResponseRedirect(reverse('jira', ))
     else:
         jform = ExpressJIRAForm()
-        add_breadcrumb(title="New Jira Configuration (Express)", top_level=False, request=request)
+        add_breadcrumb(title="Новая конфигурация JIRA (Быстрая)", top_level=False, request=request)
     return render(request, 'dojo/express_new_jira.html', {'jform': jform})
 
 
@@ -371,7 +371,7 @@ def new_jira(request):
             logger.error('jform.errors: %s', jform.errors)
     else:
         jform = JIRAForm()
-        add_breadcrumb(title="New Jira Configuration", top_level=False, request=request)
+        add_breadcrumb(title="Новая конфигурация JIRA", top_level=False, request=request)
     return render(request, 'dojo/new_jira.html', {'jform': jform})
 
 
@@ -413,7 +413,7 @@ def edit_jira(request, jid):
 
     else:
         jform = JIRAForm(instance=jira)
-        add_breadcrumb(title="Edit JIRA Configuration", top_level=False, request=request)
+        add_breadcrumb(title="Изменить конфигурацию JIRA", top_level=False, request=request)
 
     return render(request, 'dojo/edit_jira.html', {'jform': jform})
 
@@ -421,7 +421,7 @@ def edit_jira(request, jid):
 @user_is_configuration_authorized('dojo.view_jira_instance')
 def jira(request):
     jira_instances = JIRA_Instance.objects.all()
-    add_breadcrumb(title="JIRA List", top_level=not len(request.GET), request=request)
+    add_breadcrumb(title="JIRA список", top_level=not len(request.GET), request=request)
     return render(request, 'dojo/jira.html', {'jira_instances': jira_instances})
 
 
@@ -456,7 +456,7 @@ def delete_jira(request, tid):
     collector.collect([jira_instance])
     rels = collector.nested()
 
-    add_breadcrumb(title="Delete", top_level=False, request=request)
+    add_breadcrumb(title="Удалить", top_level=False, request=request)
     return render(request, 'dojo/delete_jira.html', {
         'inst': jira_instance,
         'form': form,

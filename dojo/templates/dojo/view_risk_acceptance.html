@@ -82,11 +82,11 @@
                         <th>Надйдено</th>
                         <th>Доказательство</th>
                         <th>Реактивация
-                            <i class="fa-solid fa-circle-question has-popover" data-trigger="hover" data-content="Восстановление находок при истечении приема на риск?" data-placement="right" data-container="body" data-original-title="" title="">
+                            <i class="fa-solid fa-circle-question has-popover" data-trigger="hover" data-content="Восстановление уязвимостей при истечении приема на риск?" data-placement="right" data-container="body" data-original-title="" title="">
                             </i>
                         </th>
                         <th>Перезапуск SLA
-                            <i class="fa-solid fa-circle-question has-popover" data-trigger="hover" data-content="Перезапуск SLA для находок при истечении приема на риск?" data-placement="right" data-container="body" data-original-title="" title="">
+                            <i class="fa-solid fa-circle-question has-popover" data-trigger="hover" data-content="Перезапуск SLA для уязвимостей при истечении приема на риск?" data-placement="right" data-container="body" data-original-title="" title="">
                             </i>
                         </th>
                         <th>Владелец</th>
@@ -158,7 +158,7 @@
 
     <div id="risk_acceptance" class="panel panel-default table-responsive">
         <div class="panel-heading">
-            <h3>Принятые находки</h3>
+            <h3>Принятые Уязвимости</h3>
         </div>
         {% if accepted_findings %}
             <table id="open_findings" class="table table-condensed table-striped">
@@ -210,7 +210,7 @@
             </div>
         {% else %}
             <div class="panel-body">
-                <p><b>Нет находок, связанных с этим приемом на риск.</b></p>
+                <p><b>Нет уязвимостей, связанных с этим приемом на риск.</b></p>
             </div>
         {% endif %}
     </div>
@@ -218,7 +218,7 @@
     {% if engagement|has_object_permission:"Risk_Acceptance" %}
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3>Принять дополнительные находки</h3>
+                <h3>Принять дополнительные Уязвимости</h3>
             </div>
             <br/>
             <form method="post" class="form-horizontal">{% csrf_token %}
@@ -230,7 +230,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <input class="btn" name="add_findings" type="submit" value="Добавить выбранные находки"/>
+                        <input class="btn" name="add_findings" type="submit" value="Добавить выбранные Уязвимости"/>
                     </div>
                 </div>
             </form>

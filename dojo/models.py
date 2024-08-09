@@ -314,11 +314,11 @@ class System_Settings(models.Model):
     jira_webhook_secret = models.CharField(max_length=64, blank=False, null=True, verbose_name=_('JIRA Webhook URL'),
                                            help_text=_('Secret needed in URL for incoming JIRA Webhook'))
 
-    jira_choices = (('Critical', 'Critical'),
-                    ('High', 'High'),
-                    ('Medium', 'Medium'),
-                    ('Low', 'Low'),
-                    ('Info', 'Info'))
+    jira_choices = (('Critical', 'Критический'),
+                    ('High', 'Высокий'),
+                    ('Medium', 'Средний'),
+                    ('Low', 'Низкий'),
+                    ('Info', 'Информационный'))
     jira_minimum_severity = models.CharField(max_length=20, blank=True,
                                              null=True, choices=jira_choices,
                                              default='Low')
@@ -959,7 +959,7 @@ class Product(models.Model):
     RETIREMENT = 'retirement'
     LIFECYCLE_CHOICES = (
         (CONSTRUCTION, _('Construction')),
-        (PRODUCTION, _('Production')),
+        (PRODUCTION, _('Используется')),
         (RETIREMENT, _('Retirement')),
     )
 

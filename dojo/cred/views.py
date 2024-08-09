@@ -36,7 +36,7 @@ def new_cred(request):
     else:
         tform = CredUserForm()
         add_breadcrumb(
-            title="New Credential", top_level=False, request=request)
+            title="Новое удостоверение", top_level=False, request=request)
     return render(request, 'dojo/new_cred.html', {'tform': tform})
 
 
@@ -72,7 +72,7 @@ def edit_cred(request, ttid):
 
         tform = CredUserForm(instance=tool_config)
     add_breadcrumb(
-        title="Edit Credential Configuration",
+        title="Редактирование конфигурации учетных данных",
         top_level=False,
         request=request)
 
@@ -108,7 +108,7 @@ def view_cred_details(request, ttid):
     else:
         form = NoteForm()
 
-    add_breadcrumb(title="View", top_level=False, request=request)
+    add_breadcrumb(title="Посмотреть", top_level=False, request=request)
 
     return render(request, 'dojo/view_cred_details.html', {
         'cred': cred,
@@ -121,7 +121,7 @@ def view_cred_details(request, ttid):
 @user_is_configuration_authorized(Permissions.Credential_View)
 def cred(request):
     confs = Cred_User.objects.all().order_by('name', 'environment', 'username')
-    add_breadcrumb(title="Credential Manager", top_level=True, request=request)
+    add_breadcrumb(title="Менеджер по учетным данным", top_level=True, request=request)
     return render(request, 'dojo/view_cred.html', {
         'confs': confs,
     })
@@ -153,7 +153,7 @@ def view_cred_product(request, pid, ttid):
         form = NoteForm()
 
     add_breadcrumb(
-        title="Credential Manager", top_level=False, request=request)
+        title="Менеджер по учетным данным", top_level=False, request=request)
     cred_type = "Product"
     view_link = reverse(
         'view_cred_product', args=(
@@ -211,7 +211,7 @@ def view_cred_product_engagement(request, eid, ttid):
         form = NoteForm()
 
     add_breadcrumb(
-        title="Credential Manager", top_level=False, request=request)
+        title="Менеджер по учетным данным", top_level=False, request=request)
     cred_type = "Engagement"
     edit_link = ""
     delete_link = reverse(
@@ -262,7 +262,7 @@ def view_cred_engagement_test(request, tid, ttid):
         form = NoteForm()
 
     add_breadcrumb(
-        title="Credential Manager", top_level=False, request=request)
+        title="Менеджер по учетным данным", top_level=False, request=request)
     cred_type = "Test"
     edit_link = None
     delete_link = reverse(
@@ -313,7 +313,7 @@ def view_cred_finding(request, fid, ttid):
         form = NoteForm()
 
     add_breadcrumb(
-        title="Credential Manager", top_level=False, request=request)
+        title="Менеджер по учетным данным", top_level=False, request=request)
     cred_type = "Finding"
     edit_link = None
     delete_link = reverse(
@@ -386,7 +386,7 @@ def edit_cred_product_engagement(request, eid, ttid):
             product=eng.product).order_by('cred_id')
 
     add_breadcrumb(
-        title="Edit Credential Configuration",
+        title="Редактирование конфигурации учетных данных",
         top_level=False,
         request=request)
 
@@ -472,7 +472,7 @@ def new_cred_product_engagement(request, eid):
             product=eng.product).order_by('cred_id')
 
     add_breadcrumb(
-        title="Add Credential Configuration", top_level=False, request=request)
+        title="Добавление конфигурации учетных данных", top_level=False, request=request)
 
     return render(
         request, 'dojo/new_cred_mapping.html', {
@@ -522,7 +522,7 @@ def new_cred_engagement_test(request, tid):
             engagement=test.engagement).order_by('cred_id')
 
     add_breadcrumb(
-        title="Add Credential Configuration", top_level=False, request=request)
+        title="Добавление конфигурации учетных данных", top_level=False, request=request)
 
     return render(
         request, 'dojo/new_cred_mapping.html', {
@@ -573,7 +573,7 @@ def new_cred_finding(request, fid):
             engagement=finding.test.engagement).order_by('cred_id')
 
     add_breadcrumb(
-        title="Add Credential Configuration", top_level=False, request=request)
+        title="Добавление конфигурации учетных данных", top_level=False, request=request)
 
     return render(
         request, 'dojo/new_cred_mapping.html', {
@@ -647,7 +647,7 @@ def delete_cred_controller(request, destination_url, id, ttid):
     else:
         tform = CredMappingForm(instance=cred)
 
-    add_breadcrumb(title="Delete Credential", top_level=False, request=request)
+    add_breadcrumb(title="Удалить учетную запись", top_level=False, request=request)
     product_tab = None
     if id:
         product = None

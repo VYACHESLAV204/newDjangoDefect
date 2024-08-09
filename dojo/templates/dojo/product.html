@@ -62,7 +62,7 @@
                             {% if system_settings.enable_github %}
                             <th class="text-center">GitHub</th>
                             {% endif %}
-                            <th class="text-center"> Активный (Проверенные) находки</th>
+                            <th class="text-center"> Активный (Проверенные) Уязвимости</th>
                             <th class="text-center"> Уязвимые хозяева / Конечные точки</th>
                             <th> Контакты</th>
                             {% comment %} The display field is translated in the function. No need to translate here as well{% endcomment %}
@@ -99,7 +99,7 @@
                                           <li><a href="{% url 'product_open_findings' prod.id %}?severity=Critical"><i class="fa-solid fa-triangle-exclamation"></i> Просмотр критических выводов</a></li>
                                           <li><a href="{% url 'product_open_findings' prod.id %}?date=2"><i class="fa-solid fa-calendar-days"></i> Просмотр результатов за последние 7 дней</a></li>
                                         {% if prod|has_object_permission:"Finding_Add" %}
-                                          <li><a href="{% url 'ad_hoc_finding' prod.id %}"><i class="fa-solid fa-plus"></i> Добавить новую находку</a></li>
+                                          <li><a href="{% url 'ad_hoc_finding' prod.id %}"><i class="fa-solid fa-plus"></i> Добавить новую Уязвимость</a></li>
                                         {% endif %}
                                           <li role="separator" class="divider"></li>
                                           <li><a href="{% url 'endpoint' %}?product={{ prod.id }}"><i class="fa-solid fa-rectangle-list"></i> Просмотр конечных точек</a></li>

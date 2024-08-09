@@ -57,7 +57,7 @@ def delete_engagement_survey(request, eid, sid):
                 extra_tags='alert-danger')
 
     add_breadcrumb(
-        title="Delete " + survey.survey.name + " Questionnaire",
+        title="Удалить " + survey.survey.name + " Анкету",
         top_level=False,
         request=request)
     return render(request, 'defectDojo-engagement-survey/delete_questionnaire.html', {
@@ -124,7 +124,7 @@ def answer_questionnaire(request, eid, sid):
                 'Questionnaire has errors, please correct.',
                 extra_tags='alert-danger')
     add_breadcrumb(
-        title="Answer " + survey.survey.name + " Survey",
+        title="Ответ " + survey.survey.name + " исследование",
         top_level=False,
         request=request)
     return render(request, 'defectDojo-engagement-survey/answer_survey.html', {
@@ -148,7 +148,7 @@ def assign_questionnaire(request, eid, sid):
             survey.save()
             return HttpResponseRedirect(reverse('view_engagement', args=(engagement.id,)))
 
-    add_breadcrumb(title="Assign Questionnaire", top_level=False, request=request)
+    add_breadcrumb(title="Назначьте анкету", top_level=False, request=request)
     return render(request, 'defectDojo-engagement-survey/assign_survey.html', {
         'survey': survey,
         'form': form,
@@ -162,7 +162,7 @@ def view_questionnaire(request, eid, sid):
     questions = get_answered_questions(survey=survey, read_only=True)
 
     add_breadcrumb(
-        title=survey.survey.name + " Questionnaire Responses",
+        title=survey.survey.name + " Ответы на вопросы анкеты",
         top_level=False,
         request=request)
     return render(request, 'defectDojo-engagement-survey/view_survey.html', {
@@ -223,7 +223,7 @@ def add_questionnaire(request, eid):
                 extra_tags='alert-danger')
 
     form.fields["survey"].queryset = surveys
-    add_breadcrumb(title="Add Questionnaire", top_level=False, request=request)
+    add_breadcrumb(title="Добавить анкету", top_level=False, request=request)
     return render(request, 'defectDojo-engagement-survey/add_survey.html', {
         'surveys': surveys,
         'user': user,
@@ -277,7 +277,7 @@ def edit_questionnaire(request, sid):
                 'Please correct any errors displayed below.',
                 extra_tags='alert-danger')
 
-    add_breadcrumb(title="Edit Questionnaire", top_level=False, request=request)
+    add_breadcrumb(title="Изменить анкету", top_level=False, request=request)
     return render(request, 'defectDojo-engagement-survey/create_questionnaire.html', {
         "survey": survey,
         "form": form,
@@ -305,7 +305,7 @@ def delete_questionnaire(request, sid):
                     extra_tags='alert-success')
                 return HttpResponseRedirect(reverse('questionnaire'))
 
-    add_breadcrumb(title="Delete Questionnaire", top_level=False, request=request)
+    add_breadcrumb(title="Удалить анкету", top_level=False, request=request)
     return render(request, 'defectDojo-engagement-survey/delete_questionnaire.html', {
         'survey': survey,
         'form': form,
@@ -338,7 +338,7 @@ def create_questionnaire(request):
                 'Please correct any errors displayed below.',
                 extra_tags='alert-danger')
 
-    add_breadcrumb(title="Create Questionnaire", top_level=False, request=request)
+    add_breadcrumb(title="Создать анкету", top_level=False, request=request)
     return render(request, 'defectDojo-engagement-survey/create_questionnaire.html', {
         "survey": survey,
         "form": form,
@@ -387,7 +387,7 @@ def edit_questionnaire_questions(request, sid):
                 'Questionnaire questions not saved, please correct any errors displayed below.',
                 extra_tags='alert-success')
 
-    add_breadcrumb(title="Update Questionnaire Questions", top_level=False, request=request)
+    add_breadcrumb(title="Обновить вопросы в анкете", top_level=False, request=request)
     return render(request, 'defectDojo-engagement-survey/edit_survey_questions.html', {
         "survey": survey,
         "form": form,
@@ -405,7 +405,7 @@ def questionnaire(request):
         if survey.expiration < tz.now():
             survey.delete()
 
-    add_breadcrumb(title="Questionnaires", top_level=True, request=request)
+    add_breadcrumb(title="Анкета", top_level=True, request=request)
     return render(request, 'defectDojo-engagement-survey/list_surveys.html', {
         "surveys": paged_surveys,
         "filtered": surveys,
@@ -419,7 +419,7 @@ def questions(request):
     questions = Question.polymorphic.all()
     questions = QuestionFilter(request.GET, queryset=questions)
     paged_questions = get_page_items(request, questions.qs, 25)
-    add_breadcrumb(title="Questions", top_level=False, request=request)
+    add_breadcrumb(title="Вопросы", top_level=False, request=request)
     return render(request, 'defectDojo-engagement-survey/list_questions.html', {
         "questions": paged_questions,
         "filtered": questions,
@@ -489,7 +489,7 @@ def create_question(request):
                 resp += '<script type="text/javascript">window.close();</script>'
                 return HttpResponse(resp)
 
-    add_breadcrumb(title="Add Question", top_level=False, request=request)
+    add_breadcrumb(title="Добавить анкету", top_level=False, request=request)
     return render(request, 'defectDojo-engagement-survey/create_related_question.html', {
         'name': 'Add Question',
         'form': form,
@@ -553,7 +553,7 @@ def edit_question(request, qid):
                 extra_tags='alert-success')
             return HttpResponseRedirect(reverse('questions'))
 
-    add_breadcrumb(title="Edit Question", top_level=False, request=request)
+    add_breadcrumb(title="Изменить вопрос", top_level=False, request=request)
     return render(request, 'defectDojo-engagement-survey/edit_question.html', {
         'name': 'Edit Question',
         'question': question,
@@ -581,7 +581,7 @@ def add_choices(request):
                            % (escape(choice._get_pk_val()), escape(choice.label))
                 resp += '<script type="text/javascript">window.close();</script>'
                 return HttpResponse(resp)
-    add_breadcrumb(title="Add Choice", top_level=False, request=request)
+    add_breadcrumb(title="Добавить выбор", top_level=False, request=request)
     return render(request, 'defectDojo-engagement-survey/add_choices.html', {
         'name': 'Add Choice',
         'form': form
@@ -617,7 +617,7 @@ def add_empty_questionnaire(request):
                 extra_tags='alert-danger')
 
     form.fields["survey"].queryset = surveys
-    add_breadcrumb(title="Add Empty Questionnaire", top_level=False, request=request)
+    add_breadcrumb(title="Добавить пустую анкету", top_level=False, request=request)
     return render(request, 'defectDojo-engagement-survey/add_survey.html', {
         'surveys': surveys,
         'user': user,
@@ -632,7 +632,7 @@ def view_empty_survey(request, esid):
     engagement = None
     questions = get_answered_questions(survey=survey, read_only=True)
     add_breadcrumb(
-        title=survey.survey.name + " Questionnaire Responses",
+        title=survey.survey.name + " Ответы на вопросы анкеты",
         top_level=False,
         request=request)
     return render(request, 'defectDojo-engagement-survey/view_survey.html', {
@@ -674,7 +674,7 @@ def delete_empty_questionnaire(request, esid):
                 extra_tags='alert-danger')
 
     add_breadcrumb(
-        title="Delete " + survey.survey.name + " Questionnaire",
+        title="Удалить " + survey.survey.name + " Анкету",
         top_level=False,
         request=request)
     return render(request, 'defectDojo-engagement-survey/delete_questionnaire.html', {
@@ -710,7 +710,7 @@ def delete_general_questionnaire(request, esid):
                 extra_tags='alert-danger')
 
     add_breadcrumb(
-        title="Delete " + survey.survey.name + " Questionnaire",
+        title="Удалить " + survey.survey.name + " Анкету",
         top_level=False,
         request=request)
     return render(request, 'defectDojo-engagement-survey/delete_questionnaire.html', {
@@ -793,7 +793,7 @@ def answer_empty_survey(request, esid):
                 'Questionnaire has errors, please correct.',
                 extra_tags='alert-danger')
     add_breadcrumb(
-        title="Answer Empty " + engagement_survey.name + " Questionnaire",
+        title="Ответ Пустой " + engagement_survey.name + " Анкету",
         top_level=False,
         request=request)
     if survey is None:
@@ -835,7 +835,7 @@ def engagement_empty_survey(request, esid):
                 'Questionnaire could not be added.',
                 extra_tags='alert-danger')
     add_breadcrumb(
-        title="Link Questionnaire to new Engagement",
+        title="Свяжите анкету с новым заданием",
         top_level=False,
         request=request)
     return render(request, 'defectDojo-engagement-survey/add_engagement.html', {'form': form})

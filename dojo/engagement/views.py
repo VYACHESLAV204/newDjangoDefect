@@ -83,7 +83,7 @@ def engagement_calendar(request):
     engagements = engagements.prefetch_related('product')
 
     add_breadcrumb(
-        title="Engagement Calendar", top_level=True, request=request)
+        title="Календарь задании", top_level=True, request=request)
     return render(
         request, 'dojo/calendar.html', {
             'caltype': 'engagements',
@@ -136,7 +136,7 @@ def get_test_counts(engagements):
 def engagements(request, view):
 
     if not view:
-        view = 'active'
+        view = 'Активный'
 
     filtered_engagements = get_filtered_engagements(request, view)
 
@@ -145,7 +145,7 @@ def engagements(request, view):
     engagement_name_words = sorted(get_authorized_engagements(Permissions.Engagement_View).values_list('name', flat=True).distinct())
 
     add_breadcrumb(
-        title=f"{view.capitalize()} Engagements",
+        title=f"{view.capitalize()} Задание",
         top_level=not len(request.GET),
         request=request)
 
@@ -193,7 +193,7 @@ def engagements_all(request):
     eng_words = get_authorized_engagements(Permissions.Engagement_View).values_list('name', flat=True).distinct()
 
     add_breadcrumb(
-        title="All Engagements",
+        title="Все задания",
         top_level=not len(request.GET),
         request=request)
 
@@ -629,7 +629,7 @@ def add_tests(request, eid):
         form.initial['target_end'] = eng.target_end
         form.initial['lead'] = request.user
     add_breadcrumb(
-        parent=eng, title="Add Tests", top_level=False, request=request)
+        parent=eng, title="Добавить тесты", top_level=False, request=request)
     product_tab = Product_Tab(eng.product, title="Add Tests", tab="engagements")
     product_tab.setEngagement(eng)
     return render(request, 'dojo/add_tests.html', {
@@ -892,7 +892,7 @@ def complete_checklist(request, eid):
 
     add_breadcrumb(
         parent=eng,
-        title="Complete checklist",
+        title="Полный контрольный список",
         top_level=False,
         request=request)
     if request.method == 'POST':
@@ -1242,7 +1242,7 @@ def upload_threatmodel(request, eid):
     eng = Engagement.objects.get(id=eid)
     add_breadcrumb(
         parent=eng,
-        title="Upload a threat model",
+        title="Загрузите модель угрозы",
         top_level=False,
         request=request)
 

@@ -18,7 +18,7 @@
     </form>
     <br/>
     {% if pt %}
-        <h2>{% blocktrans with start_date=start_date.date end_date=end_date.date%}Finding Information For Period of {{ start_date }} - {{ end_date }}
+        <h2>{% blocktrans with start_date=start_date.date end_date=end_date.date%}Информация о Уязвимостях в период {{ start_date }} - {{ end_date }}
             {% endblocktrans %}</h2>
         <h3 class="inline-block">{{ pt.name }}</h3>
         {% if pt|class_name == "Product_Type" %}
@@ -65,7 +65,7 @@
         <br/>
         <div class="panel panel-default table-responsive">
             <div class="panel-heading">
-                <h4>{% trans "Total Security Bugs Opened In Period" %}</h4>
+                <h4>Общее количество открытых ошибок безопасности за период</h4>
             </div>
             <table class="table table-bordered table-condensed table-striped">
                 <thead>
@@ -101,7 +101,7 @@
         <br/>
         <div class="panel panel-default table-responsive">
             <div class="panel-heading">
-                <h4>{% trans "Total Security Bugs Closed In Period" %}</h4>
+                <h4>Общее количество закрытых ошибок безопасности за период</h4>
             </div>
             <table class="table table-bordered table-condensed table-striped">
                 <thead>
@@ -192,7 +192,7 @@
         <br/>
         <div class="panel panel-default table-responsive">
             <div class="panel-heading">
-                <h4>{% trans "Top 10 By Bug Severity" %}</h4>
+                <h4>Топ 10 по тяжести проблемы</h4>
             </div>
             <table class="table table-bordered table-condensed table-striped">
                 <thead>
@@ -234,7 +234,7 @@
         <br/>
         <div class="panel panel-default table-responsive">
             <div class="panel-heading">
-                <h4>{% blocktrans %}{{ pt }} Open Findings{% endblocktrans %}</h4>
+                <h4>{% blocktrans %}{{ pt }} Открытые Уязвимости{% endblocktrans %}</h4>
             </div>
             <table id="open_findings"
                    class="tablesorter-bootstrap table table-bordered table-condensed table-striped table-hover">
@@ -276,5 +276,35 @@
             </table>
         </div>
     {% endif %}
+    {% endblock %}
+{% block postscript %}
+<script>
+   
+    
+    
+        let label_m = document.querySelector("label[for='id_month']");
+        let label_y = document.querySelector("label[for='id_year']");
+        let label_p = document.querySelector("label[for='id_product_tag']");
+        let label_pt = document.querySelector("label[for='id_product_type']")
+        // Проверяем, что элемент существует
+        if (label_m && label_y && (label_p || label_pt)) {
+            // Меняем текст внутри элемента <label>
+                label_m.innerHTML = 'Месяц';
+                label_y.innerHTML = 'Год';
+                if(label_p){
 
+                    label_p.innerHTML = 'Тег продукта';
+                }
+                else{
+                    label_pt.innerHTML = 'Тип продукта';
+                }
+
+            console.log('success')
+        } else {
+            console.error('Элемент <label> не найден.');
+        }
+ 
+     
+
+</script>
 {% endblock %}

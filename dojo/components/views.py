@@ -11,7 +11,7 @@ from dojo.authorization.roles_permissions import Permissions
 
 
 def components(request):
-    add_breadcrumb(title="Components", top_level=True, request=request)
+    add_breadcrumb(title="Компоненты", top_level=True, request=request)
     separator = ", "
     # Get components ordered by component_name and concat component versions
     # to the same row

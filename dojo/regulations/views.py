@@ -29,7 +29,7 @@ def new_regulation(request):
             return HttpResponseRedirect(reverse('regulations', ))
     else:
         tform = RegulationForm()
-        add_breadcrumb(title="New regulation", top_level=False, request=request)
+        add_breadcrumb(title="Новое правило", top_level=False, request=request)
     return render(request, 'dojo/new_regulation.html',
                   {'form': tform})
 
@@ -56,7 +56,7 @@ def edit_regulations(request, ttid):
             return HttpResponseRedirect(reverse('regulations', ))
     else:
         tform = RegulationForm(instance=regulation)
-    add_breadcrumb(title="Edit Regulation", top_level=False, request=request)
+    add_breadcrumb(title="Изменить правила", top_level=False, request=request)
 
     return render(request,
                   'dojo/edit_regulation.html',
@@ -68,7 +68,7 @@ def edit_regulations(request, ttid):
 @login_required
 def regulations(request):
     confs = Regulation.objects.all().order_by('name')
-    add_breadcrumb(title="Regulations", top_level=not len(request.GET), request=request)
+    add_breadcrumb(title="Правила", top_level=not len(request.GET), request=request)
     return render(request,
                   'dojo/regulations.html',
                   {'confs': confs,

@@ -72,7 +72,7 @@ def dashboard(request: HttpRequest) -> HttpResponse:
 
 
 def support(request: HttpRequest) -> HttpResponse:
-    add_breadcrumb(title="Support", top_level=not len(request.GET), request=request)
+    add_breadcrumb(title="Поддержка", top_level=not len(request.GET), request=request)
     return render(request, 'dojo/support.html', {})
 
 

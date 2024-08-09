@@ -42,7 +42,7 @@ def product_type(request):
 
     pts.object_list = prefetch_for_product_type(pts.object_list)
 
-    page_name = _("Product Type List")
+    page_name = _("Список типов продукта")
     add_breadcrumb(title=page_name, top_level=True, request=request)
 
     return render(request, 'dojo/product_type.html', {
@@ -72,7 +72,7 @@ def prefetch_for_product_type(prod_types):
 
 @user_has_global_permission(Permissions.Product_Type_Add)
 def add_product_type(request):
-    page_name = _("Add Product Type")
+    page_name = _("Добавить тип продукта")
     form = Product_TypeForm()
     if request.method == 'POST':
         form = Product_TypeForm(request.POST)
@@ -101,7 +101,7 @@ def add_product_type(request):
 
 @user_is_authorized(Product_Type, Permissions.Product_Type_View, 'ptid')
 def view_product_type(request, ptid):
-    page_name = _("View Product Type")
+    page_name = _("Посмотреть тип продукта")
     pt = get_object_or_404(Product_Type, pk=ptid)
     members = get_authorized_members_for_product_type(pt, Permissions.Product_Type_View)
     groups = get_authorized_groups_for_product_type(pt, Permissions.Product_Type_View)
@@ -151,7 +151,7 @@ def delete_product_type(request, ptid):
         collector.collect([product_type])
         rels = collector.nested()
 
-    add_breadcrumb(title=_("Delete Product Type"), top_level=False, request=request)
+    add_breadcrumb(title=_("Удалить тип продукта"), top_level=False, request=request)
     return render(request, 'dojo/delete_product_type.html',
                   {'product_type': product_type,
                    'form': form,
@@ -161,7 +161,7 @@ def delete_product_type(request, ptid):
 
 @user_is_authorized(Product_Type, Permissions.Product_Type_Edit, 'ptid')
 def edit_product_type(request, ptid):
-    page_name = "Edit Product Type"
+    page_name = "Изменить тип продукта"
     pt = get_object_or_404(Product_Type, pk=ptid)
     members = get_authorized_members_for_product_type(pt, Permissions.Product_Type_Manage_Members)
     pt_form = Product_TypeForm(instance=pt)
@@ -212,7 +212,7 @@ def add_product_type_member(request, ptid):
                                     _('Product type members added successfully.'),
                                     extra_tags='alert-success')
                 return HttpResponseRedirect(reverse('view_product_type', args=(ptid, )))
-    add_breadcrumb(title=_("Add Product Type Member"), top_level=False, request=request)
+    add_breadcrumb(title=_("Добавить тип продукта"), top_level=False, request=request)
     return render(request, 'dojo/new_product_type_member.html', {
         'pt': pt,
         'form': memberform,
@@ -221,7 +221,7 @@ def add_product_type_member(request, ptid):
 
 @user_is_authorized(Product_Type_Member, Permissions.Product_Type_Manage_Members, 'memberid')
 def edit_product_type_member(request, memberid):
-    page_name = _("Edit Product Type Member")
+    page_name = _("Редактировать типо пользователя продукта")
     member = get_object_or_404(Product_Type_Member, pk=memberid)
     memberform = Edit_Product_Type_MemberForm(instance=member)
     if request.method == 'POST':
@@ -262,7 +262,7 @@ def edit_product_type_member(request, memberid):
 
 @user_is_authorized(Product_Type_Member, Permissions.Product_Type_Member_Delete, 'memberid')
 def delete_product_type_member(request, memberid):
-    page_name = "Delete Product Type Member"
+    page_name = "Удалить тип пользователя продукта"
     member = get_object_or_404(Product_Type_Member, pk=memberid)
     memberform = Delete_Product_Type_MemberForm(instance=member)
     if request.method == 'POST':
@@ -300,7 +300,7 @@ def delete_product_type_member(request, memberid):
 
 @user_is_authorized(Product_Type, Permissions.Product_Type_Group_Add, 'ptid')
 def add_product_type_group(request, ptid):
-    page_name = "Add Product Type Group"
+    page_name = "Добавить тип пользователя продукта"
     pt = get_object_or_404(Product_Type, pk=ptid)
     group_form = Add_Product_Type_GroupForm(initial={'product_type': pt.id})
 
@@ -338,7 +338,7 @@ def add_product_type_group(request, ptid):
 
 @user_is_authorized(Product_Type_Group, Permissions.Product_Type_Group_Edit, 'groupid')
 def edit_product_type_group(request, groupid):
-    page_name = "Edit Product Type Group"
+    page_name = "Редактирование группы типов продуктов"
     group = get_object_or_404(Product_Type_Group, pk=groupid)
     groupform = Edit_Product_Type_Group_Form(instance=group)
 
@@ -371,7 +371,7 @@ def edit_product_type_group(request, groupid):
 
 @user_is_authorized(Product_Type_Group, Permissions.Product_Type_Group_Delete, 'groupid')
 def delete_product_type_group(request, groupid):
-    page_name = "Delete Product Type Group"
+    page_name = "Удалить группу типов продуктов"
     group = get_object_or_404(Product_Type_Group, pk=groupid)
     groupform = Delete_Product_Type_GroupForm(instance=group)
 

@@ -315,7 +315,7 @@ def simple_search(request):
             logger.debug(form.errors)
             form = SimpleSearchForm()
 
-        add_breadcrumb(title=_("Simple Search"), top_level=True, request=request)
+        add_breadcrumb(title=_("Простой поиск"), top_level=True, request=request)
 
         activetab = 'findings' if findings \
             else 'products' if products \

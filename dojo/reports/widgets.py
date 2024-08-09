@@ -26,7 +26,7 @@ class CustomReportJsonForm(forms.Form):
     json = forms.CharField()
 
     def clean_json(self):
-        jdata = self.cleaned_data['json']
+        jdata = self.cleaned_data["json"]
         try:
             json.loads(jdata)
         except:
@@ -35,9 +35,24 @@ class CustomReportJsonForm(forms.Form):
 
 
 class CoverPageForm(forms.Form):
-    heading = forms.CharField(max_length=200, required=False, help_text="The main report heading.",label="Заголовок")
-    sub_heading = forms.CharField(max_length=200, required=False, help_text="The report sub heading.",label="Подзаголовок")
-    meta_info = forms.CharField(max_length=200, required=False, help_text="Additional metadata for this report.",label="Мета-данные")
+    heading = forms.CharField(
+        max_length=200,
+        required=False,
+        help_text="The main report heading.",
+        label="Заголовок",
+    )
+    sub_heading = forms.CharField(
+        max_length=200,
+        required=False,
+        help_text="The report sub heading.",
+        label="Подзаголовок",
+    )
+    meta_info = forms.CharField(
+        max_length=200,
+        required=False,
+        help_text="Additional metadata for this report.",
+        label="Мета-данные",
+    )
 
     class Meta:
         exclude = []
@@ -45,7 +60,9 @@ class CoverPageForm(forms.Form):
 
 class TableOfContentsForm(forms.Form):
     heading = forms.CharField(max_length=200, required=False, initial="Оглавление")
-    depth = forms.IntegerField(min_value=1, required=False, max_value=6, initial=4,label="Глубина")
+    depth = forms.IntegerField(
+        min_value=1, required=False, max_value=6, initial=4, label="Глубина"
+    )
 
     class Meta:
         exclude = []
@@ -54,14 +71,14 @@ class TableOfContentsForm(forms.Form):
 class Div(form_widget):
     def __init__(self, attrs=None):
         # Use slightly better defaults than HTML's 20x2 box
-        default_attrs = {'style': 'width:100%;min-height:400px'}
+        default_attrs = {"style": "width:100%;min-height:400px"}
         if attrs:
             default_attrs.update(attrs)
         super(Div, self).__init__(default_attrs)
 
     def render(self, name, value, attrs=None, renderer=None):
         if value is None:
-            value = ''
+            value = ""
         final_attrs = self.build_attrs(attrs)
         return format_html(
             '<div class="btn-toolbar" data-role="editor-toolbar" data-target=""><div class="btn-group">'
@@ -96,12 +113,17 @@ class Div(form_widget):
             '<i class="fa-solid fa-rotate-left"></i></a><a class="btn btn-default" data-edit="redo" title="Redo (Ctrl/Cmd+Y)">'
             '<i class="fa-solid fa-rotate-right"></i></a></div><br/><br/></div><div{}>\r\n{}</div>',
             flatatt(final_attrs),
-            force_str(value))
+            force_str(value),
+        )
 
 
 class WYSIWYGContentForm(forms.Form):
-    heading = forms.CharField(max_length=200, required=False, initial="Контент WYSIWYG",label="Заголовок")
-    content = forms.CharField(required=False, widget=Div(attrs={'class': 'editor'}),label="Контент")
+    heading = forms.CharField(
+        max_length=200, required=False, initial="Контент WYSIWYG", label="Заголовок"
+    )
+    content = forms.CharField(
+        required=False, widget=Div(attrs={"class": "editor"}), label="Контент"
+    )
     hidden_content = forms.CharField(widget=forms.HiddenInput(), required=True)
 
     class Meta:
@@ -111,7 +133,7 @@ class WYSIWYGContentForm(forms.Form):
 # base Widget class others will inherit from
 class Widget(object):
     def __init__(self, *args, **kwargs):
-        self.title = 'Base Widget'
+        self.title = "Base Widget"
         self.form = None
         self.multiple = "false"
 
@@ -131,7 +153,7 @@ class Widget(object):
 class PageBreak(Widget):
     def __init__(self, *args, **kwargs):
         super(PageBreak, self).__init__(*args, **kwargs)
-        self.title = 'Разрыв страницы'
+        self.title = "Разрыв страницы"
         self.form = None
         self.multiple = "true"
 
@@ -139,147 +161,184 @@ class PageBreak(Widget):
         return mark_safe('<hr title="Разрыв страницы" class="report-page-break"/>')
 
     def get_asciidoc(self):
-        return mark_safe('<br/><<<<br/>')
+        return mark_safe("<br/><<<<br/>")
 
     def get_option_form(self):
         return mark_safe(
             "<div data-multiple='true'  class='panel panel-available-widget'><div class='panel-heading' title='Click "
-            "and drag to move' data-toggle='tooltip'><div class='clearfix'><h5 style='width: 90%' class='pull-left'>" +
-            self.get_html() + "</h5><span class='fa-solid fa-up-down-left-right pull-right icon'></span></div></div>"
-                              "<form id='page-break'><input type='hidden' name='page-break'/></form></div>")
+            "and drag to move' data-toggle='tooltip'><div class='clearfix'><h5 style='width: 90%' class='pull-left'>"
+            + self.get_html()
+            + "</h5><span class='fa-solid fa-up-down-left-right pull-right icon'></span></div></div>"
+            "<form id='page-break'><input type='hidden' name='page-break'/></form></div>"
+        )
 
 
 class ReportOptions(Widget):
     def __init__(self, *args, **kwargs):
         super(ReportOptions, self).__init__(*args, **kwargs)
-        self.title = 'Опции отчёта'
+        self.title = "Опции отчёта"
         self.form = CustomReportOptionsForm()
         self.extra_help = "Выберите дополнительные параметры отчета.  Они будут применяться к общему отчету."
 
     def get_asciidoc(self):
-        return mark_safe('')
+        return mark_safe("")
 
     def get_html(self):
-        return mark_safe('')
+        return mark_safe("")
 
     def get_option_form(self):
-        html = render_to_string("dojo/report_widget.html", {"form": self.form,
-                                                            "multiple": self.multiple,
-                                                            "title": self.title,
-                                                            "extra_help": self.extra_help})
+        html = render_to_string(
+            "dojo/report_widget.html",
+            {
+                "form": self.form,
+                "multiple": self.multiple,
+                "title": self.title,
+                "extra_help": self.extra_help,
+            },
+        )
         return mark_safe(html)
 
 
 class CoverPage(Widget):
     def __init__(self, *args, **kwargs):
         super(CoverPage, self).__init__(*args, **kwargs)
-        self.title = 'Страница обложки'
+        self.title = "Страница обложки"
         self.form = CoverPageForm()
-        self.help_text = "Титульная страница включает разрыв страницы после своего содержания."
+        self.help_text = (
+            "Титульная страница включает разрыв страницы после своего содержания."
+        )
 
     def get_html(self):
-        return render_to_string("dojo/custom_html_report_cover_page.html", {"heading": self.title,
-                                                                                "sub_heading": self.sub_heading,
-                                                                                "meta_info": self.meta_info})
+        return render_to_string(
+            "dojo/custom_html_report_cover_page.html",
+            {
+                "heading": self.title,
+                "sub_heading": self.sub_heading,
+                "meta_info": self.meta_info,
+            },
+        )
 
     def get_asciidoc(self):
-        return render_to_string("dojo/custom_asciidoc_report_cover_page.html", {"heading": self.title,
-                                                                                "sub_heading": self.sub_heading,
-                                                                                "meta_info": self.meta_info})
+        return render_to_string(
+            "dojo/custom_asciidoc_report_cover_page.html",
+            {
+                "heading": self.title,
+                "sub_heading": self.sub_heading,
+                "meta_info": self.meta_info,
+            },
+        )
 
     def get_option_form(self):
-        html = render_to_string("dojo/report_widget.html", {"form": self.form,
-                                                            "multiple": self.multiple,
-                                                            "title": self.title,
-                                                            'extra_help': self.help_text})
+        html = render_to_string(
+            "dojo/report_widget.html",
+            {
+                "form": self.form,
+                "multiple": self.multiple,
+                "title": self.title,
+                "extra_help": self.help_text,
+            },
+        )
         return mark_safe(html)
 
 
 class TableOfContents(Widget):
     def __init__(self, *args, **kwargs):
         super(TableOfContents, self).__init__(*args, **kwargs)
-        self.title = 'Оглавление'
+        self.title = "Оглавление"
         self.form = TableOfContentsForm()
         self.help_text = "Оглавление содержит разрыв страницы после его содержания."
 
     def get_html(self):
-        return render_to_string("dojo/custom_html_toc.html", {"title": self.title,
-                                                                  "depth": self.depth})
+        return render_to_string(
+            "dojo/custom_html_toc.html", {"title": self.title, "depth": self.depth}
+        )
 
     def get_asciidoc(self):
-        return render_to_string("dojo/custom_asciidoc_toc.html", {"title": self.title,
-                                                                  "depth": self.depth})
+        return render_to_string(
+            "dojo/custom_asciidoc_toc.html", {"title": self.title, "depth": self.depth}
+        )
 
     def get_option_form(self):
-        html = render_to_string("dojo/report_widget.html", {"form": self.form,
-                                                            "multiple": self.multiple,
-                                                            "title": self.title,
-                                                            'extra_help': self.help_text})
+        html = render_to_string(
+            "dojo/report_widget.html",
+            {
+                "form": self.form,
+                "multiple": self.multiple,
+                "title": self.title,
+                "extra_help": self.help_text,
+            },
+        )
         return mark_safe(html)
 
 
 class WYSIWYGContent(Widget):
     def __init__(self, *args, **kwargs):
         super(WYSIWYGContent, self).__init__(*args, **kwargs)
-        self.title = 'WYSIWYG Контент'
+        self.title = "WYSIWYG Контент"
         self.form = WYSIWYGContentForm()
-        self.multiple = 'true'
+        self.multiple = "true"
 
     def get_html(self):
-        html = render_to_string("dojo/custom_html_report_wysiwyg_content.html", {"title": self.title,
-                                                                                "content": self.content})
+        html = render_to_string(
+            "dojo/custom_html_report_wysiwyg_content.html",
+            {"title": self.title, "content": self.content},
+        )
         return mark_safe(html)
 
     def get_asciidoc(self):
-        asciidoc = render_to_string("dojo/custom_asciidoc_report_wysiwyg_content.html", {"title": self.title,
-                                                                                         "content": self.content})
+        asciidoc = render_to_string(
+            "dojo/custom_asciidoc_report_wysiwyg_content.html",
+            {"title": self.title, "content": self.content},
+        )
         return mark_safe(asciidoc)
 
     def get_option_form(self):
-        html = render_to_string("dojo/report_widget.html", {"form": self.form,
-                                                            "multiple": self.multiple,
-                                                            "title": self.title})
+        html = render_to_string(
+            "dojo/report_widget.html",
+            {"form": self.form, "multiple": self.multiple, "title": self.title},
+        )
         return mark_safe(html)
+
 
 class FindingList(Widget):
     def __init__(self, *args, **kwargs):
-        if 'request' in kwargs:
-            self.request = kwargs.get('request')
-        if 'user_id' in kwargs:
-            self.user_id = kwargs.get('user_id')
+        if "request" in kwargs:
+            self.request = kwargs.get("request")
+        if "user_id" in kwargs:
+            self.user_id = kwargs.get("user_id")
 
-        if 'host' in kwargs:
-            self.host = kwargs.get('host')
+        if "host" in kwargs:
+            self.host = kwargs.get("host")
 
-        if 'findings' in kwargs:
-            self.findings = kwargs.get('findings')
+        if "findings" in kwargs:
+            self.findings = kwargs.get("findings")
         else:
-            raise Exception("Необходимо инициализировать с набором данных находок.")
+            raise Exception("Необходимо инициализировать с набором данных уязвимостей.")
 
-        if 'finding_notes' in kwargs:
-            self.finding_notes = kwargs.get('finding_notes')
+        if "finding_notes" in kwargs:
+            self.finding_notes = kwargs.get("finding_notes")
         else:
             self.finding_notes = False
 
-        if 'finding_images' in kwargs:
-            self.finding_images = kwargs.get('finding_images')
+        if "finding_images" in kwargs:
+            self.finding_images = kwargs.get("finding_images")
         else:
             self.finding_images = False
 
         super(FindingList, self).__init__(*args, **kwargs)
 
-        if hasattr(self.findings, 'form'):
+        if hasattr(self.findings, "form"):
             self.form = self.findings.form
         else:
             self.form = None
-        
+
         # Устанавливаем заголовок на русский
-        self.multiple = 'true'
+        self.multiple = "true"
         self.extra_help = "С помощью этой формы вы можете отфильтровать результаты и выбрать только те, которые будут включены в отчет."
-        self.title_words = get_words_for_field(Finding, 'title')
-        self.component_words = get_words_for_field(Finding, 'component_name')
-        self.title = 'Находки'
-        
+        self.title_words = get_words_for_field(Finding, "title")
+        self.component_words = get_words_for_field(Finding, "component_name")
+        self.title = "Уязвимости"
+
         # Устанавливаем метки полей на русский
         self.form.fields["file_path"].label = "Путь к файлу"
         self.form.fields["payload"].label = "Нагрузка"
@@ -289,197 +348,305 @@ class FindingList(Widget):
         self.form.fields["test__tags"].label = "Теги (тест)"
         self.form.fields["test__engagement__tags"].label = "Теги (тест)"
         self.form.fields["test__engagement__product__tags"].label = "Теги (тест)"
-        
-        fields_info = {field_name: str(field) for field_name, field in self.form.fields.items()}
-        
-        with open('/tmp/file.txt3', "w") as file:
+
+        fields_info = {
+            field_name: str(field) for field_name, field in self.form.fields.items()
+        }
+
+        with open("/tmp/file.txt3", "w") as file:
             file.write(json.dumps(fields_info, ensure_ascii=False, indent=4))
-        
+
         if self.request is not None:
             self.paged_findings = get_page_items(self.request, self.findings.qs, 25)
         else:
             self.paged_findings = self.findings
 
     def get_asciidoc(self):
-        asciidoc = render_to_string("dojo/custom_asciidoc_report_findings.html",
-                                    {"findings": self.findings.qs,
-                                     "host": self.host,
-                                     "include_finding_notes": self.finding_notes,
-                                     "include_finding_images": self.finding_images,
-                                     "user_id": self.user_id})
+        asciidoc = render_to_string(
+            "dojo/custom_asciidoc_report_findings.html",
+            {
+                "findings": self.findings.qs,
+                "host": self.host,
+                "include_finding_notes": self.finding_notes,
+                "include_finding_images": self.finding_images,
+                "user_id": self.user_id,
+            },
+        )
         return mark_safe(asciidoc)
 
     def get_html(self):
-        html = render_to_string("dojo/custom_html_report_finding_list.html",
-                                {"title": "Находки",
-                                 "findings": self.findings.qs,
-                                 "include_finding_notes": self.finding_notes,
-                                 "include_finding_images": self.finding_images,
-                                 "host": self.host,
-                                 "user_id": self.user_id})
+        html = render_to_string(
+            "dojo/custom_html_report_finding_list.html",
+            {
+                "title": "Уязвимости",
+                "findings": self.findings.qs,
+                "include_finding_notes": self.finding_notes,
+                "include_finding_images": self.finding_images,
+                "host": self.host,
+                "user_id": self.user_id,
+            },
+        )
         return mark_safe(html)
 
     def get_option_form(self):
-        html = render_to_string('dojo/report_findings.html',
-                                {"findings": self.paged_findings,
-                                 "filtered": self.findings,
-                                 "title_words": self.title_words,
-                                 "component_words": self.component_words,
-                                 "request": self.request,
-                                 "title": "Находки",
-                                 "extra_help": self.extra_help,
-                                 })
+        html = render_to_string(
+            "dojo/report_findings.html",
+            {
+                "findings": self.paged_findings,
+                "filtered": self.findings,
+                "title_words": self.title_words,
+                "component_words": self.component_words,
+                "request": self.request,
+                "title": "Уязвимости",
+                "extra_help": self.extra_help,
+            },
+        )
         return mark_safe(html)
 
 
 class EndpointList(Widget):
     def __init__(self, *args, **kwargs):
-        if 'request' in kwargs:
-            self.request = kwargs.get('request')
-        if 'user_id' in kwargs:
-            self.user_id = kwargs.get('user_id')
+        if "request" in kwargs:
+            self.request = kwargs.get("request")
+        if "user_id" in kwargs:
+            self.user_id = kwargs.get("user_id")
 
-        if 'host' in kwargs:
-            self.host = kwargs.get('host')
+        if "host" in kwargs:
+            self.host = kwargs.get("host")
 
-        if 'endpoints' in kwargs:
-            self.endpoints = kwargs.get('endpoints')
+        if "endpoints" in kwargs:
+            self.endpoints = kwargs.get("endpoints")
         else:
             raise Exception("Need to instantiate with endpoint queryset.")
 
-        if 'finding_notes' in kwargs:
-            self.finding_notes = kwargs.get('finding_notes')
+        if "finding_notes" in kwargs:
+            self.finding_notes = kwargs.get("finding_notes")
         else:
             self.finding_notes = False
 
-        if 'finding_images' in kwargs:
-            self.finding_images = kwargs.get('finding_images')
+        if "finding_images" in kwargs:
+            self.finding_images = kwargs.get("finding_images")
         else:
             self.finding_images = False
 
         super(EndpointList, self).__init__(*args, **kwargs)
 
-        self.title = 'Список конечных точек'
+        self.title = "Список конечных точек"
         self.form = self.endpoints.form
-        self.multiple = 'false'
+        self.multiple = "false"
         if self.request is not None:
             self.paged_endpoints = get_page_items(self.request, self.endpoints.qs, 25)
         else:
             self.paged_endpoints = self.endpoints
-        self.multiple = 'true'
-        self.extra_help = "Вы можете использовать эту форму для фильтрации конечных точек и выбора только тех, которые будут включены в " \
-                          " отчет."
+        self.multiple = "true"
+        self.extra_help = (
+            "Вы можете использовать эту форму для фильтрации конечных точек и выбора только тех, которые будут включены в "
+            " отчет."
+        )
 
     def get_html(self):
-        html = render_to_string("dojo/custom_html_report_endpoint_list.html",
-                                {"title": self.title,
-                                 "endpoints": self.endpoints.qs,
-                                 "include_finding_notes": self.finding_notes,
-                                 "include_finding_images": self.finding_images,
-                                 "host": self.host,
-                                 "user_id": self.user_id})
+        html = render_to_string(
+            "dojo/custom_html_report_endpoint_list.html",
+            {
+                "title": self.title,
+                "endpoints": self.endpoints.qs,
+                "include_finding_notes": self.finding_notes,
+                "include_finding_images": self.finding_images,
+                "host": self.host,
+                "user_id": self.user_id,
+            },
+        )
         return mark_safe(html)
 
     def get_asciidoc(self):
-        asciidoc = render_to_string("dojo/custom_asciidoc_report_endpoints.html",
-                                    {"endpoints": self.endpoints.qs,
-                                     "host": self.host,
-                                     "include_finding_notes": self.finding_notes,
-                                     "include_finding_images": self.finding_images,
-                                     "user_id": self.user_id})
+        asciidoc = render_to_string(
+            "dojo/custom_asciidoc_report_endpoints.html",
+            {
+                "endpoints": self.endpoints.qs,
+                "host": self.host,
+                "include_finding_notes": self.finding_notes,
+                "include_finding_images": self.finding_images,
+                "user_id": self.user_id,
+            },
+        )
         return mark_safe(asciidoc)
 
     def get_option_form(self):
-        html = render_to_string('dojo/report_endpoints.html',
-                                {"endpoints": self.paged_endpoints,
-                                 "filtered": self.endpoints,
-                                 "request": self.request,
-                                 "title": self.title,
-                                 "extra_help": self.extra_help,
-                                 })
+        html = render_to_string(
+            "dojo/report_endpoints.html",
+            {
+                "endpoints": self.paged_endpoints,
+                "filtered": self.endpoints,
+                "request": self.request,
+                "title": self.title,
+                "extra_help": self.extra_help,
+            },
+        )
         return mark_safe(html)
 
 
-def report_widget_factory(json_data=None, request=None, user=None, finding_notes=False, finding_images=False,
-                          host=None):
+def report_widget_factory(
+    json_data=None,
+    request=None,
+    user=None,
+    finding_notes=False,
+    finding_images=False,
+    host=None,
+):
     selected_widgets = OrderedDict()
     widgets = json.loads(json_data)
     for idx, widget in enumerate(widgets):
-        if list(widget.keys())[0] == 'page-break':
-            selected_widgets[list(widget.keys())[0] + '-' + str(idx)] = PageBreak()
-        if list(widget.keys())[0] == 'endpoint-list':
-            endpoints = Endpoint.objects.filter(finding__active=True,
-                                                finding__verified=True,
-                                                finding__false_p=False,
-                                                finding__duplicate=False,
-                                                finding__out_of_scope=False,
-                                                ).distinct()
+        if list(widget.keys())[0] == "page-break":
+            selected_widgets[list(widget.keys())[0] + "-" + str(idx)] = PageBreak()
+        if list(widget.keys())[0] == "endpoint-list":
+            endpoints = Endpoint.objects.filter(
+                finding__active=True,
+                finding__verified=True,
+                finding__false_p=False,
+                finding__duplicate=False,
+                finding__out_of_scope=False,
+            ).distinct()
             d = QueryDict(mutable=True)
             for item in widget.get(list(widget.keys())[0]):
-                if item['name'] in d:
-                    d.appendlist(item['name'], item['value'])
+                if item["name"] in d:
+                    d.appendlist(item["name"], item["value"])
                 else:
-                    d[item['name']] = item['value']
+                    d[item["name"]] = item["value"]
 
             endpoints = Endpoint.objects.filter(id__in=endpoints)
             endpoints = EndpointFilter(d, queryset=endpoints, user=request.user)
             user_id = user.id if user is not None else None
-            endpoints = EndpointList(request=request, endpoints=endpoints, finding_notes=finding_notes,
-                                     finding_images=finding_images, host=host, user_id=user_id)
+            endpoints = EndpointList(
+                request=request,
+                endpoints=endpoints,
+                finding_notes=finding_notes,
+                finding_images=finding_images,
+                host=host,
+                user_id=user_id,
+            )
 
-            selected_widgets[list(widget.keys())[0] + '-' + str(idx)] = endpoints
+            selected_widgets[list(widget.keys())[0] + "-" + str(idx)] = endpoints
 
-        if list(widget.keys())[0] == 'finding-list':
+        if list(widget.keys())[0] == "finding-list":
             findings = Finding.objects.all()
             d = QueryDict(mutable=True)
             for item in widget.get(list(widget.keys())[0]):
-                if item['name'] in d:
-                    d.appendlist(item['name'], item['value'])
+                if item["name"] in d:
+                    d.appendlist(item["name"], item["value"])
                 else:
-                    d[item['name']] = item['value']
+                    d[item["name"]] = item["value"]
 
             findings = ReportFindingFilter(d, queryset=findings)
             user_id = user.id if user is not None else None
-            selected_widgets[list(widget.keys())[0] + '-' + str(idx)] = FindingList(request=request, findings=findings,
-                                                                              finding_notes=finding_notes,
-                                                                              finding_images=finding_images,
-                                                                              host=host, user_id=user_id)
+            selected_widgets[list(widget.keys())[0] + "-" + str(idx)] = FindingList(
+                request=request,
+                findings=findings,
+                finding_notes=finding_notes,
+                finding_images=finding_images,
+                host=host,
+                user_id=user_id,
+            )
 
-        if list(widget.keys())[0] == 'wysiwyg-content':
+        if list(widget.keys())[0] == "wysiwyg-content":
             wysiwyg_content = WYSIWYGContent(request=request)
-            wysiwyg_content.title = \
-                next((item for item in widget.get(list(widget.keys())[0]) if item["name"] == 'heading'), None)['value']
-            wysiwyg_content.content = \
-                next((item for item in widget.get(list(widget.keys())[0]) if item["name"] == 'hidden_content'), None)['value']
-            selected_widgets[list(widget.keys())[0] + '-' + str(idx)] = wysiwyg_content
-        if list(widget.keys())[0] == 'report-options':
+            wysiwyg_content.title = next(
+                (
+                    item
+                    for item in widget.get(list(widget.keys())[0])
+                    if item["name"] == "heading"
+                ),
+                None,
+            )["value"]
+            wysiwyg_content.content = next(
+                (
+                    item
+                    for item in widget.get(list(widget.keys())[0])
+                    if item["name"] == "hidden_content"
+                ),
+                None,
+            )["value"]
+            selected_widgets[list(widget.keys())[0] + "-" + str(idx)] = wysiwyg_content
+        if list(widget.keys())[0] == "report-options":
             options = ReportOptions(request=request)
-            options.include_finding_notes = \
-                next((item for item in widget.get(list(widget.keys())[0]) if item["name"] == 'include_finding_notes'), None)[
-                    'value']
-            options.include_finding_images = \
-                next((item for item in widget.get(list(widget.keys())[0]) if item["name"] == 'include_finding_images'), None)[
-                    'value']
-            options.report_type = \
-                next((item for item in widget.get(list(widget.keys())[0]) if item["name"] == 'report_type'), None)['value']
-            options.report_name = \
-                next((item for item in widget.get(list(widget.keys())[0]) if item["name"] == 'report_name'), None)['value']
+            options.include_finding_notes = next(
+                (
+                    item
+                    for item in widget.get(list(widget.keys())[0])
+                    if item["name"] == "include_finding_notes"
+                ),
+                None,
+            )["value"]
+            options.include_finding_images = next(
+                (
+                    item
+                    for item in widget.get(list(widget.keys())[0])
+                    if item["name"] == "include_finding_images"
+                ),
+                None,
+            )["value"]
+            options.report_type = next(
+                (
+                    item
+                    for item in widget.get(list(widget.keys())[0])
+                    if item["name"] == "report_type"
+                ),
+                None,
+            )["value"]
+            options.report_name = next(
+                (
+                    item
+                    for item in widget.get(list(widget.keys())[0])
+                    if item["name"] == "report_name"
+                ),
+                None,
+            )["value"]
             selected_widgets[list(widget.keys())[0]] = options
-        if list(widget.keys())[0] == 'table-of-contents':
+        if list(widget.keys())[0] == "table-of-contents":
             toc = TableOfContents(request=request)
-            toc.title = next((item for item in widget.get(list(widget.keys())[0]) if item["name"] == 'heading'), None)[
-                'value']
-            toc.depth = next((item for item in widget.get(list(widget.keys())[0]) if item["name"] == 'depth'), None)['value']
+            toc.title = next(
+                (
+                    item
+                    for item in widget.get(list(widget.keys())[0])
+                    if item["name"] == "heading"
+                ),
+                None,
+            )["value"]
+            toc.depth = next(
+                (
+                    item
+                    for item in widget.get(list(widget.keys())[0])
+                    if item["name"] == "depth"
+                ),
+                None,
+            )["value"]
             toc.depth = int(toc.depth) + 1
             selected_widgets[list(widget.keys())[0]] = toc
-        if list(widget.keys())[0] == 'cover-page':
+        if list(widget.keys())[0] == "cover-page":
             cover_page = CoverPage(request=request)
-            cover_page.title = next((item for item in widget.get(list(widget.keys())[0]) if item["name"] == 'heading'), None)[
-                'value']
-            cover_page.sub_heading = \
-                next((item for item in widget.get(list(widget.keys())[0]) if item["name"] == 'sub_heading'), None)['value']
-            cover_page.meta_info = \
-                next((item for item in widget.get(list(widget.keys())[0]) if item["name"] == 'meta_info'), None)['value']
+            cover_page.title = next(
+                (
+                    item
+                    for item in widget.get(list(widget.keys())[0])
+                    if item["name"] == "heading"
+                ),
+                None,
+            )["value"]
+            cover_page.sub_heading = next(
+                (
+                    item
+                    for item in widget.get(list(widget.keys())[0])
+                    if item["name"] == "sub_heading"
+                ),
+                None,
+            )["value"]
+            cover_page.meta_info = next(
+                (
+                    item
+                    for item in widget.get(list(widget.keys())[0])
+                    if item["name"] == "meta_info"
+                ),
+                None,
+            )["value"]
             selected_widgets[list(widget.keys())[0]] = cover_page
 
     return selected_widgets

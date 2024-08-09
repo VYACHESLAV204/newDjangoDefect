@@ -27,7 +27,7 @@ def test_type(request):
     name_words = initial_queryset.values_list('name', flat=True)
     test_types = TestTypeFilter(request.GET, queryset=initial_queryset)
     tts = get_page_items(request, test_types.qs, 25)
-    add_breadcrumb(title="Test Type List", top_level=True, request=request)
+    add_breadcrumb(title="Список типов теста", top_level=True, request=request)
     return render(request, 'dojo/test_type.html', {
         'name': 'Test Type List',
         'metric': False,
@@ -49,7 +49,7 @@ def add_test_type(request):
                                  'Test type added successfully.',
                                  extra_tags='alert-success')
             return HttpResponseRedirect(reverse('test_type'))
-    add_breadcrumb(title="Add Test Type", top_level=False, request=request)
+    add_breadcrumb(title="Добавить тип теста", top_level=False, request=request)
     return render(request, 'dojo/new_test_type.html', {
         'name': 'Add Test Type',
         'metric': False,
@@ -72,7 +72,7 @@ def edit_test_type(request, ptid):
                                  extra_tags='alert-success')
             return HttpResponseRedirect(reverse('test_type'))
 
-    add_breadcrumb(title="Edit Test Type", top_level=False, request=request)
+    add_breadcrumb(title="Изменить тип теста", top_level=False, request=request)
     return render(request, 'dojo/edit_test_type.html', {
         'name': 'Edit Test Type',
         'metric': False,

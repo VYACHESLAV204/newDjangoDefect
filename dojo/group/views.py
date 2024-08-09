@@ -53,7 +53,7 @@ class ListGroups(View):
         # Set up the initial context
         context = self.get_initial_context(request, groups)
         # Add a breadcrumb
-        add_breadcrumb(title="All Groups", top_level=True, request=request)
+        add_breadcrumb(title="Все группы", top_level=True, request=request)
         # Render the page
         return render(request, self.get_template(), context)
 
@@ -100,7 +100,7 @@ class ViewGroup(View):
         # Set up the config permissions
         context = self.set_configuration_permissions(group, context)
         # Add a breadcrumb
-        add_breadcrumb(title="View Group", top_level=False, request=request)
+        add_breadcrumb(title="Посмотреть группы", top_level=False, request=request)
         # Render the page
         return render(request, self.get_template(), context)
 
@@ -184,7 +184,7 @@ class EditGroup(View):
         # Set up the initial context
         context = self.get_initial_context(request, group, global_role)
         # Add a breadcrumb
-        add_breadcrumb(title="Edit Group", top_level=False, request=request)
+        add_breadcrumb(title="Изменить группу", top_level=False, request=request)
         # Render the page
         return render(request, self.get_template(), context)
 
@@ -202,7 +202,7 @@ class EditGroup(View):
         if success:
             return redirect_to_return_url_or_else(request, reverse("view_group", args=(group_id,)))
         # Add a breadcrumb
-        add_breadcrumb(title="Edit Group", top_level=False, request=request)
+        add_breadcrumb(title="Изменить группу", top_level=False, request=request)
         # Render the page
         return render(request, self.get_template(), context)
 
@@ -264,7 +264,7 @@ class DeleteGroup(View):
         # Set up the initial context
         context = self.get_initial_context(request, group)
         # Add a breadcrumb
-        add_breadcrumb(title="Delete Group", top_level=False, request=request)
+        add_breadcrumb(title="Удалить группу", top_level=False, request=request)
         # Render the page
         return render(request, self.get_template(), context)
 
@@ -281,7 +281,7 @@ class DeleteGroup(View):
         if success:
             return redirect_to_return_url_or_else(request, reverse("groups"))
         # Add a breadcrumb
-        add_breadcrumb(title="Delete Group", top_level=False, request=request)
+        add_breadcrumb(title="Удалить группу", top_level=False, request=request)
         # Render the page
         return render(request, self.get_template(), context)
 
@@ -349,7 +349,7 @@ class AddGroup(View):
         # Set up the initial context
         context = self.get_initial_context(request)
         # Add a breadcrumb
-        add_breadcrumb(title="Add Group", top_level=False, request=request)
+        add_breadcrumb(title="Добавить группу", top_level=False, request=request)
         # Render the page
         return render(request, self.get_template(), context)
 
@@ -365,7 +365,7 @@ class AddGroup(View):
         if success:
             return redirect_to_return_url_or_else(request, reverse("view_group", args=(group.id,)))
         # Add a breadcrumb
-        add_breadcrumb(title="Add Group", top_level=False, request=request)
+        add_breadcrumb(title="Добавить группу", top_level=False, request=request)
         # Render the page
         return render(request, self.get_template(), context)
 
@@ -399,7 +399,7 @@ def add_group_member(request, gid):
                                      extra_tags='alert-success')
                 return HttpResponseRedirect(reverse('view_group', args=(gid, )))
 
-    add_breadcrumb(title="Add Group Member", top_level=False, request=request)
+    add_breadcrumb(title="Добавить члена группы", top_level=False, request=request)
     return render(request, 'dojo/new_group_member.html', {
         'group': group,
         'form': groupform
@@ -441,7 +441,7 @@ def edit_group_member(request, mid):
                 else:
                     return HttpResponseRedirect(reverse('view_group', args=(member.group.id, )))
 
-    add_breadcrumb(title="Edit a Group Member", top_level=False, request=request)
+    add_breadcrumb(title="Редактирование члена группы", top_level=False, request=request)
     return render(request, 'dojo/edit_group_member.html', {
         'memberid': mid,
         'form': memberform
@@ -482,7 +482,7 @@ def delete_group_member(request, mid):
             else:
                 return HttpResponseRedirect(reverse('view_group', args=(member.group.id, )))
 
-    add_breadcrumb("Delete a group member", top_level=False, request=request)
+    add_breadcrumb("Удаление члена группы", top_level=False, request=request)
     return render(request, 'dojo/delete_group_member.html', {
         'memberid': mid,
         'form': memberform
@@ -512,7 +512,7 @@ def add_product_group(request, gid):
                                  extra_tags='alert-success')
             return HttpResponseRedirect(reverse('view_group', args=(gid, )))
 
-    add_breadcrumb(title="Add Product Group", top_level=False, request=request)
+    add_breadcrumb(title="Добавить группу продуктов", top_level=False, request=request)
     return render(request, 'dojo/new_product_group_group.html', {
         'group': group,
         'form': group_form
@@ -542,7 +542,7 @@ def add_product_type_group(request, gid):
                                      extra_tags='alert-success')
                 return HttpResponseRedirect(reverse('view_group', args=(gid, )))
 
-    add_breadcrumb(title="Add Product Type Group", top_level=False, request=request)
+    add_breadcrumb(title="Добавить тип продуктов", top_level=False, request=request)
     return render(request, 'dojo/new_product_type_group_group.html', {
         'group': group,
         'form': group_form,

@@ -41,7 +41,7 @@ def configure_banner(request):
         )
 
     add_breadcrumb(
-        title="Banner Configuration", top_level=True, request=request
+        title="Конфигурация баннера", top_level=True, request=request
     )
     return render(
         request,

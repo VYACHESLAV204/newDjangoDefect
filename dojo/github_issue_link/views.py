@@ -53,7 +53,7 @@ def new_github(request):
                 return HttpResponseRedirect(reverse('github', ))
     else:
         gform = GITHUBForm()
-        add_breadcrumb(title="New GitHub Configuration", top_level=False, request=request)
+        add_breadcrumb(title="Новая кофигурация GitHub", top_level=False, request=request)
         return render(request, 'dojo/new_github.html',
                     {'gform': gform})
 
@@ -61,7 +61,7 @@ def new_github(request):
 @user_is_configuration_authorized('dojo.view_github_conf')
 def github(request):
     confs = GITHUB_Conf.objects.all()
-    add_breadcrumb(title="GitHub List", top_level=not len(request.GET), request=request)
+    add_breadcrumb(title="GitHub список", top_level=not len(request.GET), request=request)
     return render(request,
                   'dojo/github.html',
                   {'confs': confs,
@@ -90,7 +90,7 @@ def delete_github(request, tid):
     collector.collect([github_instance])
     rels = collector.nested()
 
-    add_breadcrumb(title="Delete", top_level=False, request=request)
+    add_breadcrumb(title="Удалить", top_level=False, request=request)
     return render(request, 'dojo/delete_github.html',
                   {'inst': github_instance,
                    'form': form,

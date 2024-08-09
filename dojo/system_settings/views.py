@@ -95,7 +95,7 @@ def system_settings(request):
             celery_msg = "Celery needs to have the setting CELERY_RESULT_BACKEND = 'db+sqlite:///dojo.celeryresults.sqlite' set in settings.py."
             celery_status = "Unkown"
 
-    add_breadcrumb(title="Application settings", top_level=False, request=request)
+    add_breadcrumb(title="Настройки приложения", top_level=False, request=request)
     return render(request, 'dojo/system_settings.html',
                   {'form': form,
                    'celery_bool': celery_bool,

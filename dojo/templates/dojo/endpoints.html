@@ -84,7 +84,7 @@
                             {% if not product_tab %}
                                 <th>{% dojo_sort request 'Продукт' 'product' 'asc' %}</th>
                             {% endif %}
-							<th class="text-center" nowrap="nowrap">Активные (проверенные) находки</th>
+							<th class="text-center" nowrap="nowrap">Активные (проверенные) Уязвимости</th>
 							<th>Статус</th>
                         </tr>
 
@@ -130,7 +130,7 @@
                                       {% if e.active_findings_count > 0 %}
                                         Уязвимый
                                       {% else %}
-                                        Нет активных находок
+                                        Нет активных уязвимостей
                                       {% endif %}
                                     {% endif %}
                                   {% endif %}

@@ -19,7 +19,7 @@
             {% elif product_tab.title %}
                 {{ product_tab.title }} |
             {% endif %}
-            DefectDojo
+            Synergy VMS
         </title>
         {% block add_css_before %}
         {% endblock %}
@@ -42,6 +42,7 @@
         <script src="{% static "startbootstrap-sb-admin-2/dist/js/sb-admin-2.js" %}"></script>
         <!-- Calendar JavaScript -->
         <script src="{% static "moment/min/moment.min.js" %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/locale/ru.js"></script>
         <script src="{% static "fullcalendar/dist/fullcalendar.min.js" %}"></script>
         <!-- jquery cookie -->
         <script src="{% static "jquery.cookie/jquery.cookie.js" %}"></script>
@@ -259,23 +260,23 @@
                                         <li>
                                             <a href="{% url 'engagement' %}" aria-expanded="false" aria-label="Engagements">
                                                 <i class="fa-solid fa-inbox fa-fw white-icon"></i>
-                                              <p class="custom-text-hide">Проверки</p>
+                                              <p class="custom-text-hide">Задания</p>
                                                 <span class="glyphicon arrow"></span>
                                             </a>
                                             <ul class="nav nav-second-level">
                                                 <li>
                                                     <a href="{% url 'active_engagements' %}">
-                                                        Активные действия
+                                                        Активные задания
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="{% url 'all_engagements' %}">
-                                                        {% trans "All Engagements" %}
+                                                     Все задания
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a href="{% url 'engagements_all' %}">
-                                                        {% trans "Engagements by Product" %}
+                                                        Задания по продуктам
                                                     </a>
                                                 </li>
                                                 <li>
@@ -414,7 +415,7 @@
                                                 </li>
                                                 <li>
                                                     <a href="{% url 'product_tag_counts' %}">
-                                                        {% trans "Product Tag Counts" %}
+                                                        Счётчик тегов продукта
                                                     </a>
                                                 </li>
                                                 <li>

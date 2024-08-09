@@ -338,9 +338,7 @@ class DojoFilter(FilterSet):
                     )
 
                 if exclude:
-                    self.form.fields[field].label = (
-                        "Нет тегов"
-                    )
+                    self.form.fields[field].label = "Нет тегов"
 
 
 def get_tags_model_from_field_name(field):
@@ -487,7 +485,9 @@ class FindingFilterWithTags(DojoFilter):
         # label="теги", # doesn't work with tagulous, need to set in __init__ below
     )
 
-    tag = CharFilter(field_name="tags__name", lookup_expr="icontains", label="Имя тега содержит")
+    tag = CharFilter(
+        field_name="tags__name", lookup_expr="icontains", label="Имя тега содержит"
+    )
 
     not_tags = ModelMultipleChoiceFilter(
         field_name="tags__name",
@@ -510,7 +510,7 @@ class FindingFilterWithTags(DojoFilter):
         field_name="test__engagement__tags__name",
         to_field_name="name",
         exclude=True,
-        label="Проверки без тегов",
+        label="Задания без тегов",
         queryset=Engagement.tags.tag_model.objects.all().order_by("name"),
         # label="теги", # doesn't work with tagulous, need to set in __init__ below
     )
@@ -525,12 +525,14 @@ class FindingFilterWithTags(DojoFilter):
     )
 
     not_tag = CharFilter(
-        field_name="tags__name", lookup_expr="icontains", label="Имя тега не содержит", exclude=True
+        field_name="tags__name",
+        lookup_expr="icontains",
+        label="Имя тега не содержит",
+        exclude=True,
     )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        
 
 
 class DateRangeFilter(ChoiceFilter):
@@ -916,10 +918,10 @@ class ComponentFilter(ProductComponentFilter):
 
 
 class EngagementDirectFilter(DojoFilter):
-    name = CharFilter(lookup_expr="icontains", label="Проверка содержит")
+    name = CharFilter(lookup_expr="icontains", label="Задание содержит")
     lead = ModelChoiceFilter(queryset=Dojo_User.objects.none(), label="Вести")
     version = CharFilter(
-        field_name="version", lookup_expr="icontains", label="Версия проверки"
+        field_name="version", lookup_expr="icontains", label="Версия задания"
     )
     test__version = CharFilter(
         field_name="test__version", lookup_expr="icontains", label="Версия теста"
@@ -945,7 +947,9 @@ class EngagementDirectFilter(DojoFilter):
         # label="теги", # doesn't work with tagulous, need to set in __init__ below
     )
 
-    tag = CharFilter(field_name="tags__name", lookup_expr="icontains", label="Имя тега содержит")
+    tag = CharFilter(
+        field_name="tags__name", lookup_expr="icontains", label="Имя тега содержит"
+    )
 
     not_tags = ModelMultipleChoiceFilter(
         field_name="tags__name",
@@ -956,7 +960,10 @@ class EngagementDirectFilter(DojoFilter):
     )
 
     not_tag = CharFilter(
-        field_name="tags__name", lookup_expr="icontains", label="Имя тега не содержит", exclude=True
+        field_name="tags__name",
+        lookup_expr="icontains",
+        label="Имя тега не содержит",
+        exclude=True,
     )
 
     has_tags = BooleanFilter(
@@ -974,7 +981,7 @@ class EngagementDirectFilter(DojoFilter):
         ),
         field_labels={
             "target_start": "Дата начала",
-            "name": "Проверка",
+            "name": "Задание",
             "product__name": "Имя продукта",
             "product__prod_type__name": "Тип продукта",
             "lead__first_name": "Владелец",
@@ -1000,17 +1007,19 @@ class EngagementDirectFilter(DojoFilter):
 
 
 class EngagementFilter(DojoFilter):
-    engagement__name = CharFilter(lookup_expr="icontains", label="Имя проверки содержит")
+    engagement__name = CharFilter(lookup_expr="icontains", label="Имя задания содержит")
     engagement__lead = ModelChoiceFilter(
         queryset=Dojo_User.objects.none(), label="Вести"
     )
     engagement__version = CharFilter(
         field_name="engagement__version",
         lookup_expr="icontains",
-        label="Версия проверки",
+        label="Версия задания",
     )
     engagement__test__version = CharFilter(
-        field_name="engagement__test__version", lookup_expr="icontains", label="Версия теста"
+        field_name="engagement__test__version",
+        lookup_expr="icontains",
+        label="Версия теста",
     )
 
     name = CharFilter(lookup_expr="icontains", label="Название продукта содержит")
@@ -1044,7 +1053,10 @@ class EngagementFilter(DojoFilter):
     )
 
     not_tag = CharFilter(
-        field_name="tags__name", lookup_expr="icontains", label="Имя тега не содержит", exclude=True
+        field_name="tags__name",
+        lookup_expr="icontains",
+        label="Имя тега не содержит",
+        exclude=True,
     )
 
     has_tags = BooleanFilter(
@@ -1074,9 +1086,9 @@ class EngagementFilter(DojoFilter):
             .distinct()
         )
         self.form.fields["tags"].label = "Теги"
-        
+
         # Записываем словарь в файл в формате JSON
-        
+
     class Meta:
         model = Product
         fields = ["name", "prod_type"]
@@ -1084,12 +1096,12 @@ class EngagementFilter(DojoFilter):
 
 class ProductEngagementFilter(DojoFilter):
     lead = ModelChoiceFilter(queryset=Dojo_User.objects.none(), label="Вести")
-    version = CharFilter(lookup_expr="icontains", label="Версия проверки")
+    version = CharFilter(lookup_expr="icontains", label="Версия задания")
     test__version = CharFilter(
         field_name="test__version", lookup_expr="icontains", label="Версия теста"
     )
 
-    name = CharFilter(lookup_expr="icontains",label="Имя содержит")
+    name = CharFilter(lookup_expr="icontains", label="Имя содержит")
     status = MultipleChoiceFilter(choices=ENGAGEMENT_STATUS_CHOICES, label="Статус")
 
     target_start = DateRangeFilter(label="Запланированный старт")
@@ -1113,7 +1125,10 @@ class ProductEngagementFilter(DojoFilter):
     )
 
     not_tag = CharFilter(
-        field_name="tags__name", lookup_expr="icontains", label="Имя тега не содержит", exclude=True
+        field_name="tags__name",
+        lookup_expr="icontains",
+        label="Имя тега не содержит",
+        exclude=True,
     )
 
     o = OrderingFilter(
@@ -1127,7 +1142,7 @@ class ProductEngagementFilter(DojoFilter):
             ("lead", "lead"),
         ),
         field_labels={
-            "name": "Имя проверки",
+            "name": "Имя задания",
         },
     )
 
@@ -1138,7 +1153,7 @@ class ProductEngagementFilter(DojoFilter):
             .filter(engagement__lead__isnull=False)
             .distinct()
         )
-        self.form.fields["tags"].label="Теги"
+        self.form.fields["tags"].label = "Теги"
 
     class Meta:
         model = Product
@@ -1198,7 +1213,7 @@ class ApiEngagementFilter(DojoFilter):
             ("updated", "updated"),
         ),
         field_labels={
-            "name": "Имя проверки",
+            "name": "Имя задания",
         },
     )
 
@@ -1232,17 +1247,25 @@ class ProductFilter(DojoFilter):
         queryset=Product_Type.objects.none(), label="Тип продукта"
     )
     business_criticality = MultipleChoiceFilter(
-        choices=Product.BUSINESS_CRITICALITY_CHOICES, null_label="Пустой",label="Критичность для бизнеса"
+        choices=Product.BUSINESS_CRITICALITY_CHOICES,
+        null_label="Пустой",
+        label="Критичность для бизнеса",
     )
     platform = MultipleChoiceFilter(
-        choices=Product.PLATFORM_CHOICES, null_label="Пустой",label="Платформа"
+        choices=Product.PLATFORM_CHOICES, null_label="Пустой", label="Платформа"
     )
     lifecycle = MultipleChoiceFilter(
-        choices=Product.LIFECYCLE_CHOICES, null_label="Пустой",label="Жизненный цикл"
+        choices=Product.LIFECYCLE_CHOICES, null_label="Пустой", label="Жизненный цикл"
     )
-    origin = MultipleChoiceFilter(choices=Product.ORIGIN_CHOICES, null_label="Пустой",label="Источник")
-    external_audience = BooleanFilter(field_name="external_audience",label="Внешняя аудитория")
-    internet_accessible = BooleanFilter(field_name="internet_accessible",label="Доступно из интеренета")
+    origin = MultipleChoiceFilter(
+        choices=Product.ORIGIN_CHOICES, null_label="Пустой", label="Источник"
+    )
+    external_audience = BooleanFilter(
+        field_name="external_audience", label="Внешняя аудитория"
+    )
+    internet_accessible = BooleanFilter(
+        field_name="internet_accessible", label="Доступно из интеренета"
+    )
 
     # not specifying anything for tags will render a multiselect input functioning as OR
 
@@ -1250,7 +1273,7 @@ class ProductFilter(DojoFilter):
         field_name="tags__name",
         to_field_name="name",
         queryset=Product.tags.tag_model.objects.all().order_by("name"),
-        label="Теги", # doesn't work with tagulous, need to set in __init__ below
+        label="Теги",  # doesn't work with tagulous, need to set in __init__ below
     )
 
     # tags_and = ModelMultipleChoiceFilter(
@@ -1329,7 +1352,10 @@ class ProductFilter(DojoFilter):
     )
 
     not_tag = CharFilter(
-        field_name="tags__name", lookup_expr="icontains", label="Имя тега не содержит", exclude=True
+        field_name="tags__name",
+        lookup_expr="icontains",
+        label="Имя тега не содержит",
+        exclude=True,
     )
 
     outside_of_sla = ProductSLAFilter(label="За пределами SLA")
@@ -1373,25 +1399,24 @@ class ProductFilter(DojoFilter):
         super(ProductFilter, self).__init__(*args, **kwargs)
 
         # Set the label for the 'tags' field
-        if 'tags' in self.form.fields:
-            self.form.fields['tags'].label = "Теги"
-        
-        if 'not_tags' in self.form.fields:
-            self.form.fields['not_tags'].label = "Нет тегов"
+        if "tags" in self.form.fields:
+            self.form.fields["tags"].label = "Теги"
+
+        if "not_tags" in self.form.fields:
+            self.form.fields["not_tags"].label = "Нет тегов"
         # Update the queryset for 'prod_type'
         self.form.fields["prod_type"].queryset = get_authorized_product_types(
             Permissions.Product_Type_View
         )
-        self.form.fields["business_criticality"].widget.attrs.update({
-            "placeholder": "Ничего не выбрано"
-        })
+        self.form.fields["business_criticality"].widget.attrs.update(
+            {"placeholder": "Ничего не выбрано"}
+        )
 
         # Set the placeholder for 'platform'
-        self.form.fields["platform"].widget.attrs.update({
-            "placeholder": "Ничего не выбрано"
-        })
-       
-       
+        self.form.fields["platform"].widget.attrs.update(
+            {"placeholder": "Ничего не выбрано"}
+        )
+
     class Meta:
         model = Product
         fields = [
@@ -1418,7 +1443,6 @@ class ProductFilter(DojoFilter):
             "internet_accessible": "Доступность в Интернете",
             "tags": "Теги",
         }
-      
 
 
 class ApiProductFilter(DojoFilter):
@@ -1433,7 +1457,9 @@ class ApiProductFilter(DojoFilter):
         method=custom_filter, field_name="business_criticality"
     )
     platform = CharFilter(method=custom_filter, field_name="platform")
-    lifecycle = CharFilter(method=custom_filter, field_name="lifecicle",label="Жизненный цикл")
+    lifecycle = CharFilter(
+        method=custom_filter, field_name="lifecicle", label="Жизненный цикл"
+    )
     origin = CharFilter(method=custom_filter, field_name="origin")
     # NumberInFilter
     id = NumberInFilter(field_name="id", lookup_expr="in")
@@ -1517,7 +1543,7 @@ class ApiFindingFilter(DojoFilter):
     dynamic_finding = BooleanFilter(field_name="dynamic_finding")
     false_p = BooleanFilter(field_name="false_p")
     is_mitigated = BooleanFilter(field_name="is_mitigated")
-    out_of_scope = BooleanFilter(field_name="out_of_scope",label="За пределами")
+    out_of_scope = BooleanFilter(field_name="out_of_scope", label="За пределами")
     static_finding = BooleanFilter(field_name="static_finding")
     under_defect_review = BooleanFilter(field_name="under_defect_review")
     under_review = BooleanFilter(field_name="under_review")
@@ -1653,7 +1679,7 @@ class ApiFindingFilter(DojoFilter):
     not_test__engagement__tags = CharFieldInFilter(
         field_name="test__engagement__tags__name",
         lookup_expr="in",
-        help_text="Запятая разделена список точных тегов, не присутствующих при помолвке",
+        help_text="Запятая разделена список точных тегов, не присутствующих при задании",
         exclude="True",
     )
     not_test__engagement__product__tags = CharFieldInFilter(
@@ -1704,7 +1730,7 @@ class ApiFindingFilter(DojoFilter):
 
 class FindingFilter(FindingFilterWithTags):
     # tag = CharFilter(field_name='tags__name', lookup_expr='icontains', label="Содержит")
-    title = CharFilter(lookup_expr="icontains",label="Название содержит")
+    title = CharFilter(lookup_expr="icontains", label="Название содержит")
     date = DateRangeFilter()
     on = DateFilter(field_name="date", lookup_expr="exact", label="От")
     before = DateFilter(field_name="date", lookup_expr="lt", label="До")
@@ -1727,9 +1753,9 @@ class FindingFilter(FindingFilterWithTags):
         lookup_expr="icontains", label=_("Планируемая версия исправления")
     )
 
-    file_path = CharFilter(lookup_expr="icontains",label="Путь к файлу содержит")
-    param = CharFilter(lookup_expr="icontains",label="Параметры содержат")
-    payload = CharFilter(lookup_expr="icontains",label="Пейлоуд содержит")
+    file_path = CharFilter(lookup_expr="icontains", label="Путь к файлу содержит")
+    param = CharFilter(lookup_expr="icontains", label="Параметры содержат")
+    payload = CharFilter(lookup_expr="icontains", label="Пейлоуд содержит")
 
     reporter = ModelMultipleChoiceFilter(queryset=Dojo_User.objects.none())
 
@@ -1752,12 +1778,12 @@ class FindingFilter(FindingFilterWithTags):
 
     endpoints__host = CharFilter(lookup_expr="icontains", label="Хост конечной точки")
 
-    service = CharFilter(lookup_expr="icontains",label="Сервис содержит")
+    service = CharFilter(lookup_expr="icontains", label="Сервис содержит")
 
     test = ModelMultipleChoiceFilter(queryset=Test.objects.none(), label="Тест")
 
     test__engagement__version = CharFilter(
-        lookup_expr="icontains", label="Версия проверки"
+        lookup_expr="icontains", label="Версия задания"
     )
     test__version = CharFilter(lookup_expr="icontains", label="Версия теста")
 
@@ -1841,7 +1867,7 @@ class FindingFilter(FindingFilterWithTags):
         field_name="test__engagement__tags__name",
         to_field_name="name",
         exclude=True,
-        label="Проверка без тегов",
+        label="Задание без тегов",
         queryset=Engagement.tags.tag_model.objects.all().order_by("name"),
         # label="теги", # doesn't work with tagulous, need to set in __init__ below
     )
@@ -1856,7 +1882,10 @@ class FindingFilter(FindingFilterWithTags):
     )
 
     not_tag = CharFilter(
-        field_name="tags__name", lookup_expr="icontains", label="Имя тега не содержит", exclude=True
+        field_name="tags__name",
+        lookup_expr="icontains",
+        label="Имя тега не содержит",
+        exclude=True,
     )
 
     outside_of_sla = FindingSLAFilter(label="За пределами SLA")
@@ -1884,7 +1913,7 @@ class FindingFilter(FindingFilterWithTags):
             "date": "Дата",
             "risk_acceptance__created__date": "Дата принятия",
             "mitigated": "Дата смягчения",
-            "title": "Имя находки",
+            "title": "Имя уязвимости",
             "test__engagement__product__name": "Имя продукта",
             "epss_score": "Оценка EPSS",
             "epss_percentile": "Процентное соотношение EPSS",
@@ -1922,11 +1951,9 @@ class FindingFilter(FindingFilterWithTags):
         ]
 
     def __init__(self, *args, **kwargs):
-        
+
         self.user = None
         self.pid = None
-        
-       
 
         if "user" in kwargs:
             self.user = kwargs.pop("user")
@@ -1977,14 +2004,13 @@ class FindingFilter(FindingFilterWithTags):
         )
         self.form.fields["reviewers"].queryset = self.form.fields["reporter"].queryset
         self.form.fields["tags"].label = "Теги"
-       
+
         self.form.fields["false_p"].label = "Ложноположительный"
-        self.form.fields["test__engagement__tags"].label = "Теги (Проверки)"
-        self.form.fields["test__tags"].label= "Теги (Тест)"
-        self.form.fields["test__engagement__product__tags"].label= "Теги (Продукты)"
-        
+        self.form.fields["test__engagement__tags"].label = "Теги (Задания)"
+        self.form.fields["test__tags"].label = "Теги (Тест)"
+        self.form.fields["test__engagement__product__tags"].label = "Теги (Продукты)"
+
         self.form.fields["out_of_scope"].label = "За пределами области применения"
-        
 
 
 class AcceptedFindingFilter(FindingFilter):
@@ -2003,7 +2029,9 @@ class AcceptedFindingFilter(FindingFilter):
 
 class SimilarFindingFilter(FindingFilter):
     hash_code = MultipleChoiceFilter()
-    vulnerability_ids = CharFilter(method=custom_vulnerability_id_filter, label="Идентификаторы уязвимостей")
+    vulnerability_ids = CharFilter(
+        method=custom_vulnerability_id_filter, label="Идентификаторы уязвимостей"
+    )
 
     class Meta(FindingFilter.Meta):
         model = Finding
@@ -2060,7 +2088,7 @@ class SimilarFindingFilter(FindingFilter):
 class TemplateFindingFilter(DojoFilter):
     title = CharFilter(lookup_expr="icontains")
     cwe = MultipleChoiceFilter(choices=[])
-    severity = MultipleChoiceFilter(choices=SEVERITY_CHOICES,label="Тяжесть")
+    severity = MultipleChoiceFilter(choices=SEVERITY_CHOICES, label="Тяжесть")
 
     tags = ModelMultipleChoiceFilter(
         field_name="tags__name",
@@ -2080,7 +2108,10 @@ class TemplateFindingFilter(DojoFilter):
     )
 
     not_tag = CharFilter(
-        field_name="tags__name", lookup_expr="icontains", label="Имя тега не содержит", exclude=True
+        field_name="tags__name",
+        lookup_expr="icontains",
+        label="Имя тега не содержит",
+        exclude=True,
     )
 
     o = OrderingFilter(
@@ -2126,7 +2157,7 @@ class TemplateFindingFilter(DojoFilter):
         field_name="test__engagement__tags__name",
         to_field_name="name",
         exclude=True,
-        label="Проверка без тегов",
+        label="Задание без тегов",
         queryset=Engagement.tags.tag_model.objects.all().order_by("name"),
         # label="теги", # doesn't work with tagulous, need to set in __init__ below
     )
@@ -2141,7 +2172,10 @@ class TemplateFindingFilter(DojoFilter):
     )
 
     not_tag = CharFilter(
-        field_name="tags__name", lookup_expr="icontains", label="Имя тега не содержит", exclude=True
+        field_name="tags__name",
+        lookup_expr="icontains",
+        label="Имя тега не содержит",
+        exclude=True,
     )
 
     def __init__(self, *args, **kwargs):
@@ -2151,9 +2185,11 @@ class TemplateFindingFilter(DojoFilter):
         self.form.fields["last_used"].label = "Последнее использование"
         self.form.fields["tags"].label = "Теги"
         self.form.fields["cve"].label = "Id уязвимости"
-        fields_info = {field_name: str(field) for field_name, field in self.form.fields.items()}
-        
-        with open('/tmp/file.txt', "w") as file:
+        fields_info = {
+            field_name: str(field) for field_name, field in self.form.fields.items()
+        }
+
+        with open("/tmp/file.txt", "w") as file:
             file.write(json.dumps(fields_info, ensure_ascii=False, indent=4))
 
 
@@ -2208,7 +2244,10 @@ class MetricsFindingFilter(FindingFilter):
     )
 
     not_tag = CharFilter(
-        field_name="tags__name", lookup_expr="icontains", label="Имя тега не содержит", exclude=True
+        field_name="tags__name",
+        lookup_expr="icontains",
+        label="Имя тега не содержит",
+        exclude=True,
     )
 
     def __init__(self, *args, **kwargs):
@@ -2236,12 +2275,12 @@ class MetricsEndpointFilter(FilterSet):
         queryset=Engagement.objects.none(), label="Вес"
     )
     finding__test__engagement__version = CharFilter(
-        lookup_expr="icontains", label="Версия проверки"
+        lookup_expr="icontains", label="Версия задания"
     )
     finding__severity = MultipleChoiceFilter(choices=SEVERITY_CHOICES, label="Тяжесть")
 
     endpoint__host = CharFilter(lookup_expr="icontains", label="Хост конечной точки")
-    finding_title = CharFilter(lookup_expr="icontains", label="Заголовок находки")
+    finding_title = CharFilter(lookup_expr="icontains", label="Заголовок уязвимости")
 
     tags = ModelMultipleChoiceFilter(
         field_name="tags__name",
@@ -2261,7 +2300,10 @@ class MetricsEndpointFilter(FilterSet):
     )
 
     not_tag = CharFilter(
-        field_name="tags__name", lookup_expr="icontains", label="Имя тега не содержит", exclude=True
+        field_name="tags__name",
+        lookup_expr="icontains",
+        label="Имя тега не содержит",
+        exclude=True,
     )
 
     not_tags = ModelMultipleChoiceFilter(
@@ -2285,7 +2327,7 @@ class MetricsEndpointFilter(FilterSet):
         field_name="test__engagement__tags__name",
         to_field_name="name",
         exclude=True,
-        label="Проверка без тегов",
+        label="Задание без тегов",
         queryset=Engagement.tags.tag_model.objects.all().order_by("name"),
         # label="теги", # doesn't work with tagulous, need to set in __init__ below
     )
@@ -2300,7 +2342,10 @@ class MetricsEndpointFilter(FilterSet):
     )
 
     not_tag = CharFilter(
-        field_name="tags__name", lookup_expr="icontains", label="Имя тега не содержит", exclude=True
+        field_name="tags__name",
+        lookup_expr="icontains",
+        label="Имя тега не содержит",
+        exclude=True,
     )
 
     tag = CharFilter(field_name="tags__name", lookup_expr="icontains", label="Содержит")
@@ -2341,13 +2386,15 @@ class EndpointFilter(DojoFilter):
     product = ModelMultipleChoiceFilter(
         queryset=Product.objects.none(), label="Продукт"
     )
-    protocol = CharFilter(lookup_expr="icontains",label = "Протокол содержит")
-    userinfo = CharFilter(lookup_expr="icontains",label = "Пользовательская информация содержит")
-    host = CharFilter(lookup_expr="icontains",label="Хост содержит")
+    protocol = CharFilter(lookup_expr="icontains", label="Протокол содержит")
+    userinfo = CharFilter(
+        lookup_expr="icontains", label="Пользовательская информация содержит"
+    )
+    host = CharFilter(lookup_expr="icontains", label="Хост содержит")
     port = NumberFilter(label="Порт содержит")
-    path = CharFilter(lookup_expr="icontains",label="Путь содержит")
-    query = CharFilter(lookup_expr="icontains",label="Запрос содержит")
-    fragment = CharFilter(lookup_expr="icontains",label="Фрагмент содержит")
+    path = CharFilter(lookup_expr="icontains", label="Путь содержит")
+    query = CharFilter(lookup_expr="icontains", label="Запрос содержит")
+    fragment = CharFilter(lookup_expr="icontains", label="Фрагмент содержит")
 
     tags = ModelMultipleChoiceFilter(
         field_name="tags__name",
@@ -2397,7 +2444,10 @@ class EndpointFilter(DojoFilter):
     )
 
     not_tag = CharFilter(
-        field_name="tags__name", lookup_expr="icontains", label="Имя тега не содержит", exclude=True
+        field_name="tags__name",
+        lookup_expr="icontains",
+        label="Имя тега не содержит",
+        exclude=True,
     )
 
     has_tags = BooleanFilter(
@@ -2420,16 +2470,17 @@ class EndpointFilter(DojoFilter):
         self.form.fields["product"].queryset = get_authorized_products(
             Permissions.Product_View
         )
-        fields_info = {field_name: str(field) for field_name, field in self.form.fields.items()}
+        fields_info = {
+            field_name: str(field) for field_name, field in self.form.fields.items()
+        }
         self.form.fields["endpoint_params"].label = "Параметры эндпоинта"
         self.form.fields["tags"].label = "Теги"
         self.form.fields["inherited_tags"].label = "Унаследованные теги"
         self.form.fields["test__tags"].label = "Теги (тест)"
-        self.form.fields["test__engagement__tags"].label = "Теги (проверки)"
+        self.form.fields["test__engagement__tags"].label = "Теги (Задания)"
         self.form.fields["test__engagement__product__tags"].label = "Теги (продукты)"
-        with open('/tmp/file.txt2', "w") as file:
+        with open("/tmp/file.txt2", "w") as file:
             file.write(json.dumps(fields_info, ensure_ascii=False, indent=4))
-        
 
     @property
     def qs(self):
@@ -2548,7 +2599,10 @@ class EngagementTestFilter(DojoFilter):
     )
 
     not_tag = CharFilter(
-        field_name="tags__name", lookup_expr="icontains", label="Имя тега не содержит", exclude=True
+        field_name="tags__name",
+        lookup_expr="icontains",
+        label="Имя тега не содержит",
+        exclude=True,
     )
 
     has_tags = BooleanFilter(
@@ -2638,7 +2692,7 @@ class ApiTestFilter(DojoFilter):
     not_engagement__tags = CharFieldInFilter(
         field_name="engagement__tags__name",
         lookup_expr="in",
-        help_text="Запятая разделена список точных тегов, не присутствующих при помолвке",
+        help_text="Запятая разделена список точных тегов, не присутствующих при задании",
         exclude="True",
     )
     not_engagement__product__tags = CharFieldInFilter(
@@ -2730,13 +2784,15 @@ class ApiCredentialsFilter(DojoFilter):
 
 
 class EndpointReportFilter(DojoFilter):
-    protocol = CharFilter(lookup_expr="icontains",label="Протокол содержит")
-    userinfo = CharFilter(lookup_expr="icontains",label="Пользовательские данные содержат")
-    host = CharFilter(lookup_expr="icontains",label="Хост содержит")
+    protocol = CharFilter(lookup_expr="icontains", label="Протокол содержит")
+    userinfo = CharFilter(
+        lookup_expr="icontains", label="Пользовательские данные содержат"
+    )
+    host = CharFilter(lookup_expr="icontains", label="Хост содержит")
     port = NumberFilter(label="Порт содержит")
-    path = CharFilter(lookup_expr="icontains",label="Путь содержит")
-    query = CharFilter(lookup_expr="icontains",label="Запрос содержит")
-    fragment = CharFilter(lookup_expr="icontains",label="Фрагмент содержит")
+    path = CharFilter(lookup_expr="icontains", label="Путь содержит")
+    query = CharFilter(lookup_expr="icontains", label="Запрос содержит")
+    fragment = CharFilter(lookup_expr="icontains", label="Фрагмент содержит")
     finding__severity = MultipleChoiceFilter(choices=SEVERITY_CHOICES, label="Тяжесть")
     finding__mitigated = ReportBooleanFilter(label="Дата смягчения")
 
@@ -2758,7 +2814,10 @@ class EndpointReportFilter(DojoFilter):
     )
 
     not_tag = CharFilter(
-        field_name="tags__name", lookup_expr="icontains", label="Имя тега не содержит", exclude=True
+        field_name="tags__name",
+        lookup_expr="icontains",
+        label="Имя тега не содержит",
+        exclude=True,
     )
 
     class Meta:
@@ -2884,10 +2943,10 @@ class ReportFindingFilter(FindingFilterWithTags):
 
 
 class UserFilter(DojoFilter):
-    first_name = CharFilter(lookup_expr="icontains",label="Имя")
-    last_name = CharFilter(lookup_expr="icontains",label="Фамилия")
-    username = CharFilter(lookup_expr="icontains",label="Имя пользователя")
-    email = CharFilter(lookup_expr="icontains",label="email")
+    first_name = CharFilter(lookup_expr="icontains", label="Имя")
+    last_name = CharFilter(lookup_expr="icontains", label="Фамилия")
+    username = CharFilter(lookup_expr="icontains", label="Имя пользователя")
+    email = CharFilter(lookup_expr="icontains", label="email")
 
     o = OrderingFilter(
         # tuple-mapping retains order
@@ -2920,8 +2979,8 @@ class UserFilter(DojoFilter):
 
 
 class GroupFilter(DojoFilter):
-    name = CharFilter(lookup_expr="icontains",label="Имя содержит")
-    description = CharFilter(lookup_expr="icontains",label="Описание содержит")
+    name = CharFilter(lookup_expr="icontains", label="Имя содержит")
+    description = CharFilter(lookup_expr="icontains", label="Описание содержит")
 
     class Meta:
         model = Dojo_Group
@@ -3006,12 +3065,15 @@ class LogEntryFilter(DojoFilter):
             }
         }
 
+
 class ProductTypeFilter(DojoFilter):
     name = CharFilter(lookup_expr="icontains")
-    
+
     def __init__(self, *args, **kwargs):
-        super(ProductTypeFilter, self).__init__(*args, **kwargs)  # Важно вызвать базовый __init__
-        
+        super(ProductTypeFilter, self).__init__(
+            *args, **kwargs
+        )  # Важно вызвать базовый __init__
+
         # Проверьте наличие поля перед попыткой его изменить
         if "critical_product" in self.form.fields:
             self.form.fields["critical_product"].label = "Критичный продукт"
@@ -3029,10 +3091,7 @@ class ProductTypeFilter(DojoFilter):
             self.form.fields["members"].label = "Участники"
         if "authorization_groups" in self.form.fields:
             self.form.fields["authorization_groups"].label = "Группа авторизации"
-             
-            
-            
- 
+
     o = OrderingFilter(
         # tuple-mapping retains order
         fields=(("name", "name"),),
@@ -3045,13 +3104,14 @@ class ProductTypeFilter(DojoFilter):
 
 
 class TestTypeFilter(DojoFilter):
-    name = CharFilter(lookup_expr="icontains",label="Имя")
+    name = CharFilter(lookup_expr="icontains", label="Имя")
     o = OrderingFilter(
         # tuple-mapping retains order
         fields=(("name", "name"),),
     )
+
     def __init__(self, *args, **kwargs):
-        super(TestTypeFilter, self).__init__(*args, **kwargs)  
+        super(TestTypeFilter, self).__init__(*args, **kwargs)
 
         if "static_tool" in self.form.fields:
             self.form.fields["static_tool"].label = "Статический инструмент"
@@ -3069,7 +3129,7 @@ class TestTypeFilter(DojoFilter):
 
 
 class DevelopmentEnvironmentFilter(DojoFilter):
-    name = CharFilter(lookup_expr="icontains",label="Имя содержит")
+    name = CharFilter(lookup_expr="icontains", label="Имя содержит")
 
     o = OrderingFilter(
         # tuple-mapping retains order
@@ -3083,7 +3143,14 @@ class DevelopmentEnvironmentFilter(DojoFilter):
 
 
 class NoteTypesFilter(DojoFilter):
-    name = CharFilter(lookup_expr="icontains")
+    name = CharFilter(lookup_expr="icontains", label="Имя содержит")
+
+    def __init__(self, *args, **kwargs):
+        super(NoteTypesFilter, self).__init__(*args, **kwargs)
+        self.form.fields["is_single"].label = "Одиночный"
+        self.form.fields["is_active"].label = "Активный"
+        self.form.fields["is_mandatory"].label = "Обязательный"
+        self.form.fields["description"].label = "Описание"
 
     o = OrderingFilter(
         # tuple-mapping retains order
@@ -3107,8 +3174,8 @@ class NoteTypesFilter(DojoFilter):
 
 
 class QuestionnaireFilter(FilterSet):
-    name = CharFilter(lookup_expr="icontains",label="Имя содержит")
-    description = CharFilter(lookup_expr="icontains",label="Описание")
+    name = CharFilter(lookup_expr="icontains", label="Имя содержит")
+    description = CharFilter(lookup_expr="icontains", label="Описание")
     active = BooleanFilter(label="Активный")
 
     class Meta:
@@ -3139,10 +3206,9 @@ class QuestionTypeFilter(ChoiceFilter):
     }
 
     def __init__(self, *args, **kwargs):
-        kwargs["choices"] = [
-            (key, value[0]) for key, value in six.iteritems(self.options)
-        ]
+        kwargs["choices"] = [(key, value[0]) for key, value in self.options.items()]
         super(QuestionTypeFilter, self).__init__(*args, **kwargs)
+        self.field.label = "Тип"
 
     def filter(self, qs, value):
         try:
@@ -3162,4 +3228,7 @@ with warnings.catch_warnings(action="ignore", category=ManagerInheritanceWarning
             model = Question
             exclude = ["polymorphic_ctype", "created", "modified", "order"]
 
-        question_set = FilterSet
+        def __init__(self, *args, **kwargs):
+            super(QuestionFilter, self).__init__(*args, **kwargs)
+            self.filters["text"].label = "Текст вопроса"
+            self.filters["optional"].label = "Опциональный"

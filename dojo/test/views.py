@@ -389,7 +389,7 @@ def test_calendar(request):
 
     tests = tests.prefetch_related('test_type', 'lead', 'engagement__product')
 
-    add_breadcrumb(title=_("Test Calendar"), top_level=True, request=request)
+    add_breadcrumb(title=_("Календарь тестов"), top_level=True, request=request)
     return render(request, 'dojo/calendar.html', {
         'caltype': 'tests',
         'leads': request.GET.getlist('lead', ''),
@@ -770,7 +770,7 @@ def search(request, tid):
 
     title_words = get_words_for_field(Finding_Template, 'title')
 
-    add_breadcrumb(parent=test, title=_("Add From Template"), top_level=False, request=request)
+    add_breadcrumb(parent=test, title=_("Добавить из шаблона"), top_level=False, request=request)
     return render(request, 'dojo/templates.html',
                   {'templates': paged_templates,
                    'filtered': templates,

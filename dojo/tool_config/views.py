@@ -45,7 +45,7 @@ def new_tool_config(request):
         tform = ToolConfigForm()
         if 'tool_type' in request.GET:
             tform.fields['tool_type'].initial = request.GET.get('tool_type')
-        add_breadcrumb(title="New Tool Configuration", top_level=False, request=request)
+        add_breadcrumb(title="Новая конфигурация инструмента", top_level=False, request=request)
     return render(request, 'dojo/new_tool_config.html',
                   {'tform': tform})
 
@@ -83,7 +83,7 @@ def edit_tool_config(request, ttid):
         tool_config.password = prepare_for_view(tool_config.password)
         tool_config.ssh = prepare_for_view(tool_config.ssh)
         tform = ToolConfigForm(instance=tool_config)
-    add_breadcrumb(title="Edit Tool Configuration", top_level=False, request=request)
+    add_breadcrumb(title="Редактирование конфигурации инструмента", top_level=False, request=request)
 
     return render(request,
                   'dojo/edit_tool_config.html',
@@ -95,7 +95,7 @@ def edit_tool_config(request, ttid):
 @user_is_configuration_authorized('dojo.view_tool_configuration')
 def tool_config(request):
     confs = Tool_Configuration.objects.all().order_by('name')
-    add_breadcrumb(title="Tool Configuration List", top_level=not len(request.GET), request=request)
+    add_breadcrumb(title="Список конфигурации инструмента", top_level=not len(request.GET), request=request)
     return render(request,
                   'dojo/tool_config.html',
                   {'confs': confs,

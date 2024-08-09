@@ -28,7 +28,7 @@ def new_sla_config(request):
     else:
         tform = SLAConfigForm()
         add_breadcrumb(
-            title="New SLA configuration",
+            title="Новая конфигурация SLA",
             top_level=False,
             request=request)
     return render(request, 'dojo/new_sla_config.html',
@@ -76,7 +76,7 @@ def edit_sla_config(request, slaid):
         form = SLAConfigForm(instance=sla_config)
 
     add_breadcrumb(
-        title="Edit SLA Configuration",
+        title="Изменить конфигурацию SLA",
         top_level=False,
         request=request)
 
@@ -93,7 +93,7 @@ def sla_config(request):
 
     confs = SLA_Configuration.objects.all().order_by('name')
     add_breadcrumb(
-        title="SLA Configurations",
+        title="Концигурация SLA",
         top_level=not len(
             request.GET),
         request=request)
