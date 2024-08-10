@@ -51,8 +51,8 @@
                             {% comment %} The display field is translated in the function. No need to translate here as well{% endcomment %}
                             <th>{% dojo_sort request 'Engagement' 'name' 'asc' %}</th>
                             {% comment %} The display field is translated in the function. No need to translate here as well{% endcomment %}
-                            <th>{% dojo_sort request 'Period' 'target_start' 'asc' %}</th>
-                            <th>Status</th>
+                            <th>{% dojo_sort request 'Период' 'target_start' 'asc' %}</th>
+                            <th>Статус</th>
                             {% comment %} The display field is translated in the function. No need to translate here as well{% endcomment %}
                             <th class="prod_name">{% dojo_sort request 'Product' 'product__name' 'asc' %}</th>
                             {% comment %} The display field is translated in the function. No need to translate here as well{% endcomment %}
@@ -197,6 +197,44 @@
 {% endblock %}
 {% block postscript %}
     {{ block.super }}
+    <script>
+       
+        let breadcrumb = document.querySelector(".breadcrumb.main > li > a.active")
+        if(breadcrumb.textContent == "Active Задание"){
+            breadcrumb.textContent = "Активные задания"
+        }
+        if(breadcrumb.textContent == "All Задание"){
+            breadcrumb.textContent = "Все задания"
+        }
+    
+    </script>
+    <script>
+    const ENGAGEMENT_STATUS_CHOICES = {
+        'Not Started': 'Не начат',
+        'Blocked': 'Заблокирован',
+        'Cancelled': 'Отменён',
+        'Completed': 'Завершён',
+        'In Progress': 'В работе',
+        'On Hold': 'В ожидании',
+        'Waiting for Resource': 'В ожидании ресурса'
+    };
+
+    setTimeout(() => {
+        // Получаем все элементы с нужным текстом
+        let texts = document.querySelectorAll("#engagements > tbody > tr > td:nth-child(4)");
+
+        texts.forEach((element) => {
+            // Получаем текущий текст элемента
+            let originalText = element.textContent.trim();
+
+            // Находим перевод для этого текста в словаре
+            if (ENGAGEMENT_STATUS_CHOICES[originalText]) {
+                // Если перевод найден, заменяем текст элемента на переведённый
+                element.textContent = ENGAGEMENT_STATUS_CHOICES[originalText];
+            }
+        });
+    }, 100);
+</script>
     <script> texts = document.querySelectorAll(".eng_link")
         for(let text of texts){
             if(text.textContent == "Indepo Scan"){

@@ -1352,13 +1352,13 @@ class Engagement_Presets(models.Model):
         return self.title
 
 
-ENGAGEMENT_STATUS_CHOICES = (('Not Started', 'Not Started'),
-                             ('Blocked', 'Blocked'),
-                             ('Cancelled', 'Cancelled'),
-                             ('Completed', 'Completed'),
-                             ('In Progress', 'In Progress'),
-                             ('On Hold', 'On Hold'),
-                             ('Waiting for Resource', 'Waiting for Resource'))
+ENGAGEMENT_STATUS_CHOICES = (('Not Started', 'Не начат'),
+                             ('Blocked', 'Заблокирован'),
+                             ('Cancelled', 'Отменён'),
+                             ('Completed', 'Завершён'),
+                             ('In Progress', 'В работе'),
+                             ('On Hold', 'В ожидании'),
+                             ('Waiting for Resource', 'В ожидании ресурса'))
 
 
 class Engagement(models.Model):

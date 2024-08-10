@@ -664,7 +664,7 @@ class ImportScanResultsView(View):
 
         push_all_jira_issues = jira_helper.is_push_all_issues(engagement_or_product)
         custom_breadcrumb = None
-        title = "Import Scan Results"
+        title = "Импорт результатов сканирования"
         if engagement:
             product_tab = Product_Tab(engagement.product, title=title, tab="engagements")
             product_tab.setEngagement(engagement)

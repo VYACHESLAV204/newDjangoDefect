@@ -9,7 +9,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading tight">
                     <h3 class="has-filters">
-                        перенос конечных точек
+                        Перенос конечных точек
                     </h3>
                 </div>
                 <div id="the-filters" class="is-filters panel-body collapse">
@@ -42,5 +42,17 @@
             {% endif %}
         </div>
     </div>
-
-{% endblock %}
+    {% block postscript %}
+    {{ block.super }}
+    <script>
+  let breadcrumb = document.querySelector("#page-wrapper > div.container-fluid > div.row.hidden-xs > div > ul > li.active > a")
+        let PageTitles = document.querySelector(" div.panel-heading.tight > h3")
+        
+       
+        if (PageTitles.firstChild.textContent.trim() == "Перенос конечных точек"){
+            breadcrumb.textContent = "Перенос конечных точек"
+        }
+  
+</script>  
+    {% endblock %}
+    {% endblock %}

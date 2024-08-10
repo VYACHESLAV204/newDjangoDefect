@@ -2479,7 +2479,7 @@ class EndpointFilter(DojoFilter):
         self.form.fields["test__tags"].label = "Теги (тест)"
         self.form.fields["test__engagement__tags"].label = "Теги (Задания)"
         self.form.fields["test__engagement__product__tags"].label = "Теги (продукты)"
-        with open("/tmp/file.txt2", "w") as file:
+        with open("/tmp/file.txt121314", "w") as file:
             file.write(json.dumps(fields_info, ensure_ascii=False, indent=4))
 
     @property

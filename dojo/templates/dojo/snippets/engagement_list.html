@@ -4,7 +4,7 @@
 <div class="col-md-12">
     <div class="panel panel-default table-responsive">
         <div class="panel-heading">
-            <h4> {% if status == "open" %}Active{% elif status == "paused" %}Paused {% else %}Closed{% endif %} Engagements ({{ count }})
+            <h4> {% if status == "open" %}Активных{% elif status == "paused" %}Остановленных {% else %}Закрытых{% endif %} Задании ({{ count }})
                 <div class="dropdown pull-right">
                     <button id="show-filters-{{status}}" data-toggle="collapse" data-target="#the-filters-{{status}}" class="btn btn-primary toggle-filters" aria-label="Filter"> <i class="fa-solid fa-filter"></i> <i class="caret"></i> </button>
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" aria-label="Add Engagement"
@@ -222,7 +222,7 @@
                               {% else %}
                                 No recent tests
                               {% endif %}
-                              (last {{recent_test_day_count}} day{{recent_test_day_count|pluralize}})
+                              (last {{recent_test_day_count}} дней{{recent_test_day_count|pluralize}})
                             </a>
                           </li>
                           {% for test in eng.test_set.all %}
@@ -267,13 +267,34 @@
             </table>
         {% else %}
             <div id='no_{% if status == "open" %}active{% elif status == "paused" %}paused{% else %}closed{% endif %}_engagements' class="panel-body">
-                <p class="text-muted">No {% if status == "open" %}active{% elif status == "paused" %}paused{% else %}closed{% endif %} engagements found.</p>
+                <p class="text-muted">Не найдено{% if status == "open" %} активных{% elif status == "paused" %}остановленных{% else %}закрытых{% endif %} задач.</p>
             </div>
         {% endif %}
 
     </div>
 </div>
 {% block postscript %}
+<script>
+setTimeout(function() {
+  var labelElement = document.querySelector("#paused_filter > label");
+  var labelElementClosed = document.querySelector("#closed_filter > label");
+  var labelElementActive = document.querySelector("#active_filter > label");
+  // Проверяем, что элемент существует
+  if (labelElement) {
+      // Меняем текст внутри элемента <label>
+      labelElement.innerHTML = 'Искать: <input type="search" class="form-control input-sm" placeholder="" aria-controls="components">';
+  } 
+  if (labelElementActive) {
+    // Меняем текст внутри элемента <label>
+      labelElementActive.innerHTML = 'Искать: <input type="search" class="form-control input-sm" placeholder="" aria-controls="components">';
+} 
+if (labelElementClosed) {
+  // Меняем текст внутри элемента <label>
+    labelElementClosed.innerHTML = 'Искать: <input type="search" class="form-control input-sm" placeholder="" aria-controls="components">';
+} 
+
+}, 50);
+</script>
 <script>
         // DataTables setup
         $(document).ready(function() {

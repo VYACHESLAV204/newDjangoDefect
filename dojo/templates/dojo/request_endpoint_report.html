@@ -7,14 +7,14 @@
             <div class="panel panel-default">
                 <div class="panel-heading tight">
                     <h3 class="has-filters">
-                        Generate Product Endpoint Report
+                        Отчет о конечных точках продукта
                         <div class="dropdown pull-right">
                             <button id="show-filters" data-toggle="collapse" data-target="#the-filters" class="btn btn-primary toggle-filters"> <i class="fa-solid fa-filter"></i> <i class="caret"></i> </button>
                         </div>
                     </h3>
                 </div>
                 <div id="the-filters" class="is-filters panel-body collapse {% if filtered.form.has_changed %}in{% endif %}">
-                    <div class="dojo-filter-heading">Filters</div>
+                    <div class="dojo-filter-heading">Фильтры</div>
                     <div class="filter-set">
 
                         {% include "dojo/filter_snippet.html" with form=filtered.form %}
@@ -24,11 +24,11 @@
 
                     <div class="alert alert-info" role="alert">
                         <span class="fa-solid fa-lightbulb" aria-hidden="true"></span>
-                        <span class=""><b>Hint:</b></span>
-                        To generate a report of all mitigated findings in endpoints select: Active: Either,
-                        Verified: Either, Mitigated: Yes
+                        <span class=""><b>Подсказка:</b></span>
+                        Чтобы создать отчет обо всех устраненных обнаружениях на конечных точках, выберите: Активный: Либо,
+                        Проверено: Либо, Смягчено: Да
                     </div>
-                    <div class="dojo-report-heading">Report Options</div>
+                    <div class="dojo-report-heading">Параметры отчета</div>
                     <div class="filter-set">
                         {% include "dojo/filter_snippet.html" with form=report_form submit='report' %}
                     </div>
@@ -43,8 +43,8 @@
                     <table id="open_findings"
                            class="tablesorter-bootstrap table table-bordered table-condensed table-striped table-hover">
                         <tr>
-                            <th>Endpoint</th>
-                            <th nowrap="nowrap">Open Findings</th>
+                            <th>Эндпоинт</th>
+                            <th nowrap="nowrap">Открытые уязвимости</th>
                         </tr>
 
                         {% for e in endpoints %}
@@ -64,7 +64,7 @@
                     {% include "dojo/paging_snippet.html" with page=paged_endpoints %}
                 </div>
             {% else %}
-                <p class="text-center"> No endpoints found.</p>
+                <p class="text-center"> Конечные точки не найдены.</p>
             {% endif %}
         </div>
     </div>

@@ -51,7 +51,7 @@ def report_url_resolver(request):
 
 
 def report_builder(request):
-    add_breadcrumb(title="Строитель отсчётов", top_level=True, request=request)
+    add_breadcrumb(title="Строитель отчётов", top_level=True, request=request)
     findings = get_authorized_findings(Permissions.Finding_View)
     findings = ReportFindingFilter(request.GET, queryset=findings)
     endpoints = Endpoint.objects.filter(finding__active=True,
@@ -322,7 +322,7 @@ def product_endpoint_report(request, pid):
         else:
             raise Http404()
 
-    product_tab = Product_Tab(product, "Product Endpoint Report", tab="endpoints")
+    product_tab = Product_Tab(product, "Отчет о конечных точках продукта", tab="endpoints")
     return render(request,
                   'dojo/request_endpoint_report.html',
                   {"endpoints": paged_endpoints,

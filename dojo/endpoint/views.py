@@ -504,7 +504,7 @@ def import_endpoint_meta(request, pid):
             return HttpResponseRedirect(reverse('endpoint') + "?product=" + pid)
 
     add_breadcrumb(title="Импортёр метаданных эндпоинтов", top_level=False, request=request)
-    product_tab = Product_Tab(product, title="Endpoint Meta Importer", tab="endpoints")
+    product_tab = Product_Tab(product, title="Импортер метаданных конечных точек", tab="endpoints")
     return render(request, 'dojo/endpoint_meta_importer.html', {
         'product_tab': product_tab,
         'form': form,

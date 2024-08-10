@@ -919,17 +919,7 @@
                         class="glyphicon glyphicon-chevron-up"></i></a></span></h4>
             </div>
             <div id="vuln_desc" class="panel-body finding-description collapse in">
-                <pre><p>Веб-сервер поддерживает шифрование через TLS 1.0, который был официально<br>
-            отозван в марте 2021 года из-за внутренних проблем с безопасностью. Кроме того,<br>
-            TLS 1.0 не считается "сильной криптографией", как определено и требуется<br>
-            стандартом безопасности данных PCI 3.2(.1) при использовании для защиты конфиденциальной<br>
-            информации, передаваемой на веб-сайты или с них. Согласно PCI, "30 июня 2018 года<br>
-            является крайней датой для отключения SSL/раннего TLS и внедрения более безопасного<br>
-            протокола шифрования – TLS 1.1 или выше (настоятельно рекомендуется TLS v1.2)<br>
-            для соответствия стандарту безопасности данных PCI DSS при защите<br>
-            платежных данных.</p>
-            <p><strong>Детали:</strong><br>
-            SSL-сервер (порт: 443) шифрует трафик, используя TLSv1.0.  </p></pre>
+                 <pre>{{ finding.description|markdown_render|default_if_none:"" }}</pre>
             </div>
         </div>
 
@@ -976,8 +966,8 @@
                 <h4>Смягчение <span class="pull-right"><a data-toggle="collapse" href="#vuln_mitigation"><i
                         class="glyphicon glyphicon-chevron-{% if finding.mitigation %}up{%else%}down{%endif%}"></i></a></span></h4>
             </div>
-            <div id="vuln_mitigation" class="panel-body collapse in">
-                <pre><p>Рекомендуется отключить TLS 1.0 и заменить его на TLS 1.2 или выше.</p></pre>
+            <div id="vuln_impact" class="panel-body collapse {% if finding.impact %}in{%endif%}">
+                <pre>{{ finding.impact|markdown_render|default_if_none:"" }}</pre>
             </div>
         </div>
         {% if finding.burprawrequestresponse_set.all %}
@@ -1177,7 +1167,7 @@
     </div>
 
     <div class="protip">
-       <i class="fa-solid fa-lightbulb"></i> <strong>ProTip!</strong> Type <kbd>e</kbd> to edit any finding, <kbd>p</kbd> and <kbd>n</kbd> to navigate to the previous or next finding.
+       <i class="fa-solid fa-lightbulb"></i> <strong>ProTip!</strong> Нажмите <kbd>e</kbd> чтобы изменить любую уязвимость <kbd>p</kbd> и <kbd>n</kbd> чтобы переместиться к предыдущей или следующей.
     </div>
 {% endblock %}
 {% block postscript %}
@@ -1191,11 +1181,11 @@
         var lastID = {{findings_list_lastElement}};
         if(currentID != firstID)
         {
-            $('.PrevAndNext_Buttons').append('<a href="{% url 'view_finding' prev_finding_id %}" class="btn btn-primary">Previous Finding</a> ');
+            $('.PrevAndNext_Buttons').append('<a href="{% url 'view_finding' prev_finding_id %}" class="btn btn-primary">Предыдущая уязвимость</a> ');
         }
         if(currentID != lastID)
         {
-            $('.PrevAndNext_Buttons').append('<a href="{% url 'view_finding' next_finding_id %}" class="btn btn-primary">Next Finding</a>');
+            $('.PrevAndNext_Buttons').append('<a href="{% url 'view_finding' next_finding_id %}" class="btn btn-primary">Следующая уязвимость</a>');
         }
         //Ensures dropdown has proper zindex
         $('.table-responsive').on('show.bs.dropdown', function () {

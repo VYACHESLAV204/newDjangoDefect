@@ -77,7 +77,7 @@ def product(request):
 
     # print(prod_list.object_list.explain)
 
-    add_breadcrumb(title=_("Product List"), top_level=not len(request.GET), request=request)
+    add_breadcrumb(title=_("Список продуктов"), top_level=not len(request.GET), request=request)
 
     return render(request, 'dojo/product.html', {
         'prod_list': prod_list,
@@ -205,7 +205,7 @@ def view_product(request, pid):
 
     total = critical + high + medium + low + info
 
-    product_tab = Product_Tab(prod, title=_("Product"), tab="overview")
+    product_tab = Product_Tab(prod, title=_("Продукт"), tab="overview")
     return render(request, 'dojo/view_product_details.html', {
         'prod': prod,
         'product_tab': product_tab,
@@ -235,7 +235,7 @@ def view_product(request, pid):
 @user_is_authorized(Product, Permissions.Component_View, 'pid')
 def view_product_components(request, pid):
     prod = get_object_or_404(Product, id=pid)
-    product_tab = Product_Tab(prod, title=_("Product"), tab="components")
+    product_tab = Product_Tab(prod, title=_("Продукт"), tab="components")
     separator = ', '
 
     # Get components ordered by component_name and concat component versions to the same row
@@ -572,7 +572,7 @@ def view_product_metrics(request, pid):
         else:
             test_data[t.test_type.name] = t.verified_finding_count
 
-    product_tab = Product_Tab(prod, title=_("Product"), tab="metrics")
+    product_tab = Product_Tab(prod, title=_("Продукт"), tab="metrics")
 
     open_objs_by_age = {x: len([_ for _ in filters.get('open') if _.age == x]) for x in set([_.age for _ in filters.get('open')])}
 
@@ -658,11 +658,12 @@ def view_engagements(request, pid):
     # Cancelled or Completed Engagements
     engs = Engagement.objects.filter(product=prod, active=False).order_by('-target_end')
     inactive_engs_filter = ProductEngagementFilter(request.GET, queryset=engs, prefix='closed')
-    result_inactive_egs = get_page_items(request, inactive_engs_filter.qs, default_page_num, prefix="inactive_engs")
+    result_inactive_engs = get_page_items(request, inactive_engs_filter.qs, default_page_num, prefix="inactive_engs")
+    
     result_inactive_engs.object_list = prefetch_for_view_engagements(result_inactive_engs.object_list,
                                                                      recent_test_day_count)
 
-    product_tab = Product_Tab(prod, title=_("All Engagements"), tab="Задания")
+    product_tab = Product_Tab(prod, title=_("Все задания"), tab="Задания")
     return render(request, 'dojo/view_engagements.html', {
         'prod': prod,
         'product_tab': product_tab,
@@ -1874,7 +1875,7 @@ def add_product_group(request, pid):
                                      _('Product groups added successfully.'),
                                      extra_tags='alert-success')
                 return HttpResponseRedirect(reverse('view_product', args=(pid,)))
-    product_tab = Product_Tab(product, title=_("Edit Product Group"), tab="settings")
+    product_tab = Product_Tab(product, title=_("Редактировать группу продуктов"), tab="settings")
     return render(request, 'dojo/new_product_group.html', {
         'product': product,
         'form': group_form,

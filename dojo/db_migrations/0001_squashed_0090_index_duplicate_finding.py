@@ -168,7 +168,7 @@ class Migration(migrations.Migration):
                 ('api_test', models.BooleanField(default=True)),
                 ('pen_test', models.BooleanField(default=True)),
                 ('check_list', models.BooleanField(default=True)),
-                ('status', models.CharField(choices=[('Not Started', 'Not Started'), ('Blocked', 'Blocked'), ('Cancelled', 'Cancelled'), ('Completed', 'Completed'), ('In Progress', 'In Progress'), ('On Hold', 'On Hold'), ('Waiting for Resource', 'Waiting for Resource')], default='', max_length=2000, null=True)),
+                ('status', models.CharField(choices=[('Not Started', 'Не начат'), ('Blocked', 'Blocked'), ('Cancelled', 'Cancelled'), ('Completed', 'Completed'), ('In Progress', 'In Progress'), ('On Hold', 'On Hold'), ('Waiting for Resource', 'Waiting for Resource')], default='', max_length=2000, null=True)),
                 ('progress', models.CharField(default='threat_model', editable=False, max_length=100)),
                 ('tmodel_path', models.CharField(blank=True, default='none', editable=False, max_length=1000, null=True)),
                 ('risk_path', models.CharField(blank=True, default='none', editable=False, max_length=1000, null=True)),

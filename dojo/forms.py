@@ -607,9 +607,9 @@ class DojoMetaDataForm(forms.ModelForm):
 
 class ImportScanForm(forms.Form):
     active_verified_choices = [
-        ("not_specified", "Not specified (default)"),
-        ("force_to_true", "Force to True"),
-        ("force_to_false", "Force to False"),
+        ("not_specified", "Не указано (по умолчанию)"),
+        ("force_to_true", "Принуждение к истине"),
+        ("force_to_false", "Принуждение к ложным действиям"),
     ]
     scan_date = forms.DateTimeField(
         required=False,
@@ -619,25 +619,25 @@ class ImportScanForm(forms.Form):
     )
     minimum_severity = forms.ChoiceField(
         help_text="Минимальный уровень тяжести будет импортирован",
-        required=True,
+        required=True,label="Минимальная тяжесть",
         choices=SEVERITY_CHOICES,
     )
     active = forms.ChoiceField(
         required=True,
-        choices=active_verified_choices,
+        choices=active_verified_choices,label="Активный",
         help_text="Принудительные результаты быть активными/неактивными или по умолчанию в исходном инструменте",
     )
     verified = forms.ChoiceField(
         required=True,
-        choices=active_verified_choices,
+        choices=active_verified_choices,label="Подтверждённый",
         help_text="Полученные результаты, которые должны быть проверены/не проверены, или по умолчанию в исходном инструменте",
     )
 
     # help_do_not_reactivate = 'Select if the import should ignore active findings from the report, useful for triage-less scanners. Will keep existing findings closed, without reactivating them. For more information check the docs.'
     # do_not_reactivate = forms.BooleanField(help_text=help_do_not_reactivate, required=False)
-    scan_type = forms.ChoiceField(required=True, choices=get_choices_sorted)
+    scan_type = forms.ChoiceField(required=True, choices=get_choices_sorted,label="Тип сканирования",)
     environment = forms.ModelChoiceField(
-        queryset=Development_Environment.objects.all().order_by("name")
+        queryset=Development_Environment.objects.all().order_by("name"),label="Окружающая среда",
     )
     endpoints = forms.ModelMultipleChoiceField(
         Endpoint.objects, required=False, label="Системы / конечные точки"
@@ -651,20 +651,20 @@ class ImportScanForm(forms.Form):
         widget=forms.widgets.Textarea(attrs={"rows": "3", "cols": "400"}),
     )
     version = forms.CharField(
-        max_length=100, required=False, help_text="Версия, которая была отсканирована."
+        max_length=100, required=False, help_text="Версия, которая была отсканирована.",label="Версия"
     )
     branch_tag = forms.CharField(
         max_length=100,
-        required=False,
+        required=False,label="Тег ветки",
         help_text="Ветвь или тег, который был отсканирован.",
     )
     commit_hash = forms.CharField(
-        max_length=100, required=False, help_text="Компет, который был отсканирован."
+        max_length=100, required=False, help_text="Компет, который был отсканирован.",label="Хэш коммита"
     )
     build_id = forms.CharField(
         max_length=100,
         required=False,
-        help_text="ID из сборки, которая была отсканирована.",
+        help_text="ID из сборки, которая была отсканирована.",label="Id билда"
     )
     api_scan_configuration = forms.ModelChoiceField(
         Product_API_Scan_Configuration.objects,
@@ -673,12 +673,12 @@ class ImportScanForm(forms.Form):
     )
     service = forms.CharField(
         max_length=200,
-        required=False,
+        required=False,label="Сервис",
         help_text="Сервис-это автономная часть функциональности внутри продукта."
         "This is an optional field which is used in deduplication and closing of old findings when set.",
     )
     source_code_management_uri = forms.URLField(
-        max_length=600, required=False, help_text="Ссылка на ресурс на исходный код"
+        max_length=600, required=False, help_text="Ссылка на ресурс на исходный код",label="Ссылка на исходный код"
     )
     tags = TagField(
         required=False,
@@ -736,7 +736,7 @@ class ImportScanForm(forms.Form):
         )
         create_finding_groups_for_all_findings = forms.BooleanField(
             help_text="Если не контролировать, поиск групп будет создаваться только тогда, когда будет более одного сгруппированного вывода",
-            required=False,
+            required=False,label="Создавать группы поиска для всех находок",
             initial=True,
         )
 
@@ -744,9 +744,10 @@ class ImportScanForm(forms.Form):
         super(ImportScanForm, self).__init__(*args, **kwargs)
         self.fields["active"].initial = self.active_verified_choices[0]
         self.fields["verified"].initial = self.active_verified_choices[0]
-
+        self.fields["tags"].label = "Теги"
         # couldn't find a cleaner way to add empty default
         if "group_by" in self.fields:
+            self.fields["group_by"].label = "Групировать по"
             choices = self.fields["group_by"].choices
             choices.insert(0, ("", "---------"))
             self.fields["group_by"].choices = choices

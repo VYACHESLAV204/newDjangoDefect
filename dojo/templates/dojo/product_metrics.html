@@ -53,8 +53,7 @@
                                     <span class=" fa-2x">{{ verified_objs|length }}</span>
                                     <span><a
                                             href="{% url 'product_verified_findings' prod.id %}?test__engagement__product={{ prod.id }}"
-                                            title="Findings that are open/active and verified">Проверенный
-                                            {{ view }}{{ verified_objs|length|pluralize }}</a> 
+                                            title="Findings that are open/active and verified">Проверенных уязвимостей</a> 
                                         </span>
                                 </div>
                             </div>
@@ -83,8 +82,7 @@
                                 <div class="pull-right inline-block metrics-header">
                                     <span class=" fa-2x">{{ open_objs|length }}</span>
                                     <span><a href="{% url 'product_open_findings' prod.id %}?test__engagement__product={{ prod.id }}"
-                                        title="Findings that are open/active, but not (yet) verified">Открыть
-                                        {{ view }}{{ open_objs|length|pluralize }} </a>
+                                        title="Findings that are open/active, but not (yet) verified">Открытых уязвимостей</a>
                                     </span>
                                 </div>
                             </div><i
@@ -114,8 +112,7 @@
                                 </div>
                                     <span><a
                                             href="{% url 'accepted_findings' %}?test__engagement__product={{ prod.id }}"
-                                            title="Findings that have been accepted in a risk acceptance.">Принятый риск
-                                    {{ view }}s </a>
+                                            title="Findings that have been accepted in a risk acceptance.">Уязвимостей с принятым риском </a>
                                 </span>
                                 
                                 
@@ -145,8 +142,7 @@
                                 <div class="pull-right metrics-header" >
                                     <span class="fa-2x">{{ closed_objs|length }}</span>
                                     <span><a href="{% url 'closed_findings' %}?test__engagement__product={{ prod.id }}"
-                                             title="Findings that are closed and mitigated.">Закрытый
-                                        {{ view }}{{ closed_objs|length|pluralize }} </a>
+                                             title="Findings that are closed and mitigated.">Закрытых уязвимостей</a>
                                     </span>
                                 </div>
                             </div><i
@@ -174,8 +170,7 @@
                                 <div class="pull-right metrics-header">
                                     <span class="fa-2x">{{ false_positive_objs|length }}</span>
                                     <span><a href="{% url 'product_false_positive_findings' prod.id %}?test__engagement__product={{ prod.id }}"
-                                             title="Findings that are marked as false postive.">Ложноположительный
-                                        {{ view }}{{ false_positive_objs|length|pluralize }} </a>
+                                             title="Findings that are marked as false postive.">Ложноположительных уязвимостей </a>
                                     </span>
                                 </div>
                             </div>
@@ -206,8 +201,7 @@
                                     <span class=" fa-2x">{{ out_of_scope_objs|length }}</span>
                                     <span><a
                                             href="{% url 'product_out_of_scope_findings' prod.id %}?test__engagement__product={{ prod.id }}"
-                                            title="Findings that are marked as out of scope.">Вне сферы охвата
-                                        {{ view }}{{ out_of_scope_objs|length|pluralize }} </a>
+                                            title="Findings that are marked as out of scope.">Уязвимостей вне сферы охвата</a>
                                     </span>
                                 </div>
                             </div>
@@ -237,8 +231,7 @@
                                 <div class="pull-right metrics-header">
                                     <span class="fa-2x">{{ all_objs|length }}</span>
                                     <span><a href="{% url 'product_all_findings' prod.id %}?test__engagement__product={{ prod.id }}"
-                                            title="All findings.">Весь
-                                        {{ view }}{{ all_objs|length|pluralize }}</a>
+                                            title="All findings.">Все уязвимости</a>
                                     </span>
                                 </div>
                             </div>
@@ -268,8 +261,7 @@
                                 <div class="pull-right inline-block metrics-header">
                                     <span class=" fa-2x">{{ inactive_objs|length }}</span>
                                     <span><a href="{% url 'product_inactive_findings' prod.id %}?test__engagement__product={{ prod.id }}"
-                                             title="Findings that are not active but not mitigated for some reason">Неактивный
-                                        {{ view }}{{ inactive_objs|length|pluralize }} </a>
+                                             title="Findings that are not active but not mitigated for some reason">Неактивых уязвимостей </a>
                                     </span>
                                 </div>
                             </div>

@@ -130,7 +130,7 @@ JFORM_PUSH_TO_JIRA_MESSAGE = "jform.push_to_jira: %s"
 logger = logging.getLogger(__name__)
 
 
-def prefetch_for_findings(findings, prefetch_type="all", exclude_untouched=True):
+def prefetch_for_findings(findings, prefetch_type="все", exclude_untouched=True):
     prefetched_findings = findings
     if isinstance(
         findings, QuerySet
@@ -263,12 +263,12 @@ def prefetch_for_similar_findings(findings):
 class BaseListFindings:
     def __init__(
         self,
-        filter_name: str = "All",
+        filter_name: str = "Все",
         product_id: int = None,
         engagement_id: int = None,
         test_id: int = None,
         order_by: str = "numerical_severity",
-        prefetch_type: str = "all",
+        prefetch_type: str = "все",
     ):
         self.filter_name = filter_name
         self.product_id = product_id
@@ -279,7 +279,7 @@ class BaseListFindings:
 
     def get_filter_name(self):
         if not hasattr(self, "filter_name"):
-            self.filter_name = "All"
+            self.filter_name = "Все"
         return self.filter_name
 
     def get_order_by(self):
@@ -289,7 +289,7 @@ class BaseListFindings:
 
     def get_prefetch_type(self):
         if not hasattr(self, "prefetch_type"):
-            self.prefetch_type = "all"
+            self.prefetch_type = "Все"
         return self.prefetch_type
 
     def get_product_id(self):
@@ -778,7 +778,7 @@ class ViewFinding(View):
             "note_type_activation": note_type_activation,
             "available_note_types": available_note_types,
             "product_tab": Product_Tab(
-                finding.test.engagement.product, title="View Finding", tab="findings"
+                finding.test.engagement.product, title="Посмотреть уязвимость", tab="findings"
             ),
         }
         # Set the form using the context, and then update the context

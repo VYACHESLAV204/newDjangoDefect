@@ -10,7 +10,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading tight">
                     <h3 class="has-filters">
-                        {% blocktrans %}{{ filter_name }} Findings{% endblocktrans %}
+                        {% blocktrans %}{{ filter_name }} Уязвимости{% endblocktrans %}
                         <div class="dropdown pull-right">
                             &nbsp;
                             <button class="btn btn-primary dropdown-toggle"
@@ -717,6 +717,28 @@
     </div>
 {% endblock %}
 {% block postscript %}
+<script>
+   
+        let title = document.querySelector(".has-filters");
+        if (title) {
+            let text = title.firstChild.textContent.trim(); // Get the main text only
+            console.log(text);
+            if (text === "Open Уязвимости") {
+                title.firstChild.textContent = "Открытые уязвимости";
+            } else if (text === "All Уязвимости") {
+                title.firstChild.textContent = "Все уязвимости";
+            }
+            else if (text === "Closed Уязвимости") {
+                title.firstChild.textContent = "Закрытые уязвимости";
+            }
+            else if (text === "Accepted Уязвимости") {
+                title.firstChild.textContent = "Принятые уязвимости";
+            }
+          
+        }
+  
+   
+</script>
     <script type="application/javascript" src="{% static "chosen-js/chosen.jquery.min.js" %}"></script>
     <script type="application/javascript">
         {% block datatables_columns %}

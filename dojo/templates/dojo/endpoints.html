@@ -9,7 +9,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading tight">
                     <h3 class="has-filters">
-                       Все конечные точки
+                       Все эндпоинты
                         <div class="dropdown pull-right">
                             <button id="show-filters" data-toggle="collapse" data-target="#the-filters" class="btn btn-primary toggle-filters"> <i class="fa-solid fa-filter"></i> <i class="caret"></i> </button>
                             {% if not product_tab or product_tab and product_tab.product|has_object_permission:"Endpoint_Add" %}
@@ -153,7 +153,23 @@
 {% endblock %}
 {% block postscript %}
     {{ block.super }}
+    
 <script>
+  breadcrumb = undefined
+  breadcrumb = document.querySelector(".breadcrumb.main > li > a.active")
+ if(!breadcrumb){
+  breadcrumb = document.querySelector("li.breadcrumb-item.active")
+ }
+
+  let PageTitles = document.querySelector("#base-content > div > div > div:nth-child(1) > div.panel-heading.tight > h3")
+ 
+  if (breadcrumb && PageTitles){
+    PageTitles.firstChild.textContent = breadcrumb.textContent
+  
+  }
+  
+
+  
         var checkbox_count = 0;
         function check_checked_endpoint()
         {
