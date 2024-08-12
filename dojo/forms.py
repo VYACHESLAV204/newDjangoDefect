@@ -3239,8 +3239,24 @@ class UserContactInfoForm(forms.ModelForm):
         model = UserContactInfo
         exclude = ["user", "slack_user_id"]
 
+  
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        fields_info = {
+            field_name: str(field) for field_name, field in self.fields.items()
+        }
+        
+        with open("/tmp/file.txt121314", "w") as file:
+            file.write(json.dumps(fields_info, ensure_ascii=False, indent=4))
+        self.fields["title"].label="Заголовок"
+        self.fields["phone_number"].label="Номер телефона"
+        self.fields["cell_number"].label="Номер сотового телефона"
+        self.fields["twitter_username"].label="Имя пользователя twitter"
+        self.fields["github_username"].label="Имя пользователя github"
+        self.fields["slack_username"].label="Имя пользователя slack"
+        self.fields["block_execution"].label="Блокировать асинхронное выполнение"
+        self.fields["force_password_reset"].label="Принудительный сброс пароля"
+
         current_user = get_current_user()
         if not current_user.is_superuser:
             del self.fields["force_password_reset"]
@@ -3636,7 +3652,8 @@ class ToolTypeForm(forms.ModelForm):
         if instance is not None:
             self.newly_created = instance.pk is None
         super().__init__(*args, **kwargs)
-
+        self.fields["name"].label="Имя"
+        self.fields["description"].label="Описание"
     def clean(self):
         form_data = self.cleaned_data
         if self.newly_created:
@@ -3649,6 +3666,15 @@ class ToolTypeForm(forms.ModelForm):
 
 
 class RegulationForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(RegulationForm, self).__init__(*args, **kwargs)
+        self.fields["name"].label = "Имя"
+        self.fields["acronym"].label = "Акроним"
+        self.fields["category"].label = "Категория"
+        self.fields["jurisdiction"].label = "Юрисдикция"
+        self.fields["description"].label = "Описание"
+        self.fields["reference"].label = "Ссылка"
+   
     class Meta:
         model = Regulation
         exclude = ["product"]
@@ -3690,11 +3716,19 @@ class ToolConfigForm(forms.ModelForm):
     ssh = forms.CharField(
         widget=forms.Textarea(attrs={}), required=False, label="SSH -ключ"
     )
-
+    def __init__(self, *args, **kwargs):
+        super(ToolConfigForm, self).__init__(*args, **kwargs)
+        self.fields["password"].label = "Пароль"
+        self.fields["username"].label = "Имя пользователя"
+        self.fields["extras"].label = "Дополнительные параметры"
+        self.fields["authentication_type"].label = "Тип авторизации"
+        self.fields["name"].label = "Имя"
+        self.fields["description"].label = "Описание"
+        
     class Meta:
         model = Tool_Configuration
         exclude = ["product"]
-
+    
     def clean(self):
         from django.core.validators import URLValidator
 
@@ -4507,7 +4541,7 @@ class AnnouncementRemoveForm(AnnouncementCreateForm):
         self.fields["dismissable"].disabled = True
         self.fields["message"].disabled = True
         self.fields["style"].disabled = True
-        self.fields["dismissable"].label = "Увольняемый"
+        self.fields["dismissable"].label = "Закрываемое"
         self.fields["message"].label = "Сообщение"
         self.fields["style"].label = "Стили"
 

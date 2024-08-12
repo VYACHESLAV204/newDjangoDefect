@@ -59,7 +59,7 @@ class CoverPageForm(forms.Form):
 
 
 class TableOfContentsForm(forms.Form):
-    heading = forms.CharField(max_length=200, required=False, initial="Оглавление")
+    heading = forms.CharField(max_length=200, required=False, label="Оглавление")
     depth = forms.IntegerField(
         min_value=1, required=False, max_value=6, initial=4, label="Глубина"
     )

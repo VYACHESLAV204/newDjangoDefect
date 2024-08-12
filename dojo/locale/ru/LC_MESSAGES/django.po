@@ -3162,27 +3162,27 @@ msgstr "Показатели по затронутым конечным точк
 #: dojo/templates/dojo/dashboard-metrics.html:58
 #: dojo/templates/dojo/metrics.html:214
 msgid "Open Bug Count by Month"
-msgstr "Количество найденных ошибок по месяцам"
+msgstr "Количество найденных уязвимостей по месяцам"
 
 #: dojo/templates/dojo/dashboard-metrics.html:69
 #: dojo/templates/dojo/metrics.html:241
 msgid "Risk Accepted Bug Count by Month"
-msgstr "Количество ошибок с принятым риском по месяцам"
+msgstr "Количество уязвимостей с принятым риском по месяцам"
 
 #: dojo/templates/dojo/dashboard-metrics.html:80
 #: dojo/templates/dojo/metrics.html:256
 msgid "Open Bug Count by Week"
-msgstr "Количество найденных ошибок по неделям"
+msgstr "Количество найденных уязвимостей по неделям"
 
 #: dojo/templates/dojo/dashboard-metrics.html:91
 #: dojo/templates/dojo/metrics.html:269
 msgid "Risk Accepted Bug Count by Week"
-msgstr "Количество ошибок с принятым риском по неделям"
+msgstr "Количество уязвимостей с принятым риском по неделям"
 
 #: dojo/templates/dojo/dashboard-metrics.html:105
 #, python-format
 msgid "Top %(length)s Products By Bug Severity"
-msgstr "Топ %(length)s продуктов по критичности ошибок"
+msgstr "Топ %(length)s продуктов по критичности уязвимостей"
 
 #: dojo/templates/dojo/dashboard-metrics.html:117
 msgid "Total Findings In Period By Severity"

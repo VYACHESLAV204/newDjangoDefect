@@ -51,7 +51,7 @@ def report_url_resolver(request):
 
 
 def report_builder(request):
-    add_breadcrumb(title="Строитель отчётов", top_level=True, request=request)
+    add_breadcrumb(title="Конструктор отчётов", top_level=True, request=request)
     findings = get_authorized_findings(Permissions.Finding_View)
     findings = ReportFindingFilter(request.GET, queryset=findings)
     endpoints = Endpoint.objects.filter(finding__active=True,

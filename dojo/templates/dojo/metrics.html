@@ -210,7 +210,7 @@
                 {% if opened_per_month %}
                     <div class="col-lg-6">
                         <div class="panel panel-default">
-                            <div class="panel-heading">{% trans "Open Bug Count by Month" %}</div>
+                            <div class="panel-heading">Количество найденных уязвимостей по месяцам</div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
                                 <div id="opened_per_month_2"></div>
@@ -223,7 +223,7 @@
                 {% if active_per_month %}
                     <div class="col-lg-6">
                         <div class="panel panel-default">
-                            <div class="panel-heading">{% trans "Active Bug Count by Month" %}</div>
+                            <div class="panel-heading">Количество активных уязвимостей по месяцам</div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
                                 <div id="active_per_month"></div>
@@ -237,7 +237,7 @@
                     <div class="col-lg-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                {% trans "Risk Accepted Bug Count by Month" %}
+                                Количество уязвимостей с принятым риском по месяцам
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -252,7 +252,7 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                {% trans "Open Bug Count by Week" %}
+                                Количество найденных уязвимостей по неделям
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -265,7 +265,7 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                {% trans "Risk Accepted Bug Count by Week" %}
+                                Количество уязвимостей с принятым риском по неделям
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -644,7 +644,17 @@
 {% endblock %}
 {% block postscript %}
     {{ block.super }}
-    <!-- Flot Charts JavaScript -->
+     
+<script>
+  
+  breadcrumb = document.querySelector(".breadcrumb.main > li > a.active")
+ if(breadcrumb){
+  breadcrumb.textContent = "Метрики типа продукта по уязвимостям"
+ }
+</script>
+  
+  
+
     <script src="{% static "flot/excanvas.min.js" %}"></script>
     <script src="{% static "flot/jquery.flot.js" %}"></script>
     <script src="{% static "flot/jquery.flot.pie.js" %}"></script>

@@ -2004,6 +2004,7 @@ class FindingFilter(FindingFilterWithTags):
         )
         self.form.fields["reviewers"].queryset = self.form.fields["reporter"].queryset
         self.form.fields["tags"].label = "Теги"
+        self.form.fields["sla_expiration_date"].label = "Дата экспирации SLA"
 
         self.form.fields["false_p"].label = "Ложноположительный"
         self.form.fields["test__engagement__tags"].label = "Теги (Задания)"
@@ -2836,7 +2837,7 @@ class ReportFindingFilter(FindingFilterWithTags):
     test__engagement__product__lifecycle = MultipleChoiceFilter(
         choices=Product.LIFECYCLE_CHOICES, label="Жизненный цикл продукта"
     )
-    severity = MultipleChoiceFilter(choices=SEVERITY_CHOICES)
+    severity = MultipleChoiceFilter(choices=SEVERITY_CHOICES,label="Тяжесть")
     active = ReportBooleanFilter()
     is_mitigated = ReportBooleanFilter()
     mitigated = DateRangeFilter(label="Дата смягчения")
