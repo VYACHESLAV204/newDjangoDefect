@@ -20,17 +20,17 @@
             <div class="clearfix panel-nav">
                 <h4 class="pull-left finding-title">
                     {% if host_view %}
-                      Host: {{ endpoint.host }} -
-                      {{ endpoint.host_mitigated_endpoints_count }} / {{ endpoint.host_endpoints_count }} mitigated endpoints
+                      Хост: {{ endpoint.host }} -
+                      {{ endpoint.host_mitigated_endpoints_count }} / {{ endpoint.host_endpoints_count }} защищенный эндпоинт
                     {% else %}
-                      Endpoint: {{ endpoint }}{% if endpoint.is_broken %} <span data-toggle="tooltip" title="Endpoint is broken. Check documentation to look for fix process" >&#128681;</span>{% endif %} -
+                      Эндпоинт: {{ endpoint }}{% if endpoint.is_broken %} <span data-toggle="tooltip" title="Endpoint is broken. Check documentation to look for fix process" >&#128681;</span>{% endif %} -
                       {% if endpoint.mitigated %}
-                        Mitigated
+                        Смягченный
                       {% else %}
                         {% if endpoint.active_findings_count > 0 %}
-                          Vulnerable
+                        Уязвимые
                         {% else %}
-                          No active verified findings
+                        Нет активных проверенных уязвимостей
                         {% endif %}
                       {% endif %}
                     {% endif %}
@@ -52,38 +52,38 @@
                                 {% if endpoint|has_object_permission:"Endpoint_Edit" %}
                                     <li role="presentation">
                                         <a href="{% url 'edit_endpoint' endpoint.id %}">
-                                            <i class="fa-solid fa-pen-to-square"></i> Edit Endpoint
+                                            <i class="fa-solid fa-pen-to-square"></i> Редактировать эндпоинт
                                         </a>
                                     </li>
                                     <li role="presentation">
                                         <a href="{% url 'add_endpoint_meta_data' endpoint.id %}">
-                                            <i class="fa-solid fa-rectangle-list"></i> Add Metadata
+                                            <i class="fa-solid fa-rectangle-list"></i> Добавить метаданные
                                         </a>
                                     </li>
                                 {% endif %}
                                     <li role="presentation">
                                         <a href="{% url 'action_history' endpoint|content_type endpoint.id %}">
-                                            <i class="fa-solid fa-clock-rotate-left"></i> View History
+                                            <i class="fa-solid fa-clock-rotate-left"></i> Посмотреть историю
                                         </a>
                                     </li>
                                     <li role="separator" class="divider"></li>
                                     <li role="presentation">
                                         <a href="{% url 'endpoint_report' endpoint.id %}?active=1">
-                                            <i class="fa-solid fa-file-lines"></i> Report
+                                            <i class="fa-solid fa-file-lines"></i> Отчёт
                                         </a>
                                     </li>
                                 {% if endpoint|has_object_permission:"Endpoint_Delete" %}
                                     <li role="separator" class="divider"></li>
                                     <li role="presentation" class="text-danger">
                                         <a class="text-danger" href="{% url 'delete_endpoint' endpoint.id %}">
-                                            <i class="fa-solid fa-trash"></i> Delete Endpoint
+                                            <i class="fa-solid fa-trash"></i> Удалить отчёт
                                         </a>
                                     </li>
                                 {% endif %}
                               {% else %}
                                 <li role="presentation">
                                     <a href="{% url 'endpoint_host_report' endpoint.id %}?&active=1">
-                                        <i class="fa-solid fa-file-lines"></i> Report
+                                        <i class="fa-solid fa-file-lines"></i> Отчёт
                                     </a>
                                 </li>
                               {% endif %}
@@ -103,8 +103,8 @@
                                 <div class="pull-right inline-block text-right">
                                     <span class=" fa-2x">&nbsp;</span>
                                     <span>
-                                        Finding Age ({{ all_findings|length|apnumber }}
-                                        finding{{ all_findings|length|pluralize }})
+                                        Возраст уязвимости ({{ all_findings|length|apnumber }}
+                                        Уязвимость {{ all_findings|length|pluralize }})
                                     </span>
                                 </div>
                             </div>
@@ -130,7 +130,7 @@
                                       {% else %}
                                         <a href="{% url 'endpoint_host_report' endpoint.id %}">
                                       {% endif %}
-                                            endpoint finding{{ all_findings|length|pluralize }} <i
+                                            Уязвимости эндпоинта{{ all_findings|length|pluralize }} <i
                                                 class="fa-solid fa-circle-right"></i></a>
                                     </span>
                                 </div>
@@ -150,7 +150,7 @@
                                 <i class="fa-solid fa-bug fa-2x"></i>
 
                                 <div class="pull-right inline-block text-right">
-                                    <span>Opened findings count by month</span>
+                                    <span>Счётчик открытых уязвимостей за месяц</span>
                                 </div>
                             </div>
                         </div>
@@ -168,7 +168,7 @@
 
     <div class="panel panel-default table-responsive">
         {% if host_view %}
-            <div class="panel-heading"><h4>Endpoints</h4></div>
+            <div class="panel-heading"><h4>Эндпоинты</h4></div>
             {% if endpoints %}
                 {% colgroup endpoints into 3 cols as grouped_items %}
                 <table class="table-striped table table table-condensed table-hover finding-endpoints">
@@ -191,11 +191,11 @@
                 </table>
             {% else %}
                 <div id="vuln_endpoints" class="panel-body endpoint-panel table-responsive">
-                    No endpoints.
+                   Нет эндпоинтов.
                 </div>
             {% endif %}
         {% else %}
-            <div class="panel-heading"><h4>Host</h4></div>
+            <div class="panel-heading"><h4>Хост</h4></div>
             <div id="vuln_endpoints" class="panel-body table-responsive">
                 <a data-toggle="tooltip" data-placement="top" data-original-title="{{ endpoint.host }}" href="{% url 'view_endpoint_host' endpoint.id %}">{{ endpoint.host }}</a>
             </div>
@@ -205,7 +205,7 @@
     {% if not host_view and endpoint.tags.all %}
         <div class="panel panel-default tags">
             <div class="panel-heading">
-                <h4>Tags</h4>
+                <h4>Теги</h4>
             </div>
             <div class="tags panel-body">
                 {% include "dojo/snippets/tags.html" with tags=endpoint.tags.all %}
@@ -218,7 +218,7 @@
             <div class="col-md-12">
                 <div class="panel panel-default table-responsive">
                     <div class="panel-heading">
-                        <h4>Additional Information
+                        <h4>Дополнительная информация
                             <div class="btn-group pull-right">
                                 <a title="Edit Information" class="btn btn-sm btn-primary"
                                    href="{% url 'edit_endpoint_meta_data' endpoint.id %}">
@@ -248,7 +248,7 @@
 
     <div class="panel panel-default table-responsive">
         <div class="panel-heading">
-            <h4>Open Findings</h4>
+            <h4>Открытые уязвимости</h4>
         </div>
     {% if findings %}
     <div class="clearfix pagination-in-panel">
@@ -301,13 +301,17 @@
         </div>
 
     {% else %}
-        <p class="text-center">No findings found.</p>
+        <p class="text-center">Не найдено уязвимостей</p>
     {% endif %}
     </div>
 {% endblock %}
 {% block postscript %}
     {{ block.super }}
     <!-- Flot Charts JavaScript -->
+     <script>
+        let breadcrumb = document.querySelector("ol > li:first-child > a")
+        breadcrumb.textContent = "Эндпоинты"
+     </script>
     <script src="{% static "flot/excanvas.min.js" %}"></script>
     <script src="{% static "flot/jquery.flot.js" %}"></script>
     <script src="{% static "flot/jquery.flot.resize.js" %}"></script>

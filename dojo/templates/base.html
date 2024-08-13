@@ -351,7 +351,7 @@
                                             <ul class="nav nav-second-level">
                                                 <li>
                                                     <a href="{% url 'endpoint' %}">
-                                                        Все конечные точки
+                                                        Все эндпоинты
                                                     </a>
                                                 </li>
                                                 <li>
@@ -361,7 +361,7 @@
                                                 </li>
                                                 <li>
                                                     <a href="{% url 'vulnerable_endpoints' %}">
-                                                        Уязвимые конечные точки
+                                                        Уязвимые эндпоинты
                                                     </a>
                                                 </li>
                                                 <li>
@@ -372,7 +372,7 @@
                                                 {% if request.user.is_superuser %}
                                                     <li>
                                                         <a href="{% url 'endpoint_migrate' %}">
-                                                            Перенос конечных точек
+                                                            Перенос эндпоинтов
                                                         </a>
                                                     </li>
                                                 {% endif %}

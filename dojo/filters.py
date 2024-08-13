@@ -2004,8 +2004,7 @@ class FindingFilter(FindingFilterWithTags):
         )
         self.form.fields["reviewers"].queryset = self.form.fields["reporter"].queryset
         self.form.fields["tags"].label = "Теги"
-        self.form.fields["sla_expiration_date"].label = "Дата экспирации SLA"
-
+       
         self.form.fields["false_p"].label = "Ложноположительный"
         self.form.fields["test__engagement__tags"].label = "Теги (Задания)"
         self.form.fields["test__tags"].label = "Теги (Тест)"
@@ -2026,7 +2025,7 @@ class AcceptedFindingFilter(FindingFilter):
         self.form.fields["risk_acceptance__owner"].queryset = get_authorized_users(
             Permissions.Finding_View
         )
-
+        
 
 class SimilarFindingFilter(FindingFilter):
     hash_code = MultipleChoiceFilter()
@@ -2069,7 +2068,7 @@ class SimilarFindingFilter(FindingFilter):
             self.has_changed = False
 
         super().__init__(data, *args, **kwargs)
-
+       
         if self.finding and self.finding.hash_code:
             self.form.fields["hash_code"] = forms.MultipleChoiceField(
                 choices=[(self.finding.hash_code, self.finding.hash_code[:24] + "...")],
@@ -2181,6 +2180,7 @@ class TemplateFindingFilter(DojoFilter):
 
     def __init__(self, *args, **kwargs):
         super(TemplateFindingFilter, self).__init__(*args, **kwargs)
+       
         self.form.fields["cwe"].choices = cwe_options(self.queryset)
         self.form.fields["title"].label = "Имя"
         self.form.fields["last_used"].label = "Последнее использование"
@@ -2893,7 +2893,8 @@ class ReportFindingFilter(FindingFilterWithTags):
             self.test = kwargs.pop("test")
 
         super().__init__(*args, **kwargs)
-
+        if "sla_expiration_date" in self.form.fields:
+            self.form.fields["sla_expiration_date"].label = "Дата экспирации SLA"
         # duplicate_finding queryset needs to restricted in line with permissions
         # and inline with report scope to avoid a dropdown with 100K entries
         duplicate_finding_query_set = self.form.fields["duplicate_finding"].queryset
@@ -3036,12 +3037,13 @@ class TestImportFindingActionFilter(DojoFilter):
 class LogEntryFilter(DojoFilter):
     from auditlog.models import LogEntry
 
-    action = MultipleChoiceFilter(choices=LogEntry.Action.choices)
-    actor = ModelMultipleChoiceFilter(queryset=Dojo_User.objects.none())
-    timestamp = DateRangeFilter()
+    action = MultipleChoiceFilter(choices=LogEntry.Action.choices,label="Действие")
+    actor = ModelMultipleChoiceFilter(queryset=Dojo_User.objects.none(),label="Исполнитель")
+    timestamp = DateRangeFilter(label="Временная отметка")
 
     def __init__(self, *args, **kwargs):
         super(LogEntryFilter, self).__init__(*args, **kwargs)
+        self.form.fields["serialized_data"].label="Сериализованные данные содержат"
         self.form.fields["actor"].queryset = get_authorized_users(
             Permissions.Product_View
         )

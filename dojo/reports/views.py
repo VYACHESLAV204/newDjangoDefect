@@ -629,7 +629,7 @@ def generate_report(request, obj, host_view=False):
         if host_view:
             product_tab = Product_Tab(endpoint.product, title="Endpoint Host Report", tab="endpoints")
         else:
-            product_tab = Product_Tab(endpoint.product, title="Endpoint Report", tab="endpoints")
+            product_tab = Product_Tab(endpoint.product, title="Отчёт об эндпоинтах", tab="endpoints")
 
     return render(request, 'dojo/request_report.html',
                   {'product_type': product_type,

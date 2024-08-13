@@ -145,7 +145,7 @@ def process_endpoint_view(request, eid, host_view=False):
     paged_findings = get_page_items(request, active_findings, 25)
     vulnerable = active_findings.count() != 0
 
-    product_tab = Product_Tab(endpoint.product, "Host" if host_view else "Endpoint", tab="endpoints")
+    product_tab = Product_Tab(endpoint.product, "Хост" if host_view else "Эндпоинт", tab="endpoints")
     return render(request,
                   "dojo/view_endpoint.html",
                   {"endpoint": endpoint,
@@ -185,10 +185,10 @@ def edit_endpoint(request, eid):
                                  extra_tags='alert-success')
             return HttpResponseRedirect(reverse('view_endpoint', args=(endpoint.id,)))
     else:
-        add_breadcrumb(parent=endpoint, title="Edit", top_level=False, request=request)
+        add_breadcrumb(parent=endpoint, title="Редактировать", top_level=False, request=request)
         form = EditEndpointForm(instance=endpoint)
 
-    product_tab = Product_Tab(endpoint.product, "Endpoint", tab="endpoints")
+    product_tab = Product_Tab(endpoint.product, "Эндпоинты", tab="endpoints")
 
     return render(request,
                   "dojo/edit_endpoint.html",
@@ -226,7 +226,7 @@ def delete_endpoint(request, eid):
     collector.collect([endpoint])
     rels = collector.nested()
 
-    product_tab = Product_Tab(endpoint.product, "Delete Endpoint", tab="endpoints")
+    product_tab = Product_Tab(endpoint.product, "Удалить эндпоинт", tab="endpoints")
 
     return render(request, 'dojo/delete_endpoint.html',
                   {'endpoint': endpoint,
@@ -256,7 +256,7 @@ def add_endpoint(request, pid):
                                  extra_tags='alert-success')
             return HttpResponseRedirect(reverse('endpoint') + "?product=" + pid)
 
-    product_tab = Product_Tab(product, "Add Endpoint", tab="endpoints")
+    product_tab = Product_Tab(product, "Добавить эндпоинт", tab="endpoints")
 
     return render(request, template, {
         'product_tab': product_tab,
@@ -307,7 +307,7 @@ def add_meta_data(request, eid):
         form = DojoMetaDataForm()
 
     add_breadcrumb(parent=endpoint, title="Добавить метаданные", top_level=False, request=request)
-    product_tab = Product_Tab(endpoint.product, "Add Metadata", tab="endpoints")
+    product_tab = Product_Tab(endpoint.product, "Добавить метаданные", tab="endpoints")
     return render(request,
                   'dojo/add_endpoint_meta_data.html',
                   {'form': form,

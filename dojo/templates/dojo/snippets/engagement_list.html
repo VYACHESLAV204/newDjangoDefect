@@ -267,7 +267,7 @@
             </table>
         {% else %}
             <div id='no_{% if status == "open" %}active{% elif status == "paused" %}paused{% else %}closed{% endif %}_engagements' class="panel-body">
-                <p class="text-muted">Не найдено{% if status == "open" %} активных{% elif status == "paused" %}остановленных{% else %}закрытых{% endif %} задач.</p>
+                <p class="text-muted">Не найдено {% if status == "open" %}активных{% elif status == "paused" %}остановленных{% else %}закрытых{% endif %} задач.</p>
             </div>
         {% endif %}
 

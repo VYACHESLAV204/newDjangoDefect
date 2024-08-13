@@ -708,7 +708,7 @@
             {% else %}
                 <div id="no_findings">
                     <p class="text-center">
-                        {% trans "No findings found." %}
+                    Уязвимости не найдены
                     </p>
                 </div>
             {% endif %}
@@ -718,7 +718,22 @@
 {% endblock %}
 {% block postscript %}
 <script>
-   
+setTimeout(function() {
+   var labelElement = document.querySelector("#open_findings_filter > label");
+
+   // Проверяем, что элемент существует
+   if (labelElement) {
+       // Меняем текст внутри элемента <label>
+       labelElement.innerHTML = 'Искать: <input type="search" class="form-control input-sm" placeholder="" aria-controls="components">';
+   } else {
+       console.error('Элемент <label> не найден.');
+   }
+}, 50);
+</script>
+<script>
+
+        
+ 
         let title = document.querySelector(".has-filters");
         if (title) {
             let text = title.firstChild.textContent.trim(); // Get the main text only

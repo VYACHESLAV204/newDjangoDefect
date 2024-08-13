@@ -68,7 +68,7 @@ def action_history(request, cid, oid):
         user_has_permission_or_403(request.user, obj, Permissions.Endpoint_View)
         object_value = Endpoint.objects.get(id=obj.id)
         product_id = object_value.product.id
-        active_tab = "endpoints"
+        active_tab = "Эндпоинты"
     elif ct.model == "risk_acceptance":
         engagements = Engagement.objects.filter(risk_acceptance=obj)
         authorized = False
@@ -86,7 +86,7 @@ def action_history(request, cid, oid):
 
     product_tab = None
     if product_id:
-        product_tab = Product_Tab(get_object_or_404(Product, id=product_id), title="History", tab=active_tab)
+        product_tab = Product_Tab(get_object_or_404(Product, id=product_id), title="История", tab=active_tab)
         if active_tab == "engagements":
             if str(ct) == "engagement":
                 product_tab.setEngagement(object_value)

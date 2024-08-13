@@ -54,3 +54,9 @@
         {% endif %}
     </div>
 </div>
+{% block postscript %}
+<script>
+    let breadcrumb = document.querySelector("ol > li:first-child > a")
+    breadcrumb.textContent = "Эндпоинты"
+ </script>
+ {% endblock %}

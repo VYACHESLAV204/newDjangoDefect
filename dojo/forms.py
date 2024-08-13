@@ -2444,6 +2444,14 @@ class EditEndpointForm(forms.ModelForm):
             product_id = self.endpoint_instance.product.pk
             findings = Finding.objects.filter(test__engagement__product__id=product_id)
             self.fields["findings"].queryset = findings
+        self.fields["protocol"].label="Протокол"
+        self.fields["userinfo"].label="Информация о пользователе"
+        self.fields["host"].label="Хост"
+        self.fields["port"].label="Порт"
+        self.fields["path"].label="Путь"
+        self.fields["query"].label="Запрос"
+        self.fields["fragment"].label="Фрагмент"
+        self.fields["tags"].label="Теги"
 
     def clean(self):
 
@@ -2467,6 +2475,7 @@ class EditEndpointForm(forms.ModelForm):
             fragment=fragment,
             product=self.product,
         )
+        
         if endpoint.count() > 1 or (
             endpoint.count() == 1 and endpoint.first().pk != self.endpoint_instance.pk
         ):
