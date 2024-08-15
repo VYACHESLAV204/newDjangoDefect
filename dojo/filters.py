@@ -2656,7 +2656,14 @@ class EngagementTestFilter(DojoFilter):
             .filter(test__lead__isnull=False)
             .distinct()
         )
-
+        self.form.fields["title"].label ="Заголовок"
+        self.form.fields["test_type"].label ="Тип теста"
+        self.form.fields["target_start"].label ="Запланированный старт"
+        self.form.fields["target_end"].label ="Запланированный конец"
+        self.form.fields["tags"].label ="Теги"
+        self.form.fields["percent_complete"].label ="Процент готовности"
+        self.form.fields["not_tags"].label ="Исключить название тегов"
+     
 
 class ApiTestFilter(DojoFilter):
     tag = CharFilter(

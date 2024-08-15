@@ -5,12 +5,12 @@
 
 {% block content %}
     {{ block.super }}
-    <h3 id="id_heading"> Product Type {{ pt.name }}</h3>
+    <h3 id="id_heading"> Тип продукта {{ pt.name }}</h3>
     <div class="row">
         <div id="tests" class="col-md-8">
             <div class="panel panel-default">
                 <div class="panel-heading tight">
-                  <div class="clearfix">
+                  <div class="clearfix align-100">
                     <h3 class="pull-left">{% trans "Description" %}</h3>
                     <div class="dropdown pull-right">
                       <div class="btn-group">
@@ -52,7 +52,7 @@
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <div class="clearfix">
+                    <div class="clearfix align-100">
                         <h4 class="pull-left">{% trans "Products" %}</h4>
                         {% if pt|has_object_permission:"Product_Type_Add_Product" %}
                         <div class="dropdown pull-right">
@@ -125,7 +125,7 @@
             </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <div class="clearfix">
+                        <div class="clearfix align-100">
                             <h4 class="pull-left">{% trans "Members" %}</h4>
                             &nbsp;
                             <a href="https://documentation.synergyvms.com/usage/permissions/" target="_blank">
@@ -198,7 +198,7 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <div class="clearfix">
+                    <div class="clearfix align-100">
                         <h4 class="pull-left">{% trans "Groups" %}</h4>
                         &nbsp;
                         <a href="https://documentation.synergyvms.com/usage/permissions/" target="_blank">

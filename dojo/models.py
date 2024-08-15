@@ -3605,19 +3605,19 @@ class Risk_Acceptance(models.Model):
     TREATMENT_TRANSFER = 'T'
 
     TREATMENT_CHOICES = [
-        (TREATMENT_ACCEPT, 'Accept (The risk is acknowledged, yet remains)'),
-        (TREATMENT_AVOID, 'Avoid (Do not engage with whatever creates the risk)'),
-        (TREATMENT_MITIGATE, 'Mitigate (The risk still exists, yet compensating controls make it less of a threat)'),
-        (TREATMENT_FIX, 'Fix (The risk is eradicated)'),
-        (TREATMENT_TRANSFER, 'Transfer (The risk is transferred to a 3rd party)'),
+        (TREATMENT_ACCEPT, 'Принять (риск признан, но сохраняется)'),
+        (TREATMENT_AVOID, 'Избегайте (не связывайтесь с тем, что создает риск)'),
+        (TREATMENT_MITIGATE, 'Смягчение (риск все еще существует, но компенсирующие средства контроля снижают его опасность)'),
+        (TREATMENT_FIX, 'Устранение (Риск устранен)'),
+        (TREATMENT_TRANSFER, 'Передача (риск передается третьей стороне)'),
     ]
 
     TREATMENT_TRANSLATIONS = {
-        'A': 'Accept (The risk is acknowledged, yet remains)',
-        'V': 'Avoid (Do not engage with whatever creates the risk)',
-        'M': 'Mitigate (The risk still exists, yet compensating controls make it less of a threat)',
-        'F': 'Fix (The risk is eradicated)',
-        'T': 'Transfer (The risk is transferred to a 3rd party)',
+        'A': 'Принять (риск признан, но сохраняется)',
+        'V': 'Избегайте (не связывайтесь с тем, что создает риск)',
+        'M': 'Смягчение (риск все еще существует, но компенсирующие средства контроля снижают его опасность)',
+        'F': 'Устранение (Риск устранен)',
+        'T': 'Передача (риск передается третьей стороне)',
     }
 
     name = models.CharField(max_length=300, null=False, blank=False, help_text=_("Descriptive name which in the future may also be used to group risk acceptances together across engagements and products"))

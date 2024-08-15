@@ -267,9 +267,9 @@ def edit_engagement(request, eid):
             jira_epic_form = JIRAEngagementForm(instance=engagement)
 
     if is_ci_cd:
-        title = 'Edit CI/CD Engagement'
+        title = 'Редактирование CI/CD задания'
     else:
-        title = 'Edit Interactive Engagement'
+        title = 'Редактирование интерактивного задания'
 
     product_tab = Product_Tab(engagement.product, title=title, tab="engagements")
     product_tab.setEngagement(engagement)
@@ -324,7 +324,7 @@ def delete_engagement(request, eid):
         collector.collect([engagement])
         rels = collector.nested()
 
-    product_tab = Product_Tab(product, title="Delete Engagement", tab="engagements")
+    product_tab = Product_Tab(product, title="Удалить задание", tab="engagements")
     product_tab.setEngagement(engagement)
     return render(request, 'dojo/delete_engagement.html', {
         'product_tab': product_tab,
@@ -365,7 +365,7 @@ def copy_engagement(request, eid):
                 'Unable to copy engagement, please try again.',
                 extra_tags='alert-danger')
 
-    product_tab = Product_Tab(product, title="Copy Engagement", tab="engagements")
+    product_tab = Product_Tab(product, title="Скопировать задание", tab="engagements")
     return render(request, 'dojo/copy_object.html', {
         'source': engagement,
         'source_label': 'Engagement',
@@ -429,7 +429,7 @@ class ViewEngagement(View):
         title = ""
         if eng.engagement_type == "CI/CD":
             title = " CI/CD"
-        product_tab = Product_Tab(prod, title="View" + title + " Engagement", tab="engagements")
+        product_tab = Product_Tab(prod, title="Просмотреть" + title + " задание", tab="engagements")
         product_tab.setEngagement(eng)
         return render(
             request, self.get_template(), {
@@ -519,7 +519,7 @@ class ViewEngagement(View):
         title = ""
         if eng.engagement_type == "CI/CD":
             title = " CI/CD"
-        product_tab = Product_Tab(prod, title="View" + title + " Engagement", tab="engagements")
+        product_tab = Product_Tab(prod, title="Просмотреть" + title + " задание", tab="engagements")
         product_tab.setEngagement(eng)
         return render(
             request, self.get_template(), {
@@ -630,7 +630,7 @@ def add_tests(request, eid):
         form.initial['lead'] = request.user
     add_breadcrumb(
         parent=eng, title="Добавить тесты", top_level=False, request=request)
-    product_tab = Product_Tab(eng.product, title="Add Tests", tab="engagements")
+    product_tab = Product_Tab(eng.product, title="Добавить тесты", tab="engagements")
     product_tab.setEngagement(eng)
     return render(request, 'dojo/add_tests.html', {
         'product_tab': product_tab,
@@ -923,7 +923,7 @@ def complete_checklist(request, eid):
         findings = Finding.objects.filter(test__in=tests).all()
         form = CheckForm(instance=checklist, findings=findings)
 
-    product_tab = Product_Tab(eng.product, title="Checklist", tab="engagements")
+    product_tab = Product_Tab(eng.product, title="Контрольный список", tab="engagements")
     product_tab.setEngagement(eng)
     return render(request, 'dojo/checklist.html', {
         'form': form,
@@ -993,7 +993,7 @@ def add_risk_acceptance(request, eid, fid=None):
     form.fields['accepted_findings'].queryset = finding_choices
     if fid:
         form.fields['accepted_findings'].initial = {fid}
-    product_tab = Product_Tab(eng.product, title="Risk Acceptance", tab="engagements")
+    product_tab = Product_Tab(eng.product, title="Принятие риска", tab="engagements")
     product_tab.setEngagement(eng)
 
     return render(request, 'dojo/add_risk_acceptance.html', {
@@ -1150,7 +1150,7 @@ def view_edit_risk_acceptance(request, eid, raid, edit_mode=False):
     add_findings_form.fields[
         "accepted_findings"].queryset = add_fpage.object_list
 
-    product_tab = Product_Tab(eng.product, title="Risk Acceptance", tab="engagements")
+    product_tab = Product_Tab(eng.product, title="Принятие риска", tab="engagements")
     product_tab.setEngagement(eng)
     return render(
         request, 'dojo/view_risk_acceptance.html', {
@@ -1262,7 +1262,7 @@ def upload_threatmodel(request, eid):
                 reverse('view_engagement', args=(eid, )))
     else:
         form = UploadThreatForm()
-    product_tab = Product_Tab(eng.product, title="Upload Threat Model", tab="engagements")
+    product_tab = Product_Tab(eng.product, title="Загрузить модель угроз", tab="engagements")
     return render(request, 'dojo/up_threat.html', {
         'form': form,
         'product_tab': product_tab,

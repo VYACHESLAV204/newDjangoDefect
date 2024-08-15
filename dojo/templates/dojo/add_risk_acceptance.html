@@ -16,14 +16,14 @@
 {% endblock %}
 {% block content %}
     {{ block.super }}
-    <h3> Risk acceptance</h3>
+    <h3> Принятие риска</h3>
     <div id="risk_acceptance">
         <p>
         </p>
         <p>
-            A risk acceptance can consist of compensating control(s) and documentation.
-            Documentation can be in the form of an image or PDF file.<br/>
-            Select the findings that apply to this acceptance. These findings will be automatically deactivated.
+            Принятие риска может состоять из компенсирующего(их) контроля(ов) и документации. Документация может быть представлена в виде изображения или файла PDF.
+Выберите уязвимости, которые относятся к данному принятию риска. Эти уязвимости будут автоматически деактивированы.
+          
         </p>
         <br/>
         <form id="add_risk_acceptance" enctype="multipart/form-data" class="form-horizontal" method="post">
@@ -31,7 +31,7 @@
             {% include "dojo/form_fields.html" with form=form %}
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <input class="btn btn-primary" type="submit" value="Save"/>
+                    <input class="btn btn-primary" type="submit" value="Сохранить"/>
                 </div>
             </div>
             <br/><br/>

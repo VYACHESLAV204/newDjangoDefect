@@ -662,7 +662,7 @@ def delete_cred_controller(request, destination_url, id, ttid):
         elif destination_url == "view_finding":
             finding = get_object_or_404(Finding, id=id)
             product = finding.test.engagement.product
-        product_tab = Product_Tab(product, title="Delete Credential Mapping", tab="settings")
+        product_tab = Product_Tab(product, title="Удаление сопоставления учетных данных", tab="settings")
     return render(request, 'dojo/delete_cred_all.html', {
         'tform': tform,
         'product_tab': product_tab

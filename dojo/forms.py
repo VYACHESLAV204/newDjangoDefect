@@ -981,7 +981,7 @@ class ImportEndpointMetaForm(forms.Form):
 
 
 class DoneForm(forms.Form):
-    done = forms.BooleanField()
+    done = forms.BooleanField(label="Завершён")
 
 
 class UploadThreatForm(forms.Form):
@@ -1126,7 +1126,7 @@ class RiskAcceptanceForm(EditRiskAcceptanceForm):
         queryset=Finding.objects.none(),
         required=True,
         widget=forms.widgets.SelectMultiple(attrs={"size": 10}),
-        help_text=("Active, verified findings listed, please select to add findings."),
+        help_text=("Active, verified findings listed, please select to add findings."),label="Принятые уязвимости"
     )
     notes = forms.CharField(
         required=False, max_length=2400, widget=forms.Textarea, label="Примечания"
@@ -1150,6 +1150,20 @@ class RiskAcceptanceForm(EditRiskAcceptanceForm):
         self.fields["accepted_findings"].queryset = get_authorized_findings(
             Permissions.Risk_Acceptance
         )
+        fields_info = {
+            field_name: str(field) for field_name, field in self.fields.items()
+        }
+        
+        with open("/tmp/file.txt121314999", "w") as file:
+            file.write(json.dumps(fields_info, ensure_ascii=False, indent=4))
+        self.fields["name"].label = "Имя"
+        self.fields["decision"].label = "Решение"
+        self.fields["decision_details"].label = "Детали решения"
+        self.fields["owner"].label = "Владелец"
+        self.fields["expiration_date"].label = "дата экспирации"
+        self.fields["expiration_date_warned"].label = "Дата оповещения о принятии риска"
+        self.fields["expiration_date_handled"].label = "Дата обработки оповещения о принятии риска"
+       
 
 
 class BaseManageFileFormSet(forms.BaseModelFormSet):
@@ -1390,25 +1404,25 @@ class DeleteEngagementForm(forms.ModelForm):
 
 
 class TestForm(forms.ModelForm):
-    title = forms.CharField(max_length=255, required=False)
+    title = forms.CharField(max_length=255, required=False,label="Заголовок")
     description = forms.CharField(
-        widget=forms.Textarea(attrs={"rows": "3"}), required=False
+        widget=forms.Textarea(attrs={"rows": "3"}), required=False,label="Описание"
     )
     test_type = forms.ModelChoiceField(
-        queryset=Test_Type.objects.all().order_by("name")
+        queryset=Test_Type.objects.all().order_by("name"),label="Тип теста"
     )
     environment = forms.ModelChoiceField(
-        queryset=Development_Environment.objects.all().order_by("name")
+        queryset=Development_Environment.objects.all().order_by("name"),label="Окружающая среда"
     )
     target_start = forms.DateTimeField(
-        widget=forms.TextInput(attrs={"class": "datepicker", "autocomplete": "off"})
+        widget=forms.TextInput(attrs={"class": "datepicker", "autocomplete": "off"}),label="Запланированный старт"
     )
     target_end = forms.DateTimeField(
-        widget=forms.TextInput(attrs={"class": "datepicker", "autocomplete": "off"})
+        widget=forms.TextInput(attrs={"class": "datepicker", "autocomplete": "off"}),label="Запланированное окончание"
     )
 
     lead = forms.ModelChoiceField(
-        queryset=None, required=False, label="Тестирование лидерства"
+        queryset=None, required=False, label="Руководитель"
     )
 
     def __init__(self, *args, **kwargs):
@@ -1422,6 +1436,9 @@ class TestForm(forms.ModelForm):
 
         super(TestForm, self).__init__(*args, **kwargs)
 
+        self.fields["percent_complete"].label="Процент завершения"
+        self.fields["tags"].label="Теги"
+        self.fields["version"].label="Версия"
         if obj:
             product = get_product(obj)
             self.fields["lead"].queryset = (
@@ -1436,6 +1453,8 @@ class TestForm(forms.ModelForm):
             self.fields["lead"].queryset = get_authorized_users(
                 Permissions.Test_View
             ).filter(is_active=True)
+      
+        
 
     class Meta:
         model = Test
@@ -2579,7 +2598,9 @@ class NoteForm(forms.ModelForm):
         widget=forms.Textarea(attrs={"rows": 4, "cols": 15}),
         label="Примечания:",
     )
-
+    def __init__(self, *args, **kwargs):
+        super(NoteForm, self).__init__(*args, **kwargs)
+        self.fields["private"].label="Приватный"
     class Meta:
         model = Notes
         fields = ["entry", "private"]

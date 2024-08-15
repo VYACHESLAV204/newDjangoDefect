@@ -459,9 +459,9 @@ def generate_report(request, obj, host_view=False):
         engagement = obj
         findings = ReportFindingFilter(request.GET, engagement=engagement,
                                        queryset=prefetch_related_findings_for_report(Finding.objects.filter(test__engagement=engagement)))
-        report_name = "Engagement Report: " + str(engagement)
+        report_name = "Отчёт о задаче: " + str(engagement)
         template = 'dojo/engagement_pdf_report.html'
-        report_title = "Engagement Report"
+        report_title = "Отчёт о задаче"
 
         ids = set(finding.id for finding in findings.qs)
         tests = Test.objects.filter(finding__id__in=ids).distinct()
@@ -618,16 +618,16 @@ def generate_report(request, obj, host_view=False):
 
     product_tab = None
     if engagement:
-        product_tab = Product_Tab(engagement.product, title="Engagement Report", tab="engagements")
+        product_tab = Product_Tab(engagement.product, title="Отчёт о задаче", tab="engagements")
         product_tab.setEngagement(engagement)
     elif test:
-        product_tab = Product_Tab(test.engagement.product, title="Test Report", tab="engagements")
+        product_tab = Product_Tab(test.engagement.product, title="Отчет о тестировании", tab="engagements")
         product_tab.setEngagement(test.engagement)
     elif product:
-        product_tab = Product_Tab(product, title="Product Report", tab="findings")
+        product_tab = Product_Tab(product, title="Отчет о продукции", tab="findings")
     elif endpoints:
         if host_view:
-            product_tab = Product_Tab(endpoint.product, title="Endpoint Host Report", tab="endpoints")
+            product_tab = Product_Tab(endpoint.product, title="Отчет о хосте эндпоинта", tab="endpoints")
         else:
             product_tab = Product_Tab(endpoint.product, title="Отчёт об эндпоинтах", tab="endpoints")
 

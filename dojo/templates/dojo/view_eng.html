@@ -16,7 +16,7 @@
                 <div class="panel-heading">
                     <div class="clearfix panel-nav">
                         <h4 class="pull-left">
-                            Description
+                          Описание
                         </h4>
                         <div class="dropdown pull-right">
                             <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1"
@@ -28,61 +28,61 @@
                                 {% if eng|has_object_permission:"Engagement_Edit" %}
                                     <li role="presentation">
                                         <a class="" href="{% url 'edit_engagement' eng.id %}">
-                                        <i class="fa-solid fa-pen-to-square"></i> Edit Engagement
+                                        <i class="fa-solid fa-pen-to-square"></i> Редактировать задание
                                         </a>
                                     </li>
                                     <li>
                                         <a class="" href="{% url 'copy_engagement' eng.id %}?return_url={{ request.get_full_path|urlencode }}"/>
-                                        <i class="fa-solid fa-copy"></i> Copy Engagement
+                                        <i class="fa-solid fa-copy"></i> Скопировать задание
                                         </a>
                                     </li>
                                     <li role="presentation">
                                         {% if eng.active %}
                                             <a class="" href="{% url 'close_engagement' eng.id %}">
-                                            <i class="fa-solid fa-xmark"></i> Close Engagement
+                                            <i class="fa-solid fa-xmark"></i> Закрыть задание
                                             </a>
                                         {% else %}
                                             <a class="" href="{% url 'reopen_engagement' eng.id %}">
-                                            <i class="fa-solid fa-rotate-left"></i> Reopen Engagement
+                                            <i class="fa-solid fa-rotate-left"></i> Переоткрыть задание
                                             </a>
                                         {% endif %}
                                     </li>
                                 {% endif %}
                                 <li role="presentation">
                                     <a href="{% url 'engagement_report' eng.id %}?title=&active=1&verified=1&false_p=2&duplicate=2">
-                                    <i class="fa-solid fa-file-lines"></i> Report
+                                    <i class="fa-solid fa-file-lines"></i> Отчёт
                                     </a>
                                 </li>
                                 <li role="presentation">
                                     <a href="{% url 'engagement_ics' eng.id %}">
-                                    <i class="fa-solid fa-calendar-plus"></i> Add To Calendar
+                                    <i class="fa-solid fa-calendar-plus"></i> Добавить в календарь
                                     </a>
                                 </li>
                                 <li role="presentation">
                                     <a href="{% url 'action_history' eng|content_type eng.id %}">
-                                    <i class="fa-solid fa-clock-rotate-left"></i> View History
+                                    <i class="fa-solid fa-clock-rotate-left"></i> Посмотреть историю
                                     </a>
                                 </li>
                                 {% if eng|has_object_permission:"Engagement_Edit" %}
                                     <li role="separator" class="divider"></li>
                                     <li role="presentation">
                                         {% if eng.test_strategy %}
-                                            <a target="_blank" href="{{ eng.test_strategy }}"><i class="fa-solid fa-file-lines"></i> View Test
-                                            Strategy </a>
+                                            <a target="_blank" href="{{ eng.test_strategy }}"><i class="fa-solid fa-file-lines"></i> Посмотреть стратегию тестирования
+                                        </a>
                                         {% else %}
-                                            <a href="{% url 'edit_engagement' eng.id %}"><i class="fa-solid fa-file-lines"></i> Add a Test Strategy</a>
+                                            <a href="{% url 'edit_engagement' eng.id %}"><i class="fa-solid fa-file-lines"></i> Добавить стратегию тестирования</a>
                                         {% endif %}
                                     </li>
                                     {% if threat != 'none' %}
                                         <li role="presentation">
-                                            <a href="{% url 'view_threatmodel' eng.id %}"><i class="fa-solid fa-file-lines"></i> Download Threat Model</a>
+                                            <a href="{% url 'view_threatmodel' eng.id %}"><i class="fa-solid fa-file-lines"></i> Скачать модель угроз</a>
                                         </li>
                                         <li role="presentation">
-                                            <a href="{% url 'upload_threatmodel' eng.id %}"><i class="fa-solid fa-file-lines"></i> Upload Threat Model</a>
+                                            <a href="{% url 'upload_threatmodel' eng.id %}"><i class="fa-solid fa-file-lines"></i> Загрузить модель угроз</a>
                                         </li>
                                     {% else %}
                                         <li role="presentation">
-                                            <a href="{% url 'upload_threatmodel' eng.id %}"><i class="fa-solid fa-file-lines"></i> Upload Threat Model</a>
+                                            <a href="{% url 'upload_threatmodel' eng.id %}"><i class="fa-solid fa-file-lines"></i> Загрузить модель угроз</a>
                                         </li>
                                     {% endif %}
                                 {% endif %}
@@ -90,7 +90,7 @@
                                     <li role="separator" class="divider"></li>
                                     <li role="presentation">
                                         <a class="text-danger" href="{% url 'delete_engagement' eng.id %}">
-                                        <i class="fa-solid fa-trash"></i> Delete Engagement
+                                        <i class="fa-solid fa-trash"></i> Удалить задание
                                         </a>
                                     </li>
                                 {% endif %}
@@ -102,7 +102,7 @@
                     {% if eng.description %}
                         {{ eng.description|markdown_render }}
                     {% else %}
-                        <small class="text-muted"><em>There is no description.</em></small>
+                        <small class="text-muted"><em>Нет описания.</em></small>
                     {% endif %}
                 </div>
             </div>
@@ -113,7 +113,7 @@
                             <div class="panel-heading">
                                 <div class="clearfix">
                                     <h4 class="pull-left">
-                                        Engagement Presets <small>{{ eng.preset.title|truncatechars_html:60 }}</small>
+                                        Пресеты заданий <small>{{ eng.preset.title|truncatechars_html:60 }}</small>
                                     </h4>
                                     {% if eng.product|has_object_permission:"Product_Edit" %}
                                         <div class="dropdown pull-right">
@@ -125,12 +125,12 @@
                                             <ul class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="dropdownMenu1">
                                                 <li role="presentation">
                                                     <a class="" href="{% url 'add_engagement_presets' eng.product.id %}">
-                                                    <i class="fa-solid fa-plus"></i> Add Engagement Preset
+                                                    <i class="fa-solid fa-plus"></i> Добавить пресет заданий
                                                     </a>
                                                 </li>
                                                 <li role="presentation">
                                                     <a class="" href="{% url 'edit_engagement_presets' eng.product.id eng.preset.id %}">
-                                                    <i class="fa-solid fa-pen-to-square"></i> Edit Engagement Preset
+                                                    <i class="fa-solid fa-pen-to-square"></i> Изменить пресет заданий
                                                     </a>
                                                 </li>
                                             </ul>
@@ -174,12 +174,12 @@
                                 {% if eng.preset.notes %}
                                     <strong>Notes: </strong>{{ eng.preset.notes|markdown_render }}
                                 {% else %}
-                                    <small class="text-muted"><em>No test notes found.</em></small>
+                                    <small class="text-muted"><em>Заметки об испытаниях не найдены.</em></small>
                                 {% endif %}
                                 {% if eng.preset.scope %}
                                     <strong>Scope: </strong>{{ eng.preset.scope|markdown_render }}
                                 {% else %}
-                                    <small class="text-muted"><em>Testing scope not specified.</em></small>
+                                    <small class="text-muted"><em>Объем тестирования не определен.</em></small>
                                 {% endif %}
                             </div>
                         </div>
@@ -192,7 +192,7 @@
                         <div class="panel-heading">
                             <div class="clearfix panel-nav">
                                 <h4 class="h4-fix">
-                                    Tests ({{tests.paginator.count}}) <small>{{ eng.id|get_severity_count:"engagement" }}</small>
+                                    Тесты ({{tests.paginator.count}}) 
                                 </h4>
                                     <div class="dropdown pull-right" style="display:flex;flex-direction:row;align-items:center;">
                                         <button id="show-filters" data-toggle="collapse" data-target="#the-filters" class="btn btn-primary toggle-filters"> <i class="fa-solid fa-filter"></i> <i class="caret"></i> </button>
@@ -205,26 +205,26 @@
                                             {% if eng|has_object_permission:"Test_Add" %}
                                                 <li role="presentation">
                                                     <a class="" href="{% url 'add_tests' eng.id %}">
-                                                    <i class="fa-solid fa-plus"></i> Add Tests
+                                                    <i class="fa-solid fa-plus"></i> Добавить тесты
                                                     </a>
                                                 </li>
                                             {% endif %}
                                             {% if eng|has_object_permission:"Import_Scan_Result" %}
                                                 <li role="presentation">
                                                     <a class="" href="{% url 'import_scan_results' eng.id %}">
-                                                    <i class="fa-solid fa-upload"></i> Import Scan Results
+                                                    <i class="fa-solid fa-upload"></i> Импорт результатов сканирования
                                                     </a>
                                                 </li>
                                                 <li class="divider"></li>
                                             {% endif %}
                                             <li role="presentation">
                                                 <a href="{% url 'engagement_open_findings' eng.id %}">
-                                                <i class="fa-solid fa-file-lines"></i> View Open Findings
+                                                <i class="fa-solid fa-file-lines"></i> Посмотреть открытые уязвимости 
                                                 </a>
                                             </li>
                                             <li role="presentation">
                                                 <a href="{% url 'engagement_all_findings' eng.id %}">
-                                                <i class="fa-solid fa-file-lines"></i> View All Findings
+                                                <i class="fa-solid fa-file-lines"></i> Посмотреть все уязвимости
                                                 </a>
                                             </li>
                                         </ul>
@@ -266,49 +266,49 @@
                                                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                                                         <li>
                                                             <a class="" href="{% url 'view_test' test.id %}">
-                                                            <i class="fa-solid fa-rectangle-list"></i> View</a>
+                                                            <i class="fa-solid fa-rectangle-list"></i> Посмотреть</a>
                                                         </li>
                                                         {% if test|has_object_permission:"Test_Edit" %}
                                                             <li>
                                                                 <a class="" href="{% url 'edit_test' test.id %}">
-                                                                <i class="fa-solid fa-pen-to-square"></i> Edit</a>
+                                                                <i class="fa-solid fa-pen-to-square"></i> Редактировать</a>
                                                             </li>
                                                             <li>
                                                                 <a class="" href="{% url 'copy_test' test.id %}">
-                                                                <i class="fa-solid fa-copy"></i> Copy</a>
+                                                                <i class="fa-solid fa-copy"></i> Копировать</a>
                                                             </li>
                                                         {% endif %}
                                                         {% if test|has_object_permission:"Finding_Add" %}
                                                             <li class="divider"></li>
                                                             <li>
                                                                 <a class="" href="{% url 'add_findings' test.id %}">
-                                                                <i class="fa-solid fa-plus"></i> Add Finding to Test
+                                                                <i class="fa-solid fa-plus"></i> Добавить уязвимость в тест
                                                                 </a>
                                                             </li>
                                                             <li>
                                                                 <a title="Add Finding from Template" href="{% url 'search' test.id %}">
-                                                                <span class="icon-add-template"></span> Finding From Template
+                                                                <span class="icon-add-template"></span> Уязвимость из шаблона
                                                                 </a>
                                                             </li>
                                                         {% endif %}
                                                         {% if test|has_object_permission:"Import_Scan_Result" %}
                                                             <li class="divider"></li>
                                                             <li><a class="" href="{% url 're_import_scan_results' test.id %}">
-                                                                <i class="fa-solid fa-upload"></i> Re-Upload Scan Results
+                                                                <i class="fa-solid fa-upload"></i> Повторная загрузка результатов сканирования
                                                                 </a>
                                                             </li>
                                                         {% endif %}
                                                         <li class="divider"></li>
                                                         <li role="presentation">
                                                             <a href="{% url 'test_report' test.id %}?title=&active=1&verified=1&false_p=2&duplicate=2">
-                                                            <i class="fa-solid fa-file-lines"></i> Test Report
+                                                            <i class="fa-solid fa-file-lines"></i> Отчет о тестировании
                                                             </a>
                                                         </li>
                                                         {% if test|has_object_permission:"Test_Delete" %}
                                                             <li class="divider"></li>
                                                             <li>
                                                                 <a class="text-danger" href="{% url 'delete_test' test.id %}">
-                                                                <i class="fa-solid fa-trash"></i> Delete</a>
+                                                                <i class="fa-solid fa-trash"></i> Удалить</a>
                                                             </li>
                                                         {% endif %}
                                                     </ul>
@@ -358,7 +358,7 @@
 
                     {% else %}
                         <div class="panel-body">
-                            <small class="text-muted"><em>No Tests found.</em></small>
+                            <small class="text-muted"><em>Не найдено тестов.</em></small>
                         </div>
                     {% endif %}
                     </div>
@@ -368,7 +368,7 @@
                 <div id="risk" class="col-md-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4> Risk Acceptance
+                            <h4> Принятие риска
                                 {% if eng.product.enable_full_risk_acceptance %}
                                     {% if eng|has_object_permission:"Risk_Acceptance" %}
                                         <a title="Add Risk Acceptance..." class="pull-right btn btn-sm btn-primary"
@@ -450,7 +450,7 @@
                             </div>
                         {% else %}
                             <div class="panel-body">
-                                <small class="text-muted"><em>No Risk Acceptances found.</em></small>
+                                <small class="text-muted"><em>Принятия риска не обнаружено.</em></small>
                             </div>
                         {% endif %}
                     </div>
@@ -459,7 +459,7 @@
             {% block global_risk_acceptances %}{% endblock %}
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4>Additional Features<span class="pull-right"><a name="collapsible" data-toggle="collapse" href="#add_feat">
+                    <h4>Дополнительные функции<span class="pull-right"><a name="collapsible" data-toggle="collapse" href="#add_feat">
                         <i class="glyphicon glyphicon-chevron-down"></i></a></span>
                     </h4>
                 </div>
@@ -527,7 +527,7 @@
                                 {% else %}
                                     <div class="panel panel-default">
                                         <div class="panel-body">
-                                            <small class="text-muted"><em>Checklist has not been completed.</em></small>
+                                            <small class="text-muted"><em>Контрольный список не заполнен.</em></small>
                                         </div>
                                     </div>
                                 {% endif %}
@@ -537,7 +537,7 @@
                     {% if system_settings.enable_questionnaires %}
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h4>Questionnaires<span class="pull-right">
+                                <h4>Анкеты<span class="pull-right">
                                     &nbsp;
                                     <a name="collapsible" data-toggle="collapse" href="#add_feat_survey">
                                     <i class="glyphicon glyphicon-chevron-down"></i></a></span>
@@ -559,17 +559,16 @@
                                                 <div class="modal-header">
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                                         aria-hidden="true">&times;</span></button>
-                                                    <h4 class="modal-title" id="shareSurveyModalLabel">Share Questionnaire Link</h4>
+                                                    <h4 class="modal-title" id="shareSurveyModalLabel">Ссылка на анкету</h4>
                                                 </div>
                                                 <div class="modal-body">
                                                     <p id="questionnaireURL"></p>
                                                     <div class="alert alert-info" role="alert">
-                                                        <b>Note:</b> Only users that are authorized for {{ eng.product}} will be allowed to answer
-                                                        this questionnaire.
+                                                        <b>Примечание:</b> Только пользователи, авторизованные для {{ eng.product}} будут допущены для ответов к этой анкете.
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Закрыть</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -580,7 +579,7 @@
                     {% endif %}
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4>Notes<span class="pull-right">
+                            <h4>Заметки<span class="pull-right">
                                 <a name="collapsible" data-toggle="collapse" href="#add_feat_notes">
                                 <i class="glyphicon glyphicon-chevron-down"></i></a></span>
                             </h4>
@@ -599,7 +598,7 @@
                             {% endif %}
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h4>Note Log<span class="pull-right">
+                                    <h4>Журнал регистрации заметок<span class="pull-right">
                                         <a data-toggle="collapse" href="#add_feat_note_log">
                                         <i class="glyphicon glyphicon-chevron-{% if notes %}up{%else%}down{%endif%}"></i></a></span>
                                     </h4>
@@ -644,23 +643,23 @@
                                                     {% endif %}
                                                     <div class="row-sm-2">
                                                         <strong>{{ note.author.username }}</strong>
-                                                        <span class="text-muted">commented {{ note.date }}</span>
+                                                        <span class="text-muted">Прокомментировано {{ note.date }}</span>
                                                     </div>
                                                     {% if note.edited %}
                                                         <div class="row-sm-2">
                                                             <strong>{{ note.editor.username }}</strong>
-                                                            <span class="text-muted">edited {{ note.edit_time }}</span>
+                                                            <span class="text-muted">Изменено {{ note.edit_time }}</span>
                                                         </div>
                                                     {% endif %}
                                                     {% if note.private %}
                                                         <div class="row-sm-2">
-                                                            <span class="text-muted">(will not appear in report)</span>
+                                                            <span class="text-muted">(Не будет отображаться в отчете)</span>
                                                         </div>
                                                     {% endif %}
                                                 </div>
                                                 <div class="panel-body">
                                                     {% if note.note_type != None %}
-                                                        <strong>Note type : {{ note.note_type }}</strong>
+                                                        <strong>Тип заметки: {{ note.note_type }}</strong>
                                                         <br><br>
                                                     {% endif %}
                                                     {{ note|linebreaks }}
@@ -674,7 +673,7 @@
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h4>Files<span class="pull-right">
+                            <h4>Файлы<span class="pull-right">
                                 &nbsp;
                                 <a data-toggle="collapse" href="#add_feat_files">
                                 <i class="glyphicon glyphicon-chevron-down"></i></a></span>
@@ -716,7 +715,7 @@
                         {% if eng.name %}
                             {{ eng.name }}
                         {% else %}
-                            Engagement for <a href="{% url 'view_product' eng.product.id %}">{{ eng.product }}</a>
+                            Задание для <a href="{% url 'view_product' eng.product.id %}">{{ eng.product }}</a>
                         {% endif %}
                         {% if eng.version %}
                             <sup>
@@ -731,7 +730,7 @@
                     <table class="table table-striped">
                         <tbody>
                             <tr>
-                                <td style="width: 150px;"><strong>Status</strong></td>
+                                <td style="width: 150px;"><strong>Статус</strong></td>
                                 <td>
                                     {% if eng.status == "Blocked" %}
                                         <em class="text-danger">
@@ -745,14 +744,14 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>Dates</strong></td>
+                                <td><strong>Даты</strong></td>
                                 <td><a target="#" data-toggle="tooltip" data-placement="bottom" title="{{ eng.target_start|date:"l, jS F Y" }} - {{ eng.target_end|date:"l, jS F Y" }}">
                                     {{ eng.target_start|date:"jS F" }} - {{ eng.target_end|date:"jS F" }}
                                     </a>
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>Length</strong></td>
+                                <td><strong>Давность</strong></td>
                                 <td>
                                     {{ eng.target_start|datediff_time:eng.target_end }}
                                     {% if eng.is_overdue and eng.status != 'Completed'%}
@@ -768,9 +767,9 @@
                                 <td>
                                     <strong>
                                         {% if eng.engagement_type == "Interactive" %}
-                                            Lead
+                                            Руководитель
                                         {% else %}
-                                            Service Account
+                                            Сервисный аккаунт
                                         {% endif %}
                                     </strong>
                                 </td>
@@ -780,12 +779,12 @@
                                     {% elif eng.lead %}
                                         {{ eng.lead }}
                                     {% else %}
-                                        None Assigned
+                                    Не назначен
                                     {% endif %}
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>Tracker</strong></td>
+                                <td><strong>Трекер</strong></td>
                                 <td>
                                     {% if eng.tracker %}
                                         <a target="_blank" data-toggle="tooltip" data-placement="top" title="{{ eng.tracker }}" href="{{ eng.tracker }}" alt="Development epic or ticket for development requirements.">
@@ -796,7 +795,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>Repo</strong></td>
+                                <td><strong>Репозиторий</strong></td>
                                 <td>
                                     {% if eng.source_code_management_uri %}
                                         <a target="_blank" data-toggle="tooltip" data-placement="top" title="{{ eng.source_code_management_uri }}" href="{{ eng.source_code_management_uri }}">
@@ -808,7 +807,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>Test Strategy</strong></td>
+                                <td><strong>Стратегия тестирования</strong></td>
                                 <td>
                                     {% if eng.test_strategy %}
                                         <a target="_blank" data-toggle="tooltip" data-placement="top" title="{{ eng.test_strategy }}" href="{{ eng.test_strategy }}">
@@ -842,13 +841,13 @@
                                 </tr>
                             {% endif %}
                             <tr>
-                                <td><strong>Updated</strong></td>
+                                <td><strong>Обновлено</strong></td>
                                 <td><a target="_blank" data-toggle="tooltip" data-placement="bottom" title="{{ eng.updated|default_if_none:"" }}">
                                     {{ eng.updated|naturaltime|default_if_none:"" }}</a>
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>Created</strong></td>
+                                <td><strong>Создано</strong></td>
                                 <td><a target="_blank" data-toggle="tooltip" data-placement="bottom" title="{{ eng.created|default_if_none:"" }}">
                                     {{ eng.created|naturaltime|default_if_none:"" }}</a>
                                 </td>
@@ -862,26 +861,26 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title"><span class="fa-solid fa-server" aria-hidden="true"></span>
-                                CI/CD Engagement Details
+                                Детали CI/CD задания
                             </h3>
                         </div>
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <tbody>
                                     <tr>
-                                        <td style="width: 150px;"><strong>Build ID</strong></td>
+                                        <td style="width: 150px;"><strong>ID билда</strong></td>
                                         <td>{{ eng.build_id|notspecified }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Commit Hash</strong></td>
+                                        <td><strong>Хэш коммита</strong></td>
                                         <td>{{ eng.commit_hash|notspecified|truncatechars_html:13 }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Branch/Tag</strong></td>
+                                        <td><strong>Ветка/Тег</strong></td>
                                         <td>{{ eng.branch_tag|notspecified }}</td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Orchestration</strong></td>
+                                        <td><strong>Оркестровка</strong></td>
                                         <td>
                                             {% if eng.orchestration_engine.id %}
                                                 <a href="{% url 'edit_tool_config' eng.orchestration_engine.id %}">{{ eng.orchestration_engine.name }}</a>
@@ -891,7 +890,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><strong>SCM Server</strong></td>
+                                        <td><strong>SCM Сервер</strong></td>
                                         <td>
                                             {% if eng.source_code_management_server.id %}
                                                 <a href="{% url 'edit_tool_config' eng.source_code_management_server.id %}">{{ eng.source_code_management_server.name }}</a>
@@ -901,7 +900,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><strong>Build Server</strong></td>
+                                        <td><strong>Сервер билда</strong></td>
                                         <td>
                                             {% if eng.build_server.id %}
                                                 <a href="{% url 'edit_tool_config' eng.build_server.id %}">{{ eng.build_server.name }}</a>
@@ -921,7 +920,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4><span class="fa-solid fa-key orange-icon" aria-hidden="true"></span>
-                                Credentials
+                                Учетные данные
                                 {% if creds and eng|has_object_permission:"Engagement_Edit" %}
                                     <a title="Add New Credential" class="pull-right btn btn-sm btn-primary"
                                         href="{% url 'new_cred_product_engagement' eng.id %}"><span class="fa-solid fa-plus"></span></a>
@@ -943,9 +942,9 @@
                                         <td colspan="3">
                                             <small class="text-muted"><em>
                                                 {% if cred_eng %}
-                                                    Credentials Configured for this <strong>Engagement</strong>
+                                                Учетные данные, настроенны для этого <strong>задания</strong>
                                                 {% else %}
-                                                    No Credentials Configured for this <strong>Engagement</strong>
+                                                    Учётные данные не настроены для этого <strong>задания</strong>
                                                 {% endif %}
                                             </em></small>
                                         </td>
@@ -964,13 +963,13 @@
                                                             {% if user.is_superuser %}
                                                             <li>
                                                                 <a class="" href="{% url 'view_cred_product_engagement' cred.engagement.id cred.id %}">
-                                                                View</a>
+                                                                Посмотреть</a>
                                                             </li>
                                                             {% endif %}
                                                             {% if eng|has_object_permission:"Engagement_Edit" %}
                                                             <li>
                                                                 <a class="" href="{% url 'delete_cred_engagement' cred.engagement.id cred.id %}">
-                                                                Delete</a>
+                                                                Удалить</a>
                                                             </li>
                                                             {% endif %}
                                                         </ul>
@@ -984,9 +983,9 @@
                                         <td colspan="3">
                                             <small class="text-muted"><em>
                                                 {% if creds %}
-                                                    Credentials Configured for this <strong>Product</strong>
+                                                Учетные данные, настроенны для этого<strong>продукта</strong>
                                                 {% else %}
-                                                    No Credentials Configured for this <strong>Product</strong>
+                                                Учётные данные не настроены для этого <strong>продукта</strong>
                                                 {% endif %}
                                             </em></small>
                                         </td>
@@ -1004,7 +1003,7 @@
                                                             {% if user.is_superuser %}
                                                             <li>
                                                                 <a class="" href="{% url 'view_cred_product' cred.product.id cred.id %}">
-                                                                View</a>
+                                                                Посмотреть</a>
                                                             </li>
                                                             {% endif %}
                                                         </ul>
@@ -1023,11 +1022,44 @@
         </div>
     </div>
     <div class="protip">
-        <i class="fa-solid fa-lightbulb"></i> <strong>ProTip!</strong> Type <kbd>e</kbd> to edit this engagement. Type <kbd>i</kbd> to import scan results or <kbd>a</kbd> to add tests.
+        <i class="fa-solid fa-lightbulb"></i> <strong>ProTip!</strong> Нажмите <kbd>e</kbd> чтобы изменить эту задачу. Нажмите <kbd>i</kbd> чтобы импортировать результаты сканирования или <kbd>a</kbd> чтобы добавить тесты.
     </div>
 {% endblock %}
 {% block postscript %}
     {{ block.super }}
+    
+<script>
+    let breadcrumb = document.querySelector("ol > li:first-child > a")
+    breadcrumb.textContent = "Задачи"
+ </script>
+ 
+    <script>
+        const ENGAGEMENT_STATUS_CHOICES = {
+            'Not Started': 'Не начат',
+            'Blocked': 'Заблокирован',
+            'Cancelled': 'Отменён',
+            'Completed': 'Завершён',
+            'In Progress': 'В работе',
+            'On Hold': 'В ожидании',
+            'Waiting for Resource': 'В ожидании ресурса'
+        };
+    
+        setTimeout(() => {
+            // Получаем все элементы с нужным текстом
+            let texts = document.querySelectorAll("tbody > tr:nth-child(1) > td:nth-child(2) > em");
+    
+            texts.forEach((element) => {
+                // Получаем текущий текст элемента
+                let originalText = element.textContent.trim();
+    
+                // Находим перевод для этого текста в словаре
+                if (ENGAGEMENT_STATUS_CHOICES[originalText]) {
+                    // Если перевод найден, заменяем текст элемента на переведённый
+                    element.textContent = ENGAGEMENT_STATUS_CHOICES[originalText];
+                }
+            });
+        }, 50);
+    </script>
     <script>
        texts = document.querySelectorAll("#acunetix")
        for(let text of texts){

@@ -419,8 +419,7 @@
                     <div class="panel-footer panel-footer-metrics-other-height">
                         <i title="Weeks are only displayed if findings are available."
                            class="text-info fa-solid fa-circle-info"></i>
-                        <small>Определение возраста {{ open_objs|length|apnumber }} открыть
-                            обнаружение{{ open_objs|length|pluralize }}</small>
+                           <small>Возраст уязвимости из {{ open_objs|length|apnumber }} открытых уязвимостей</small>
                     </div>
                 </div>
             </div>
@@ -470,7 +469,7 @@
                     <div class="panel-footer panel-footer-metrics-other-height">
                         <i class="text-info fa-solid fa-circle-info"></i>
                         <small>Показ {{ open_vulnerabilities|length|apnumber }}
-                            уязвимостей{{ open_vulnerabilities|length|pluralize}} из открытых данных</small>
+                            уязвимостей из открытых данных</small>
                     </div>
                 </div>
             </div>
@@ -485,7 +484,7 @@
                     <div class="panel-footer panel-footer-metrics-other-height">
                         <i class="text-info fa-solid fa-circle-info"></i>
                         <small>Показ {{ all_vulnerabilities|length|apnumber }}
-                            уязвимостей{{ all_vulnerabilities|length|pluralize}} из открытых данных</small>
+                            уязвимостей из открытых данных</small>
                     </div>
                 </div>
             </div>

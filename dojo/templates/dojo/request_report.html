@@ -8,17 +8,16 @@
             <div class="panel panel-default">
                 <div class="panel-heading tight">
                     <h3 class="has-filters">
-                        Создать
-                        {% if product_type %}
-                            Тип продукта
-                        {% elif product %}
-                            Продукт
-                        {% elif engagement %}
-                            Вовлечение
-                        {% elif test %}
-                            Тест
-                        {% endif %}
-                        Отчет
+                        Создать отчет по 
+                    {% if product_type %}
+                        Типам продукта
+                    {% elif product %}
+                        Продукту
+                    {% elif engagement %}
+                        Заданиям
+                    {% elif test %}
+                        Тестам
+                    {% endif %}
                         <div class="dropdown pull-right">
                             <button id="show-filters" data-toggle="collapse" data-target="#the-filters" class="btn btn-primary toggle-filters"> <i class="fa-solid fa-filter"></i> <i class="caret"></i> </button>
                         </div>

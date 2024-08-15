@@ -1021,9 +1021,9 @@ def new_eng_for_app(request, pid, cicd=False):
             jira_epic_form = JIRAEngagementForm()
 
     if cicd:
-        title = _('New CI/CD Engagement')
+        title = _('Новое задание CI/CD')
     else:
-        title = _('New Interactive Engagement')
+        title = _('Новое интерактивное задание')
 
     product_tab = Product_Tab(product, title=title, tab="engagements")
     return render(request, 'dojo/new_eng.html', {
