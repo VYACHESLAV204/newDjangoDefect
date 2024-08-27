@@ -176,9 +176,9 @@ class PageBreak(Widget):
 class ReportOptions(Widget):
     def __init__(self, *args, **kwargs):
         super(ReportOptions, self).__init__(*args, **kwargs)
-        self.title = "Опции отчёта"
+        self.title = "Report Options"
         self.form = CustomReportOptionsForm()
-        self.extra_help = "Выберите дополнительные параметры отчета.  Они будут применяться к общему отчету."
+        self.extra_help = "Выберите дополнительные параметры отчета.  Они будут применяться к общему отчету"
 
     def get_asciidoc(self):
         return mark_safe("")
@@ -313,7 +313,7 @@ class FindingList(Widget):
         if "findings" in kwargs:
             self.findings = kwargs.get("findings")
         else:
-            raise Exception("Необходимо инициализировать с набором данных уязвимостей.")
+            raise Exception("Need to instantiate with finding queryset.")
 
         if "finding_notes" in kwargs:
             self.finding_notes = kwargs.get("finding_notes")
@@ -327,34 +327,18 @@ class FindingList(Widget):
 
         super(FindingList, self).__init__(*args, **kwargs)
 
+        self.title = "Finding List"
         if hasattr(self.findings, "form"):
             self.form = self.findings.form
         else:
             self.form = None
-
-        # Устанавливаем заголовок на русский
         self.multiple = "true"
-        self.extra_help = "С помощью этой формы вы можете отфильтровать результаты и выбрать только те, которые будут включены в отчет."
+        self.extra_help = (
+            "С помощью этой формы можно отфильтровать результаты и выбрать только те, которые будут включены в"
+            "отчет."
+        )
         self.title_words = get_words_for_field(Finding, "title")
         self.component_words = get_words_for_field(Finding, "component_name")
-        self.title = "Уязвимости"
-
-        # Устанавливаем метки полей на русский
-        self.form.fields["file_path"].label = "Путь к файлу"
-        self.form.fields["payload"].label = "Нагрузка"
-        self.form.fields["mitigated_by"].label = "Кем смягчено"
-        self.form.fields["tags"].label = "Теги"
-        self.form.fields["inherited_tags"].label = "Унаследованные теги"
-        self.form.fields["test__tags"].label = "Теги (тест)"
-        self.form.fields["test__engagement__tags"].label = "Теги (тест)"
-        self.form.fields["test__engagement__product__tags"].label = "Теги (тест)"
-
-        fields_info = {
-            field_name: str(field) for field_name, field in self.form.fields.items()
-        }
-
-        with open("/tmp/file.txt3", "w") as file:
-            file.write(json.dumps(fields_info, ensure_ascii=False, indent=4))
 
         if self.request is not None:
             self.paged_findings = get_page_items(self.request, self.findings.qs, 25)
@@ -378,7 +362,7 @@ class FindingList(Widget):
         html = render_to_string(
             "dojo/custom_html_report_finding_list.html",
             {
-                "title": "Уязвимости",
+                "title": self.title,
                 "findings": self.findings.qs,
                 "include_finding_notes": self.finding_notes,
                 "include_finding_images": self.finding_images,
@@ -397,7 +381,7 @@ class FindingList(Widget):
                 "title_words": self.title_words,
                 "component_words": self.component_words,
                 "request": self.request,
-                "title": "Уязвимости",
+                "title": self.title,
                 "extra_help": self.extra_help,
             },
         )
