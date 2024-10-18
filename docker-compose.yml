@@ -7,11 +7,11 @@
 # customizing it to your particular situation.
 ---
 services:
-  nginx:
+  angie:
     build:
       context: ./
-      dockerfile: "Dockerfile.nginx-${DEFECT_DOJO_OS:-debian}"
-    image: "defectdojo/defectdojo-nginx:${NGINX_VERSION:-latest}"
+      dockerfile: "Dockerfile.angie-${DEFECT_DOJO_OS:-debian}"
+    image: "docker.angie.software/angie:${NGINX_VERSION:-latest}"
     profiles:
       - mysql-rabbitmq
       - mysql-redis
@@ -22,7 +22,7 @@ services:
     environment:
       NGINX_METRICS_ENABLED: "${NGINX_METRICS_ENABLED:-false}"
     volumes:
-      - defectdojo_media:/usr/share/nginx/html/media
+      - defectdojo_media:/usr/share/angie/html/media
     ports:
       - target: 8080
         published: ${DD_PORT:-8080}

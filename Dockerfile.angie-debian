@@ -75,19 +75,43 @@ COPY dojo/ ./dojo/
 
 RUN env DD_SECRET_KEY='.' python3 manage.py collectstatic --noinput && true
 
-FROM nginx:1.25.4-alpine@sha256:6a2f8b28e45c4adea04ec207a251fd4a2df03ddc930f782af51e315ebc76e9a9
+
+
+LABEL org.opencontainers.image.authors="Release Engineering Team <margincode@gmail.com>"
+
+
+
+RUN set -x \
+     && apt-get update \
+     && apt-get install --no-install-recommends --no-install-suggests -y \
+          ca-certificates curl \
+     && curl -o /etc/apt/trusted.gpg.d/angie-signing.gpg \
+          https://angie.software/keys/angie-signing.gpg \
+     && echo "deb https://download.angie.software/angie/$(. /etc/os-release && echo "$ID/$VERSION_ID $VERSION_CODENAME") main" \
+          > /etc/apt/sources.list.d/angie.list \
+     && apt-get update \
+     && apt-get install --no-install-recommends --no-install-suggests -y \
+          angie angie-module-geoip2 angie-module-njs \
+     && rm -Rf /var/lib/apt/lists \
+          /etc/apt/sources.list.d/angie.list \
+          /etc/apt/trusted.gpg.d/angie-signing.gpg \
+     && ln -sf /dev/stdout /var/log/angie/access.log \
+     && ln -sf /dev/stderr /var/log/angie/error.log
+
 ARG uid=1001
 ARG appuser=defectdojo
-COPY --from=collectstatic /app/static/ /usr/share/nginx/html/static/
-COPY wsgi_params nginx/nginx.conf nginx/nginx_TLS.conf /etc/nginx/
-COPY docker/entrypoint-nginx.sh /
+COPY --from=collectstatic /app/static/ /usr/share/angie/html/static/
+COPY wsgi_params angie/angie.conf angie/angie_TLS.conf /etc/angie/
+
+
+COPY docker/entrypoint-angie.sh /
 RUN \
   apk add --no-cache openssl && \
-  chmod -R g=u /var/cache/nginx && \
+  chmod -R g=u /var/cache/angie && \
   mkdir /var/run/defectdojo && \
   chmod -R g=u /var/run/defectdojo && \
-  mkdir -p /etc/nginx/ssl && \
-  chmod -R g=u /etc/nginx && \
+  mkdir -p /etc/angie/ssl && \
+  chmod -R g=u /etc/angie && \
   true
 ENV \
   DD_UWSGI_PASS="uwsgi_server" \
@@ -98,6 +122,7 @@ ENV \
   NGINX_METRICS_ENABLED="false" \
   METRICS_HTTP_AUTH_USER="" \
   METRICS_HTTP_AUTH_PASSWORD=""
+
 USER ${uid}
 EXPOSE 8080
-ENTRYPOINT ["/entrypoint-nginx.sh"]
+ENTRYPOINT ["/entrypoint-angie.sh"]
