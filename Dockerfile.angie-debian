@@ -77,6 +77,7 @@ RUN env DD_SECRET_KEY='.' python3 manage.py collectstatic --noinput && true
 RUN ls -la /app/static/
 
 FROM docker.angie.software/angie:latest
+USER root
 
 ARG uid=1001
 ARG appuser=defectdojo
@@ -104,6 +105,5 @@ ENV \
   METRICS_HTTP_AUTH_USER="" \
   METRICS_HTTP_AUTH_PASSWORD=""
 
-USER ${uid}
 EXPOSE 8080
 ENTRYPOINT ["/entrypoint-angie.sh"]
