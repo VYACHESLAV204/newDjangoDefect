@@ -1,12 +1,11 @@
-
 # code: language=Dockerfile
 
 # The code for the build image should be identical with the code in
 # Dockerfile.django-debian to use the caching mechanism of Docker.
 
 # Ref: https://devguide.python.org/#branchstatus
-FROM python:3.11.4-slim-bullseye@sha256:40319d0a897896e746edf877783ef39685d44e90e1e6de8d964d0382df0d4952 as base
-FROM base as build
+FROM python:3.11.9-slim-bookworm@sha256:8c1036ec919826052306dfb5286e4753ffd9d5f6c24fbc352a5399c3b405b57e AS base
+FROM base AS build
 WORKDIR /app
 RUN \
   apt-get -y update && \
@@ -14,8 +13,6 @@ RUN \
     gcc \
     build-essential \
     dnsutils \
-    default-mysql-client \
-    libmariadb-dev-compat \
     libpq-dev \
     postgresql-client \
     xmlsec1 \
@@ -74,26 +71,21 @@ COPY manage.py ./
 COPY dojo/ ./dojo/
 
 RUN env DD_SECRET_KEY='.' python3 manage.py collectstatic --noinput && true
-RUN ls -la /app/static/
 
-FROM docker.angie.software/angie:latest
-
+FROM nginx:1.27.0-alpine@sha256:208b70eefac13ee9be00e486f79c695b15cef861c680527171a27d253d834be9
 ARG uid=1001
 ARG appuser=defectdojo
-COPY wsgi_params angie/angie.conf angie/angie_TLS.conf /etc/angie/
-COPY --from=collectstatic /app/static/ /usr/share/angie/html/static/
-COPY docker/entrypoint-angie.sh /
-
+COPY --from=collectstatic /app/static/ /usr/share/nginx/html/static/
+COPY wsgi_params nginx/nginx.conf nginx/nginx_TLS.conf /etc/nginx/
+COPY docker/entrypoint-nginx.sh /
 RUN \
   apk add --no-cache openssl && \
-  chmod -R g=u /var/cache/angie && \
-  mkdir -p /run/defectdojo && \
-  chown -R ${uid}:${uid} /run/defectdojo && \
-  chmod -R g=u /run/defectdojo && \
-  mkdir -p /etc/angie/ssl && \
-  chmod -R g=u /etc/angie && \
+  chmod -R g=u /var/cache/nginx && \
+  mkdir /var/run/defectdojo && \
+  chmod -R g=u /var/run/defectdojo && \
+  mkdir -p /etc/nginx/ssl && \
+  chmod -R g=u /etc/nginx && \
   true
-
 ENV \
   DD_UWSGI_PASS="uwsgi_server" \
   DD_UWSGI_HOST="uwsgi" \
@@ -103,7 +95,6 @@ ENV \
   NGINX_METRICS_ENABLED="false" \
   METRICS_HTTP_AUTH_USER="" \
   METRICS_HTTP_AUTH_PASSWORD=""
-
 USER ${uid}
 EXPOSE 8080
-ENTRYPOINT ["/entrypoint-angie.sh"]
+ENTRYPOINT ["/entrypoint-nginx.sh"]
