@@ -318,7 +318,7 @@ ln -s docker-compose.override.https.yml docker-compose.override.yml
 ./dc-up.sh
 ```
 
-The default https port is 8443.
+The default https port is 8444.
 
 To change the port:
 - update `nginx.conf`
